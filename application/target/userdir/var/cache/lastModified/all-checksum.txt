@@ -1,8 +1,9 @@
-platform=1554304030108
-cluster.bin=1554304030108
-cluster.etc=1554304030108
-cluster.platform=1554304030108
-user=1554304030108
+platform=1554307537569
+cluster.astroids=1554307537568
+cluster.bin=1554307537569
+cluster.etc=1554307537569
+cluster.platform=1554307537569
+user=1554307537569
 crc=7
 locale=en_GB
 branding=scuffedtd
