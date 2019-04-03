@@ -1,0 +1,10 @@
+platform=1554304030108
+cluster.bin=1554304030108
+cluster.etc=1554304030108
+cluster.platform=1554304030108
+user=1554304030108
+crc=7
+locale=en_GB
+branding=scuffedtd
+java.version=1.8.0_201
+java.vm.version=25.201-b09
