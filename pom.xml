@@ -58,8 +58,7 @@
 
     <modules>
         <module>application</module>
-        <module>../Askot17/NetbeansLab/Astroids/Core/Core</module>
-        <module>../Askot17/NetbeansLab/Astroids/Common</module>
+        <module>Engine</module>
     </modules>
 
     <properties>

@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+OpenIDE-Module-Install: dk/sdu/g3/engine/config/Installer.class
+OpenIDE-Module-Localizing-Bundle: dk/sdu/g3/engine/Bundle.properties
+
