@@ -59,6 +59,7 @@
     <modules>
         <module>application</module>
         <module>Engine</module>
+        <module>Common</module>
     </modules>
 
     <properties>
