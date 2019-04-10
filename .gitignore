@@ -54,3 +54,6 @@ application/target/surefire-reports/TEST-dk.sdu.g3.scuffedtd.ApplicationTest.xml
 /Common/target/
 /Map/target/
 /Pathfinding/Pathfinding/target/
+/Tower/target/
+/Unit/target/
+/Player/target/

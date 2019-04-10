@@ -62,6 +62,10 @@
         <module>Common</module>
         <module>Map</module>
         <module>Pathfinding/Pathfinding</module>
+        <module>Tower</module>
+        <module>Unit</module>
+        <module>Player</module>
+        <module>Enemy</module>
     </modules>
 
     <properties>
