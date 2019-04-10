@@ -62,6 +62,8 @@
         <module>Common</module>
         <module>Tower</module>
         <module>Unit</module>
+        <module>Player</module>
+        <module>Enemy</module>
     </modules>
 
     <properties>
