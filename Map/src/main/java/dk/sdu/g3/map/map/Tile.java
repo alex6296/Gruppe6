@@ -7,18 +7,14 @@ package dk.sdu.g3.map.map;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.data.ITile;
-import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import java.util.List;
-import org.openide.util.lookup.ServiceProvider;
-import org.openide.util.lookup.ServiceProviders;
 
 /**
  *
  * @author Pottemuld
  */
 
-@ServiceProviders(value = { @ServiceProvider(service = ITile.class),})
 
 public class Tile implements ITile{
 
