@@ -26,7 +26,7 @@ public class Game implements ApplicationListener {
         cam.update();
     }
 
-    private void update() {
+    private void update() {     // this is the GameLoop
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -40,7 +40,7 @@ public class Game implements ApplicationListener {
 
     @Override
     public void render() {
-                Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //if you want the game time
