@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+OpenIDE-Module-Localizing-Bundle: dk/sdu/g3/tower/Bundle.properties
+
