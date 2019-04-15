@@ -2,6 +2,7 @@ package dk.sdu.g3.map;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.data.ITile;
+import dk.sdu.g3.common.entities.IAction;
 import dk.sdu.g3.common.entities.IMovable;
 import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPlaceableEntity;
@@ -18,14 +19,34 @@ public class Map implements IMap {
     private int lengthX, lengthY;
     
     
-    public Map() {
+    public Map() {      // this needs mutator methods for x and y lengths as well as a public generateMap method to work
     }
     
-    public Map(int lengthX, int lengthY) {
-        this.lengthX = lengthX;
-        this.lengthY = lengthY;
+//    public Map(int lengthX, int lengthY) {
+//        this.lengthX = lengthX;
+//        this.lengthY = lengthY;
+//        generateMap();
+//    }
+    
+    
+    // @Override
+    public void generateMap() {    // probably called right after constructor, generates list of tiles based on map size.
+        
+            // ***********************TODO***********************
+            
     }
     
+//    @Override
+//    public void addEntity(IPlaceableEntity entity) {
+//        Coordinate pos = entity.getCurrentPosition();
+//        getTile(pos).add(entity);
+//    }
+//    
+//    @Override
+//    public void removeEntity(IPlaceableEntity entity) {
+//        Coordinate pos = entity.getCurrentPosition();
+//        getTile(pos).remove(entity);
+//    }
     
     @Override
     public List<ITile> getTileList() {
@@ -45,6 +66,16 @@ public class Map implements IMap {
     public int getLengthY() {
         return this.lengthY;
     }
+    
+//    @Override
+//    public void setLengthX(int x) {
+//        this.lengthX = x;
+//    }
+//    
+//    @Override
+//    public void setLengthY(int y) {
+//        this.lengthY = y;
+//    }
 
     @Override
     public List<IPlaceableEntity> updatePositions() {
@@ -78,7 +109,24 @@ public class Map implements IMap {
 
     @Override
     public void updateActions() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        for (Tile tile : tiles) {
+            for (IPlaceableEntity entity : tile.getEntities()) {
+                if (entity instanceof IAction) {
+                    ArrayList<IPlaceableEntity> targetList = findTargets((IAction) entity);     // find the possible targets for all entities that can do actions.
+                    ((IAction) entity).action(targetList);                                      // execute actions on the possible targets. Entity picks a specific target on its own.
+                }
+            }
+        }
+    }
+    
+    private ArrayList<IPlaceableEntity> findTargets(IAction entity) {
+        ArrayList<IPlaceableEntity> possibleTargets = new ArrayList<IPlaceableEntity>();
+        
+        Coordinate pos = ((IPlaceableEntity) entity).getCurrentPosition();
+        
+        // ********************TODO************************        
+        
+        return possibleTargets;
     }
 
     @Override
