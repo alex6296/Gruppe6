@@ -6,11 +6,13 @@
 
 package dk.sdu.g3.common.services;
 
+import dk.sdu.g3.common.entities.ILifeFunctions;
+
 /**
  *
  */
 public interface ITower extends IPlaceableEntity {
     
-    public void shoot();
+    public void shoot(ILifeFunctions[] enemiesInRange);
 
 }
