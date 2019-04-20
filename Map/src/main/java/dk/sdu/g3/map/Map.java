@@ -15,7 +15,7 @@ import org.openide.util.lookup.ServiceProviders;
 @ServiceProviders(value = { @ServiceProvider(service = IMap.class),})
 public class Map implements IMap {
 
-    private ArrayList<Tile> tiles = new ArrayList<>();
+    private ArrayList<Tile> tiles;
     private int lengthX, lengthY;
     
     
@@ -32,21 +32,23 @@ public class Map implements IMap {
     // @Override
     public void generateMap() {    // probably called right after constructor, generates list of tiles based on map size.
         
+        tiles  = new ArrayList<>();
+        
             // ***********************TODO***********************
             
     }
     
-//    @Override
-//    public void addEntity(IPlaceableEntity entity) {
-//        Coordinate pos = entity.getCurrentPosition();
-//        getTile(pos).add(entity);
-//    }
-//    
-//    @Override
-//    public void removeEntity(IPlaceableEntity entity) {
-//        Coordinate pos = entity.getCurrentPosition();
-//        getTile(pos).remove(entity);
-//    }
+    //  @Override
+    public void addEntity(IPlaceableEntity entity) {
+        Coordinate pos = entity.getCurrentPosition();
+        getTile(pos).add(entity);
+    }
+    
+    //  @Override
+    public void removeEntity(IPlaceableEntity entity) {
+        Coordinate pos = entity.getCurrentPosition();
+        getTile(pos).remove(entity);
+    }
     
     @Override
     public List<ITile> getTileList() {
