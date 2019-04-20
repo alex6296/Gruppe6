@@ -10,13 +10,14 @@ import java.util.List;
 
 public class Tile implements ITile{
     
-    private Coordinate coord;
-    private int size = 5;
-    private ArrayList<IPlaceableEntity> entities = new ArrayList<IPlaceableEntity>();
+    private final Coordinate coord;
+    private final int size;
+    private ArrayList<IPlaceableEntity> entities = new ArrayList<>();
     
     
-    public Tile(int x, int y) {
+    public Tile(int x, int y, int size) {
         this.coord = new Coordinate(x, y);
+        this.size = size;
     }
     
     

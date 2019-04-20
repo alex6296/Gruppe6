@@ -15,7 +15,7 @@ import org.openide.util.lookup.ServiceProviders;
 @ServiceProviders(value = { @ServiceProvider(service = IMap.class),})
 public class Map implements IMap {
 
-    private ArrayList<Tile> tiles = new ArrayList<Tile>();
+    private ArrayList<Tile> tiles = new ArrayList<>();
     private int lengthX, lengthY;
     
     
@@ -50,7 +50,7 @@ public class Map implements IMap {
     
     @Override
     public List<ITile> getTileList() {
-        ArrayList<ITile> returnTiles = new ArrayList<ITile>();
+        ArrayList<ITile> returnTiles = new ArrayList<>();
         for (Tile tile : tiles) {
             returnTiles.add(tile);
         }
@@ -79,7 +79,7 @@ public class Map implements IMap {
 
     @Override
     public List<IPlaceableEntity> updatePositions() {
-        ArrayList<IPlaceableEntity> toBeRemoved = new ArrayList<IPlaceableEntity>();
+        ArrayList<IPlaceableEntity> toBeRemoved = new ArrayList<>();
         
         for (Tile tile : tiles) {
             for (IPlaceableEntity entity : tile.getEntities()) {
@@ -120,11 +120,16 @@ public class Map implements IMap {
     }
     
     private ArrayList<IPlaceableEntity> findTargets(IAction entity) {
-        ArrayList<IPlaceableEntity> possibleTargets = new ArrayList<IPlaceableEntity>();
+        ArrayList<IPlaceableEntity> possibleTargets = new ArrayList<>();
         
         Coordinate pos = ((IPlaceableEntity) entity).getCurrentPosition();
+        int range = entity.getRange();
         
-        // ********************TODO************************        
+        for (Tile tile : tiles) {
+            if (Math.sqrt( Math.pow(tile.getCoordinate().getX() - pos.getX(), 2) + Math.pow(tile.getCoordinate().getY() - pos.getY(), 2) ) < range) {
+                possibleTargets.addAll(tile.getEntities());
+            }
+        }
         
         return possibleTargets;
     }
