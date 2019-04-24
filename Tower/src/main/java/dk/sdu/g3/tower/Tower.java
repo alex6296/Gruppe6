@@ -9,6 +9,7 @@ import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.entities.ILifeFunctions;
 import dk.sdu.g3.common.rendering.IRenderableUnit;
 import dk.sdu.g3.common.services.ITower;
+import dk.sdu.g3.common.services.IUnit;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -120,10 +121,13 @@ public class Tower implements ITower, IRenderableUnit {
      */
     @Override
     public void shoot(ILifeFunctions[] enemiesInRange) {
+        
+        
+        
         for (int i = 0; i < this.attackSpeed; i++) {//amount of attacks
 
             for (ILifeFunctions e : enemiesInRange) {//targeting
-                if (e.getCurrentHp() > 0) { //check if target is dead
+                if (e.getCurrentHp() > 0 && e instanceof IUnit ) { //check if target is dead
                     e.takeDamage(getDamage());//attack
                     break;//break after a target has been attacked
                 }
