@@ -19,15 +19,19 @@ import org.openide.util.lookup.ServiceProviders;
 public class Pathfinding implements IPathfinding {
 
     IMap map;
+    Coordinate start;
+    Coordinate goal;
     int lenghtX = map.getLengthX();
     int lengthY = map.getLengthY();
     List<Node> nodes = new ArrayList<>();
 
+    //TODO
     @Override
     public Coordinate getNextCoordinate(Coordinate currentCoord) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    //TODO
     @Override
     public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) {
         return null;
@@ -76,16 +80,20 @@ public class Pathfinding implements IPathfinding {
 
     private void setUpNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(y) - size of currentNode(y)) > min(y), we set up neighbour  
-        if((currentNode.getCenter().getY() - currentNode.getSize() > 0)) {
+        if ((currentNode.getCenter().getY() - currentNode.getSize() > 0)) {
             currentNode.setUpNeighbour(assignNeighbour(currentNode.getCenter().getX(), currentNode.getCenter().getY() - (currentNode.getSize() * 2)));
         }
     }
 
     private void setDownNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(y) + size of currentNode(y)) < max(y), we set down neighbour  
-        if(currentNode.getCenter().getY() + currentNode.getSize() < map.getLengthY()) {
+        if (currentNode.getCenter().getY() + currentNode.getSize() < map.getLengthY()) {
             currentNode.setDownNeightbour(assignNeighbour(currentNode.getCenter().getX(), currentNode.getCenter().getY() + (currentNode.getSize() * 2)));
         }
     }
 
+    private void calculateHeuristic(Node currentNode) {
+        
+    }
+    
 }
