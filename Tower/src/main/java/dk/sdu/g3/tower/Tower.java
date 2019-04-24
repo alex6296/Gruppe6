@@ -32,16 +32,18 @@ public class Tower implements ITower, IRenderableUnit {
 
     public Tower() {
     }
-/**
- * tower constructor
- * @param life current life
- * @param damage done pr attack
- * @param footprint size of tiles the tower takes up
- * @param cost in ingame currensy
- * @param attackSpeed how many times the tower attacks pr. call to shoot;
- * @param attackRange how far the tower can attack
- * @param position wcordinates of the tower
- */
+
+    /**
+     * tower constructor
+     *
+     * @param life current life
+     * @param damage done pr attack
+     * @param footprint size of tiles the tower takes up
+     * @param cost in ingame currensy
+     * @param attackSpeed how many times the tower attacks pr. call to shoot;
+     * @param attackRange how far the tower can attack
+     * @param position wcordinates of the tower
+     */
     public Tower(int life, int damage, int[][] footprint, int cost, int attackSpeed, int attackRange, Coordinate position) {
         this.life = life;
         this.damage = damage;
@@ -121,13 +123,11 @@ public class Tower implements ITower, IRenderableUnit {
      */
     @Override
     public void shoot(ILifeFunctions[] enemiesInRange) {
-        
-        
-        
+
         for (int i = 0; i < this.attackSpeed; i++) {//amount of attacks
 
             for (ILifeFunctions e : enemiesInRange) {//targeting
-                if (e.getCurrentHp() > 0 && e instanceof IUnit ) { //check if target is dead
+                if (e.getCurrentHp() > 0 && e instanceof IUnit) { //check if target is dead
                     e.takeDamage(getDamage());//attack
                     break;//break after a target has been attacked
                 }
