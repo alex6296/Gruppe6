@@ -5,8 +5,6 @@
  */
 package dk.sdu.g3.towerfactory;
 
-import dk.sdu.g3.common.data.Coordinate;
-import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.ITower;
 import dk.sdu.g3.tower.Tower;
 import org.junit.After;

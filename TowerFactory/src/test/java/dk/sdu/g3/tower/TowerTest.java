@@ -8,10 +8,6 @@ package dk.sdu.g3.tower;
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.entities.ILifeFunctions;
 import dk.sdu.g3.common.services.IUnit;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
