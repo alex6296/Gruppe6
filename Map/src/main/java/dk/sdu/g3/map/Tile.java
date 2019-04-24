@@ -1,41 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dk.sdu.g3.map;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.data.ITile;
+import dk.sdu.g3.common.entities.IMovable;
 import dk.sdu.g3.common.services.IPlaceableEntity;
+import java.util.ArrayList;
 import java.util.List;
-
-/**
- *
- * @author Pottemuld
- */
 
 
 public class Tile implements ITile{
+    
+    private final Coordinate coord;
+    private final int size;
+    private ArrayList<IPlaceableEntity> entities = new ArrayList<>();
+    
+    
+    public Tile(int x, int y, int size) {
+        this.coord = new Coordinate(x, y);
+        this.size = size;
+    }
+    
+    
+    public void add(IPlaceableEntity entity) {
+        this.entities.add(entity);
+    }
+    
+    public void remove(IPlaceableEntity entity) {
+        this.entities.remove(entity);
+    }
 
     @Override
     public Coordinate getCoordinate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.coord;
     }
 
     @Override
     public int getSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.size;
     }
 
     @Override
     public List<IPlaceableEntity> getEntities() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.entities;
     }
 
     @Override
     public boolean isOccupied() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(IPlaceableEntity en : entities) {
+            if (!(en instanceof IMovable)) {
+                return true;
+            }
+        }
+        return false;
     }
     
 }
