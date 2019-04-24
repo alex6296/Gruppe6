@@ -3,7 +3,7 @@ OpenIDE-Module-Localizing-Bundle: dk/sdu/g3/towerfactory/Bundle.proper
  ties
 OpenIDE-Module-Specification-Version: 1.0
 OpenIDE-Module-Implementation-Version: 1.0-20190424
-OpenIDE-Module-Build-Version: 201904241407
+OpenIDE-Module-Build-Version: 201904241452
 OpenIDE-Module: dk.sdu.g3.TowerFactory
 OpenIDE-Module-Public-Packages: dk.sdu.g3.towerfactory.*
 OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1

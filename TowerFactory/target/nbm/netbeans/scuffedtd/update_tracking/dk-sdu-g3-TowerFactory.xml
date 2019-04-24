@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="dk.sdu.g3.TowerFactory">
-    <module_version install_time="1556114854698" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1556117547828" last="true" origin="installer" specification_version="1.0">
         <file crc="2319849624" name="config/Modules/dk-sdu-g3-TowerFactory.xml"/>
-        <file crc="1265604011" name="modules/dk-sdu-g3-TowerFactory.jar"/>
+        <file crc="1231566716" name="modules/dk-sdu-g3-TowerFactory.jar"/>
         <file crc="1355517765" name="modules/ext/dk.sdu.g3.TowerFactory/junit/junit.jar"/>
         <file crc="2893489971" name="modules/ext/dk.sdu.g3.TowerFactory/org-hamcrest/hamcrest-core.jar"/>
     </module_version>
