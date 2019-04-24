@@ -10,14 +10,7 @@ import dk.sdu.g3.common.entities.ILifeFunctions;
 import dk.sdu.g3.common.rendering.IRenderableUnit;
 import dk.sdu.g3.common.services.ITower;
 import dk.sdu.g3.common.services.IUnit;
-import org.openide.util.lookup.ServiceProvider;
-import org.openide.util.lookup.ServiceProviders;
 
-/**
- *
- */
-@ServiceProviders(value = {
-    @ServiceProvider(service = ITower.class),})
 public class Tower implements ITower, IRenderableUnit {
 
     private int life = 100;

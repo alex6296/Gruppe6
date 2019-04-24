@@ -3,18 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dk.sdu.g3.factory;
+package dk.sdu.g3.towerfactory;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.services.ITower;
+import dk.sdu.g3.common.services.ITowerFactory;
 import dk.sdu.g3.tower.Tower;
+import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 /**
  *
- * @author Lenovo
  */
-public class towerFactory {
-
+@ServiceProviders(value = {
+    @ServiceProvider(service = ITowerFactory.class),})
+public class towerFactory implements ITowerFactory  {
+    
     public ITower getNewTower() {
         return (ITower) new Tower();
     }
