@@ -93,7 +93,10 @@ public class Pathfinding implements IPathfinding {
     }
 
     private void calculateHeuristic(Node currentNode) {
-        
+        int a = (goal.getX() - currentNode.getCenter().getX());
+        int b = (goal.getY() - currentNode.getCenter().getY());
+        double c = Math.abs(Math.sqrt(Math.pow(a, 2.0) + Math.pow(b, 2.0)));
+        currentNode.setHeuristic(c);
     }
     
 }
