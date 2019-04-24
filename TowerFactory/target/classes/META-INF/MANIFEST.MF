@@ -3,7 +3,7 @@ OpenIDE-Module-Localizing-Bundle: dk/sdu/g3/towerfactory/Bundle.proper
  ties
 OpenIDE-Module-Specification-Version: 1.0
 OpenIDE-Module-Implementation-Version: 1.0-20190424
-OpenIDE-Module-Build-Version: 201904241452
+OpenIDE-Module-Build-Version: 201904241458
 OpenIDE-Module: dk.sdu.g3.TowerFactory
 OpenIDE-Module-Public-Packages: dk.sdu.g3.towerfactory.*
 OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1
@@ -16,5 +16,5 @@ X-Class-Path: ext/dk.sdu.g3.TowerFactory/junit/junit.jar ext/dk.sdu.g3
 Maven-Class-Path: junit:junit:4.12 org.hamcrest:hamcrest-core:1.3
 OpenIDE-Module-Module-Dependencies: org.netbeans.api.annotations.commo
  n/1 > 1.27.1, dk.sdu.g3.Common > 1.0, org.openide.util.lookup > 8.33.
- 1, org.netbeans.modules.nbjunit/1 > 1.87.1
+ 1
 
