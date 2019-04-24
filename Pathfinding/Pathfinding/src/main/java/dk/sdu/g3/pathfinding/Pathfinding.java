@@ -6,21 +6,35 @@
 package dk.sdu.g3.pathfinding;
 
 import dk.sdu.g3.common.data.Coordinate;
+import dk.sdu.g3.common.data.ITile;
+import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPathfinding;
+import java.util.ArrayList;
+import java.util.List;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
-
-/**
- *
- * @author Pottemuld
- */
 
 @ServiceProviders(value = {@ServiceProvider(service = IPathfinding.class), })
 public class Pathfinding implements IPathfinding {
 
+    List<Node> nodes = new ArrayList<>();
     @Override
     public Coordinate getNextCoordinate(Coordinate currentCoord) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) {
+       
+    }
+    
+    private void createNodes(IMap map) {
+        List<ITile> tiles = map.getTileList();
+        for(ITile tile : tiles) {
+            Node node = new Node(tile.getCoordinate(), tile.get);
+            nodes.add(node);
+        }
+    }
+    
     
 }
