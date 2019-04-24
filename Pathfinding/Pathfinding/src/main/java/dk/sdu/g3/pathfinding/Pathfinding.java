@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dk.sdu.g3.pathfinding;
 
 import dk.sdu.g3.common.data.Coordinate;
@@ -18,12 +13,17 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = IPathfinding.class),})
 public class Pathfinding implements IPathfinding {
 
-    IMap map;
-    Coordinate start;
-    Coordinate goal;
-    int lenghtX = map.getLengthX();
-    int lengthY = map.getLengthY();
-    List<Node> nodes = new ArrayList<>();
+    private IMap map;
+    private Coordinate start;
+    private Coordinate goal;
+    private int lenghtX = map.getLengthX();
+    private int lengthY = map.getLengthY();
+    private List<Node> nodes = new ArrayList<>();
+    private static final int STEP_COST = 1;
+
+    public Pathfinding() {
+    }
+
 
     //TODO
     @Override
@@ -92,11 +92,20 @@ public class Pathfinding implements IPathfinding {
         }
     }
 
+    /**
+     * Method used to calculate the value of the heuristic function, used to determine the estimated distance to the goal coordinate in a straight line
+     * @param currentNode is the Node that the pathfinding algorithm has reached in its current iteration
+     * Variable a is the distance from currentNode's center x Coordinate to the goal Coordinate
+     * Variable b is the distance from currentNode's center y Coordinate to the goal Coordinate
+     * This forms a triangle between the currentNode and the goal, with the sides being a, b and c
+     * By using pythagore, the variable c is calculated, which is the distance from the currentNode to the goal Coordinate
+     */
     private void calculateHeuristic(Node currentNode) {
         int a = (goal.getX() - currentNode.getCenter().getX());
         int b = (goal.getY() - currentNode.getCenter().getY());
         double c = Math.abs(Math.sqrt(Math.pow(a, 2.0) + Math.pow(b, 2.0)));
         currentNode.setHeuristic(c);
     }
+    
     
 }
