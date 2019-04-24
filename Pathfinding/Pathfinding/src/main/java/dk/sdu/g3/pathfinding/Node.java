@@ -6,28 +6,107 @@
 package dk.sdu.g3.pathfinding;
 
 import dk.sdu.g3.common.data.Coordinate;
-import dk.sdu.g3.common.data.ITile;
 
-/**
- *
- * @author Pottemuld
- */
+
 public class Node {
     private double accumulatedStepCost; //The cost accumulated from the start node to the current node
     private double heuristic; //estimated heuristic value, defined by the heuristic function
     private double totalPathCost; //accumulatedStepCost + heuristic - estimated total cost from start to goal through this node
-    private Coordinate center;
-    private int sizeX;
-    private int sizeY;
+    private final Coordinate center;
+    private final int size;
     private Node previousNode;
+    private Node leftNeighbour;
+    private Node rightNeighbour;
+    private Node upNeighbour;
+    private Node downNeightbour;
 
-    public Node(Coordinate center, int sizeX, int sizeY) {
-        this.center = center;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
+    
+    
+    
+    
+    
+    public Node getLeftNeighbour() {
+        return leftNeighbour;
+    }
+
+    public void setLeftNeighbour(Node leftNeighbour) {
+        this.leftNeighbour = leftNeighbour;
+    }
+
+    public Node getRightNeighbour() {
+        return rightNeighbour;
+    }
+
+    public void setRightNeighbour(Node rightNeighbour) {
+        this.rightNeighbour = rightNeighbour;
+    }
+
+    public Node getUpNeighbour() {
+        return upNeighbour;
+    }
+
+    public void setUpNeighbour(Node upNeighbour) {
+        this.upNeighbour = upNeighbour;
+    }
+
+    public Node getDownNeightbour() {
+        return downNeightbour;
+    }
+
+    public void setDownNeightbour(Node downNeightbour) {
+        this.downNeightbour = downNeightbour;
     }
     
     
+
+    public Node(Coordinate center, int size) {
+        this.center = center;
+        this.size = size;
+    }
+
+    
+    public void setAccumulatedStepCost(double accumulatedStepCost) {
+        this.accumulatedStepCost = accumulatedStepCost;
+    }
+
+    public void setHeuristic(double heuristic) {
+        this.heuristic = heuristic;
+    }
+
+    public void setTotalPathCost(double totalPathCost) {
+        this.totalPathCost = totalPathCost;
+    }
+
+    public void setPreviousNode(Node previousNode) {
+        this.previousNode = previousNode;
+    }
+
+    
+    
+    public double getAccumulatedStepCost() {
+        return accumulatedStepCost;
+    }
+
+    public double getHeuristic() {
+        return heuristic;
+    }
+
+    public double getTotalPathCost() {
+        return totalPathCost;
+    }
+
+    public Coordinate getCenter() {
+        return center;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Node getPreviousNode() {
+        return previousNode;
+    }
+ 
     
     
 }
