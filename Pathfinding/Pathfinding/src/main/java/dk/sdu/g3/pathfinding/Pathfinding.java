@@ -17,13 +17,15 @@ public class Pathfinding implements IPathfinding {
     private Coordinate start;
     private Coordinate goal;
     private int mapLenghtX = map.getLengthX();
-    private int mapLengthY = map.getLengthY(); 
+    private int mapLengthY = map.getLengthY();
     private List<Node> nodes = new ArrayList<>();
+    private double accumulatedStepCost; //The cost accumulated from the start node to the current node
+    private double heuristic; //estimated heuristic value, defined by the heuristic function
+    private double totalPathCost; //accumulatedStepCost + heuristic - estimated total cost from start to goal through this node
     private static final int STEP_COST = 1;
 
     public Pathfinding() {
     }
-
 
     //TODO
     @Override
@@ -35,7 +37,7 @@ public class Pathfinding implements IPathfinding {
     @Override
     public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) {
         createNodes();
-        
+
         return null;
 
     }
@@ -58,9 +60,33 @@ public class Pathfinding implements IPathfinding {
             nodes.add(node);
         }
         //Set ajacent nodes right after all nodes has been created in the list
-        for(Node node : nodes) {
+        for (Node node : nodes) {
             setAdjacentNodes(node);
         }
+    }
+
+    /**
+     * Method used to calculate the value of the heuristic function, used to
+     * determine the estimated distance to the goal coordinate in a straight
+     * line
+     *
+     * @param currentNode is the Node that the pathfinding algorithm has reached
+     * in its current iteration Variable a is the distance from currentNode's
+     * center x Coordinate to the goal Coordinate Variable b is the distance
+     * from currentNode's center y Coordinate to the goal Coordinate This forms
+     * a triangle between the currentNode and the goal, with the sides being a,
+     * b and c By using pythagore, the variable c is calculated, which is the
+     * distance from the currentNode to the goal Coordinate
+     */
+    private void calculateHeuristic(Node currentNode) {
+        int a = (goal.getX() - currentNode.getCenter().getX());
+        int b = (goal.getY() - currentNode.getCenter().getY());
+        double c = Math.sqrt(Math.pow(a, 2.0) + Math.pow(b, 2.0));
+        currentNode.setHeuristic(c);
+    }
+    
+    private void calculateF() {
+        setTotalPathCost(getAccumulatedStepCost() + getHeuristic());
     }
 
     private void setAdjacentNodes(Node currentNode) {
@@ -98,20 +124,28 @@ public class Pathfinding implements IPathfinding {
         }
     }
 
-    /**
-     * Method used to calculate the value of the heuristic function, used to determine the estimated distance to the goal coordinate in a straight line
-     * @param currentNode is the Node that the pathfinding algorithm has reached in its current iteration
-     * Variable a is the distance from currentNode's center x Coordinate to the goal Coordinate
-     * Variable b is the distance from currentNode's center y Coordinate to the goal Coordinate
-     * This forms a triangle between the currentNode and the goal, with the sides being a, b and c
-     * By using pythagore, the variable c is calculated, which is the distance from the currentNode to the goal Coordinate
-     */
-    private void calculateHeuristic(Node currentNode) {
-        int a = (goal.getX() - currentNode.getCenter().getX());
-        int b = (goal.getY() - currentNode.getCenter().getY());
-        double c = Math.sqrt(Math.pow(a, 2.0) + Math.pow(b, 2.0));
-        currentNode.setHeuristic(c);
+    public double getAccumulatedStepCost() {
+        return accumulatedStepCost;
     }
-    
-    
+
+    public void setAccumulatedStepCost(double accumulatedStepCost) {
+        this.accumulatedStepCost = accumulatedStepCost;
+    }
+
+    public double getHeuristic() {
+        return heuristic;
+    }
+
+    public void setHeuristic(double heuristic) {
+        this.heuristic = heuristic;
+    }
+
+    public double getTotalPathCost() {
+        return totalPathCost;
+    }
+
+    public void setTotalPathCost(double totalPathCost) {
+        this.totalPathCost = totalPathCost;
+    }
+
 }
