@@ -14,6 +14,7 @@ public class Node {
     private double totalPathCost; //accumulatedStepCost + heuristic - estimated total cost from start to goal through this node
     private final Coordinate center;
     private final int size;
+    private boolean isBlocked;
     private Node previousNode;
     private Node leftNeighbour;
     private Node rightNeighbour;
@@ -23,7 +24,13 @@ public class Node {
     
     
     
-    
+    public boolean isIsBlocked() {
+        return isBlocked;
+    }
+
+    public void setIsBlocked(boolean isBlocked) {
+        this.isBlocked = isBlocked;
+    }
     
     public Node getLeftNeighbour() {
         return leftNeighbour;

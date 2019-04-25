@@ -16,8 +16,8 @@ public class Pathfinding implements IPathfinding {
     private IMap map;
     private Coordinate start;
     private Coordinate goal;
-    private int lenghtX = map.getLengthX(); //Delete or not? IMap already has it
-    private int lengthY = map.getLengthY(); //Delete or not? IMap already has it
+    private int mapLenghtX = map.getLengthX();
+    private int mapLengthY = map.getLengthY(); 
     private List<Node> nodes = new ArrayList<>();
     private static final int STEP_COST = 1;
 
@@ -73,7 +73,7 @@ public class Pathfinding implements IPathfinding {
 
     private void setRightNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(x) + size of currentNode(x) < max(x), we set right neighbour
-        if ((currentNode.getCenter().getX() + currentNode.getSize() < map.getLengthX())) {
+        if ((currentNode.getCenter().getX() + currentNode.getSize() < mapLenghtX)) {
             currentNode.setRightNeighbour(assignNeighbour((currentNode.getCenter().getX() + (currentNode.getSize() * 2)), currentNode.getCenter().getY()));
         }
     }
@@ -87,7 +87,7 @@ public class Pathfinding implements IPathfinding {
 
     private void setDownNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(y) + size of currentNode(y)) < max(y), we set down neighbour  
-        if (currentNode.getCenter().getY() + currentNode.getSize() < map.getLengthY()) {
+        if (currentNode.getCenter().getY() + currentNode.getSize() < mapLengthY) {
             currentNode.setDownNeightbour(assignNeighbour(currentNode.getCenter().getX(), currentNode.getCenter().getY() + (currentNode.getSize() * 2)));
         }
     }
