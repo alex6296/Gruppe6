@@ -19,9 +19,7 @@ public class Pathfinding implements IPathfinding {
     private int mapLenghtX = map.getLengthX();
     private int mapLengthY = map.getLengthY();
     private List<Node> nodes = new ArrayList<>();
-    private double accumulatedStepCost; //The cost accumulated from the start node to the current node
-    private double heuristic; //estimated heuristic value, defined by the heuristic function
-    private double totalPathCost; //accumulatedStepCost + heuristic - estimated total cost from start to goal through this node
+    private double totalPathCost; 
     private static final int STEP_COST = 1;
 
     public Pathfinding() {
@@ -79,14 +77,14 @@ public class Pathfinding implements IPathfinding {
      * distance from the currentNode to the goal Coordinate
      */
     private void calculateHeuristic(Node currentNode) {
-        int a = (goal.getX() - currentNode.getCenter().getX());
-        int b = (goal.getY() - currentNode.getCenter().getY());
-        double c = Math.sqrt(Math.pow(a, 2.0) + Math.pow(b, 2.0));
-        currentNode.setHeuristic(c);
+        int sideA = (goal.getX() - currentNode.getCenter().getX());
+        int sideB = (goal.getY() - currentNode.getCenter().getY());
+        double diagonal = Math.sqrt(Math.pow(sideA, 2.0) + Math.pow(sideB, 2.0));
+        currentNode.setHeuristic(diagonal);
     }
     
-    private void calculateF() {
-        setTotalPathCost(getAccumulatedStepCost() + getHeuristic());
+    private void calculateTotalPathCost(Node currentNode) {
+        setTotalPathCost(currentNode.getAccumulatedStepCost() + currentNode.getHeuristic());
     }
 
     private void setAdjacentNodes(Node currentNode) {
@@ -122,22 +120,6 @@ public class Pathfinding implements IPathfinding {
         if (currentNode.getCenter().getY() + currentNode.getSize() < mapLengthY) {
             currentNode.setDownNeightbour(assignNeighbour(currentNode.getCenter().getX(), currentNode.getCenter().getY() + (currentNode.getSize() * 2)));
         }
-    }
-
-    public double getAccumulatedStepCost() {
-        return accumulatedStepCost;
-    }
-
-    public void setAccumulatedStepCost(double accumulatedStepCost) {
-        this.accumulatedStepCost = accumulatedStepCost;
-    }
-
-    public double getHeuristic() {
-        return heuristic;
-    }
-
-    public void setHeuristic(double heuristic) {
-        this.heuristic = heuristic;
     }
 
     public double getTotalPathCost() {

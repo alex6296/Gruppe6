@@ -9,6 +9,8 @@ import dk.sdu.g3.common.data.Coordinate;
 
 
 public class Node {
+    
+    
     private final Coordinate center;
     private final int size;
     private boolean isBlocked;
@@ -17,6 +19,9 @@ public class Node {
     private Node rightNeighbour;
     private Node upNeighbour;
     private Node downNeightbour;
+    private double accumulatedStepCost; //accumulatedStepCost + heuristic - estimated total cost from start to goal through this node
+    private double heuristic; //estimated heuristic value, defined by the heuristic function
+    
 
     public Node(Coordinate center, int size, boolean isBlocked) {
         this.center = center;
@@ -70,6 +75,22 @@ public class Node {
 
     public Node getPreviousNode() {
         return previousNode;
+    }
+    
+    public double getAccumulatedStepCost() {
+        return accumulatedStepCost;
+    }
+
+    public void setAccumulatedStepCost(double accumulatedStepCost) {
+        this.accumulatedStepCost = accumulatedStepCost;
+    }
+
+    public double getHeuristic() {
+        return heuristic;
+    }
+
+    public void setHeuristic(double heuristic) {
+        this.heuristic = heuristic;
     }
  
     
