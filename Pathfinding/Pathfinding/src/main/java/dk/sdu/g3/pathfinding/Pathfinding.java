@@ -16,8 +16,8 @@ public class Pathfinding implements IPathfinding {
     private IMap map;
     private Coordinate start;
     private Coordinate goal;
-    private int lenghtX = map.getLengthX();
-    private int lengthY = map.getLengthY();
+    private int lenghtX = map.getLengthX(); //Delete or not? IMap already has it
+    private int lengthY = map.getLengthY(); //Delete or not? IMap already has it
     private List<Node> nodes = new ArrayList<>();
     private static final int STEP_COST = 1;
 
@@ -103,7 +103,7 @@ public class Pathfinding implements IPathfinding {
     private void calculateHeuristic(Node currentNode) {
         int a = (goal.getX() - currentNode.getCenter().getX());
         int b = (goal.getY() - currentNode.getCenter().getY());
-        double c = Math.abs(Math.sqrt(Math.pow(a, 2.0) + Math.pow(b, 2.0)));
+        double c = Math.sqrt(Math.pow(a, 2.0) + Math.pow(b, 2.0));
         currentNode.setHeuristic(c);
     }
     
