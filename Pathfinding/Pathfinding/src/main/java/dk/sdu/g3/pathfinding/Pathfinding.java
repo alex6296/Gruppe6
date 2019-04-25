@@ -34,6 +34,8 @@ public class Pathfinding implements IPathfinding {
     //TODO
     @Override
     public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) {
+        createNodes();
+        
         return null;
 
     }
@@ -54,6 +56,10 @@ public class Pathfinding implements IPathfinding {
         for (ITile tile : tiles) {
             Node node = new Node(tile.getCoordinate(), tile.getSize(), tile.isOccupied());
             nodes.add(node);
+        }
+        //Set ajacent nodes right after all nodes has been created in the list
+        for(Node node : nodes) {
+            setAdjacentNodes(node);
         }
     }
 
