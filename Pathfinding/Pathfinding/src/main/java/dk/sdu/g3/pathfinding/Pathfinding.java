@@ -52,7 +52,7 @@ public class Pathfinding implements IPathfinding {
     private void createNodes() {
         List<ITile> tiles = map.getTileList();
         for (ITile tile : tiles) {
-            Node node = new Node(tile.getCoordinate(), tile.getSize());
+            Node node = new Node(tile.getCoordinate(), tile.getSize(), tile.isOccupied());
             nodes.add(node);
         }
     }

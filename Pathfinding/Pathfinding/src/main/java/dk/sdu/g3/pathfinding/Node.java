@@ -21,16 +21,13 @@ public class Node {
     private Node upNeighbour;
     private Node downNeightbour;
 
-    
-    
-    
-    public boolean isIsBlocked() {
-        return isBlocked;
-    }
-
-    public void setIsBlocked(boolean isBlocked) {
+    public Node(Coordinate center, int size, boolean isBlocked) {
+        this.center = center;
+        this.size = size;
         this.isBlocked = isBlocked;
     }
+
+    
     
     public Node getLeftNeighbour() {
         return leftNeighbour;
@@ -63,14 +60,6 @@ public class Node {
     public void setDownNeightbour(Node downNeightbour) {
         this.downNeightbour = downNeightbour;
     }
-    
-    
-
-    public Node(Coordinate center, int size) {
-        this.center = center;
-        this.size = size;
-    }
-
     
     public void setAccumulatedStepCost(double accumulatedStepCost) {
         this.accumulatedStepCost = accumulatedStepCost;
