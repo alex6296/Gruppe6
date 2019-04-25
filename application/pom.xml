@@ -42,8 +42,8 @@
         </dependency>
         -->
         
-<!--    MODULE DEPENDENCIES:    
-        <dependency>
+<!--    MODULE DEPENDENCIES:    -->
+<!--        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>TowerFactory</artifactId>
             <version>${project.version}</version>
