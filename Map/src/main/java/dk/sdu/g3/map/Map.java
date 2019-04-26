@@ -104,12 +104,12 @@ public class Map implements IMap {
                     if (newPos == null) {               // if entity has reached the end of its path, it should be despawned.
                         toBeRemoved.add(entity);
                         Coordinate endPos = new Coordinate(this.lengthX, currentPos.getY());    // unit is at the end of its path - it is put at the end of the map until a controller removes it.
-                        entity.setCurrentPosition(endPos);
+                        entity.setPosition(endPos);
                         getTile(endPos).add(entity);        // place entity on end tile
                         continue;
                     }
                     
-                    entity.setCurrentPosition(newPos);
+                    entity.setPosition(newPos);
                     getTile(newPos).add(entity);        // place entity on new tile
                     
                 }
