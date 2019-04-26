@@ -29,6 +29,12 @@ public class Node {
         this.isBlocked = isBlocked;
     }
     
+    //Compare two Nodes to see if they are equal
+    public boolean equals(Node node) {
+        return false;
+        
+    }
+    
     public Node getLeftNeighbour() {
         return leftNeighbour;
     }

@@ -16,12 +16,14 @@ public class Pathfinding implements IPathfinding {
     private IMap map;
     private Coordinate start;
     private Coordinate goal;
-    private int mapLenghtX = map.getLengthX();
-    private int mapLengthY = map.getLengthY();
+    private final int mapLenghtX = map.getLengthX();
+    private final int mapLengthY = map.getLengthY();
     private List<Node> nodes = new ArrayList<>();
     private double totalPathCost; 
     private static final int STEP_COST = 1;
-
+    private ArrayList<Node> fringe = new ArrayList<>();
+    private ArrayList<Node> closedNodes = new ArrayList<>();
+    
     public Pathfinding() {
     }
 
@@ -37,9 +39,8 @@ public class Pathfinding implements IPathfinding {
         createNodes();
 
         return null;
-
     }
-
+    
     private Node assignNeighbour(int x, int y) { //Look out for null pointer
         for (Node node : nodes) {
             if (node.getCenter().getX() == x) {
@@ -63,11 +64,23 @@ public class Pathfinding implements IPathfinding {
         }
     }
 
+    
+    //Find the most promising Node to move to next
+    public void findSuccessor(Node currentNode) {
+        
+    }
+    
+    public void addToFringe() {
+    
+    }
+    
+    
+    
+    
     /**
      * Method used to calculate the value of the heuristic function, used to
      * determine the estimated distance to the goal coordinate in a straight
      * line
-     *
      * @param currentNode is the Node that the pathfinding algorithm has reached
      * in its current iteration Variable a is the distance from currentNode's
      * center x Coordinate to the goal Coordinate Variable b is the distance
