@@ -102,6 +102,7 @@ public class Tower implements ITower, IRenderableUnit {
         this.attackRange = attackRange;
     }
 
+    @Override
     public void setPosition(Coordinate position) {
         this.position = position;
     }
@@ -141,11 +142,6 @@ public class Tower implements ITower, IRenderableUnit {
     @Override
     public String getSpriteUrl() {
         return this.SpriteUrl;
-    }
-
-    @Override
-    public void setCurrentPosition(Coordinate coord) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
