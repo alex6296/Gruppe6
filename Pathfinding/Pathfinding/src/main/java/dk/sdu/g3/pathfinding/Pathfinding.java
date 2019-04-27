@@ -51,7 +51,7 @@ public class Pathfinding implements IPathfinding {
 
         while (!openList.isEmpty()) { //Line 2
 
-            Node bestNode = null;
+            Node bestNode = null; //XXXXXX Best node not in use XXXXXXXX
             for (Node node : openList) { //totalCost calcualted
                 calculateHeuristic(node);
                 node.setTotalCost(node.getAccumulatedStepCost() + node.getHeuristic());
