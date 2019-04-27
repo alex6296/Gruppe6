@@ -28,6 +28,10 @@ public class Node {
         this.isBlocked = isBlocked;
         neighbours = new ArrayList<>();
     }
+    
+    public void addNeighbour(Node neighbour) {
+        neighbours.add(neighbour);
+    }
 
     //Compare two Nodes to see if they are equal
     public boolean equals(Node node) {
@@ -78,6 +82,5 @@ public class Node {
         return neighbours;
     }
 
-    
     
 }
