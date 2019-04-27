@@ -21,6 +21,7 @@ public class Node {
     private double totalCost;
     private double accumulatedStepCost; //accumulatedStepCost + heuristic - estimated total cost from start to goal through this node
     private double heuristic; //estimated heuristic value, defined by the heuristic function
+    private Node parent;
 
     public Node(Coordinate center, int size, boolean isBlocked) {
         this.center = center;
@@ -82,5 +83,10 @@ public class Node {
         return neighbours;
     }
 
+    public void setParent(Node parent) {
+        this.parent = parent;
+    }
+
+    
     
 }

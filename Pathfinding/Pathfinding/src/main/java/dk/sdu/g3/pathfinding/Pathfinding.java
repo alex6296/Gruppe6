@@ -12,38 +12,21 @@ import org.openide.util.lookup.ServiceProviders;
 @ServiceProviders(value = {
     @ServiceProvider(service = IPathfinding.class),})
 public class Pathfinding implements IPathfinding {
-    
+
     private IMap map;
     private int mapLenghtX = map.getLengthX();
     private int mapLengthY = map.getLengthY();
     private List<Node> nodes = new ArrayList<>();
     private double totalPathCost;
     private static final int STEP_COST = 1;
-    private List<Node> openList = new ArrayList<>();
-    private List<Node> closedList = new ArrayList<>();
+    private List<Node> openList;
+    private List<Node> closedList;
     private Node startNode;
     private Node goalNode;
     private Node mostPromising;
+    private Node currentNode;
 
     public Pathfinding() {
-    }
-
-    private void defineGoalNode(Coordinate goal) {
-        goalNode = null;
-        for(Node node: nodes) {
-            if(node.getCenter().equals(goal)){
-
-			}
-		}
-	}
-	
-    private void defineStartNode(Coordinate start) {
-        startNode = null;
-        for (Node node : nodes) {
-            if (node.getCenter().equals(start)) {
-                startNode = node;
-            }
-        }
     }
 
     //TODO
@@ -55,6 +38,9 @@ public class Pathfinding implements IPathfinding {
     //TODO
     @Override
     public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) {
+        openList = new ArrayList<>();
+        closedList = new ArrayList<>();
+
         createNodes(); //Convert all Coordinates to Nodes
         defineStartNode(start); //Define startNode from nodes
         defineGoalNode(goal); // Define goalNode from nodes
@@ -64,35 +50,64 @@ public class Pathfinding implements IPathfinding {
         openList.add(startNode); //Line 1
 
         while (!openList.isEmpty()) { //Line 2
-            double lowestCost = Double.MAX_VALUE;
+
             Node bestNode = null;
-            for(Node node : openList) { //totalCost calcualted
+            for (Node node : openList) { //totalCost calcualted
                 calculateHeuristic(node);
                 node.setTotalCost(node.getAccumulatedStepCost() + node.getHeuristic());
             }
-            
-            for (Node node : openList) { //Finding Node with lowest total cost (Line 3+4)
-                if (node.getTotalCost() < lowestCost) {
-                    lowestCost = node.getTotalCost();
-                    bestNode = node; //PROBLEM?!?!?!?
-                }
+
+            if (currentNode.getCenter().equals(goalNode.getCenter())) { //if Node with lowest cost == Goal --> success! (Line 5)
+                break; //Return path found
             }
-            if (bestNode.getCenter().equals(goalNode.getCenter())) { //if Node with lowest cost == Goal --> success! (Line 5)
-                break;
-            }
-            
-            //Line 6 ( Find neighbours)
-            
-            for(Node node : bestNode.getNeighbours()){ //(Line 7)
-                calculateHeuristic(node);
-                node.setTotalCost(node.getAccumulatedStepCost() + node.getHeuristic()); //Line 8
-                if(openList.contains(node)) { //Line 9
-                    if(node.getAccumulatedStepCost() <= bestNode.)
+
+            currentNode = findSuccessor(currentNode); //Line 6
+
+            for (Node successor : currentNode.getNeighbours()) { //(Line 7)
+                successor.setTotalCost(currentNode.getAccumulatedStepCost() + STEP_COST); //Line 8
+                if (openList.contains(successor)) { //Line 9
+                    if (successor.getAccumulatedStepCost() <= successor.getTotalCost()) {
+                        Node tmpNode = currentNode;
+                        currentNode = successor;
+                        openList.remove(tmpNode);
+                        closedList.add(tmpNode);
+                    }  
+                } else if(closedList.contains(successor)) {
+                    if (successor.getAccumulatedStepCost() <= successor.getTotalCost()) {
+                        openList.add(successor);
+                        closedList.remove(successor);
+                    }
+                } else {
+                    openList.add(successor);
+                    calculateHeuristic(successor);
                 }
+                successor.setAccumulatedStepCost(successor.getTotalCost());
+                successor.setParent(currentNode);
+            }
+            closedList.add(currentNode);
+        }
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        System.out.println("NO GOAL NODE WAS FOUND");
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        return null; //Change return
+    }
+
+    private void defineGoalNode(Coordinate goal) {
+        goalNode = null;
+        for (Node node : nodes) {
+            if (node.getCenter().equals(goal)) {
+
             }
         }
+    }
 
-        return null; //Change return
+    private void defineStartNode(Coordinate start) {
+        startNode = null;
+        for (Node node : nodes) {
+            if (node.getCenter().equals(start)) {
+                startNode = node;
+            }
+        }
     }
 
     private Node assignNeighbour(int x, int y) { //Look out for null pointer
@@ -120,17 +135,18 @@ public class Pathfinding implements IPathfinding {
 
     //Find the most promising Node to move to next
     public Node findSuccessor(Node currentNode) {
-        mostPromising.setHeuristic(Double.MAX_VALUE);
-        for (Node neighbour : currentNode.getNeighbours()) {
-            if (neighbour.getHeuristic() < mostPromising.getHeuristic()) {
-                mostPromising = neighbour;
+        double lowestCost = Double.MAX_VALUE;
+        for (Node node : openList) { //Finding Node with lowest total cost (Line 3+4)
+            if (node.getTotalCost() < lowestCost) {
+                lowestCost = node.getTotalCost();
+                mostPromising = node; //PROBLEM?!?!?!?
             }
         }
         return mostPromising;
     }
 
     public void addToFringe() {
-        
+
     }
 
     /**
