@@ -64,16 +64,16 @@ public class Pathfinding implements IPathfinding {
             currentNode = findSuccessor(currentNode); //Line 6
 
             for (Node successor : currentNode.getNeighbours()) { //(Line 7)
-                successor.setTotalCost(currentNode.getAccumulatedStepCost() + STEP_COST); //Line 8
+                successor.setAccumulatedStepCost(currentNode.getAccumulatedStepCost() + STEP_COST); //Line 8
                 if (openList.contains(successor)) { //Line 9
-                    if (successor.getAccumulatedStepCost() <= successor.getTotalCost()) {
+                    if (successor.getAccumulatedStepCost() <= successor.getTotalCost()) { //Check denne mod pseudo
                         Node tmpNode = currentNode;
                         currentNode = successor;
                         openList.remove(tmpNode);
                         closedList.add(tmpNode);
                     }  
                 } else if(closedList.contains(successor)) {
-                    if (successor.getAccumulatedStepCost() <= successor.getTotalCost()) {
+                    if (successor.getAccumulatedStepCost() <= successor.getTotalCost()) { //Check denne mod pseudo
                         openList.add(successor);
                         closedList.remove(successor);
                     }
