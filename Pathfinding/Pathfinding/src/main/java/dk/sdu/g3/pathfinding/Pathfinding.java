@@ -61,21 +61,35 @@ public class Pathfinding implements IPathfinding {
 
         calculateHeuristic(startNode);
         startNode.setTotalCost(startNode.getHeuristic());
-        openList.add(startNode);
+        openList.add(startNode); //Line 1
 
-        while (openList.size() >= -1) {
+        while (!openList.isEmpty()) { //Line 2
             double lowestCost = Double.MAX_VALUE;
             Node bestNode = null;
-            for (Node node : nodes) {
+            for(Node node : openList) { //totalCost calcualted
+                calculateHeuristic(node);
+                node.setTotalCost(node.getAccumulatedStepCost() + node.getHeuristic());
+            }
+            
+            for (Node node : openList) { //Finding Node with lowest total cost (Line 3+4)
                 if (node.getTotalCost() < lowestCost) {
                     lowestCost = node.getTotalCost();
-                    bestNode = node;
+                    bestNode = node; //PROBLEM?!?!?!?
                 }
             }
-            if (bestNode.getCenter().equals(goalNode)) {
+            if (bestNode.getCenter().equals(goalNode.getCenter())) { //if Node with lowest cost == Goal --> success! (Line 5)
                 break;
             }
-
+            
+            //Line 6 ( Find neighbours)
+            
+            for(Node node : bestNode.getNeighbours()){ //(Line 7)
+                calculateHeuristic(node);
+                node.setTotalCost(node.getAccumulatedStepCost() + node.getHeuristic()); //Line 8
+                if(openList.contains(node)) { //Line 9
+                    if(node.getAccumulatedStepCost() <= bestNode.)
+                }
+            }
         }
 
         return null; //Change return
