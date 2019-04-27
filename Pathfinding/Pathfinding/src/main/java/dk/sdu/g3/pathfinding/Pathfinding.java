@@ -12,7 +12,8 @@ import org.openide.util.lookup.ServiceProviders;
 @ServiceProviders(value = {
     @ServiceProvider(service = IPathfinding.class),})
 public class Pathfinding implements IPathfinding {
-	
+    
+    private IMap map;
     private int mapLenghtX = map.getLengthX();
     private int mapLengthY = map.getLengthY();
     private List<Node> nodes = new ArrayList<>();
@@ -22,6 +23,7 @@ public class Pathfinding implements IPathfinding {
     private List<Node> closedList = new ArrayList<>();
     private Node startNode;
     private Node goalNode;
+    private Node mostPromising;
 
     public Pathfinding() {
     }
@@ -35,11 +37,11 @@ public class Pathfinding implements IPathfinding {
 		}
 	}
 	
-    private void defineGoalNode(Coordinate goal) {
-        goalNode = null;
+    private void defineStartNode(Coordinate start) {
+        startNode = null;
         for (Node node : nodes) {
-            if (node.getCenter().equals(goal)) {
-                goalNode = node;
+            if (node.getCenter().equals(start)) {
+                startNode = node;
             }
         }
     }
@@ -55,7 +57,7 @@ public class Pathfinding implements IPathfinding {
     public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) {
         createNodes(); //Convert all Coordinates to Nodes
         defineStartNode(start); //Define startNode from nodes
-        defineGoalode(goal); // Define goalNode from nodes
+        defineGoalNode(goal); // Define goalNode from nodes
 
         calculateHeuristic(startNode);
         startNode.setTotalCost(startNode.getHeuristic());
