@@ -14,19 +14,36 @@ import org.openide.util.lookup.ServiceProviders;
 public class Pathfinding implements IPathfinding {
 
     private IMap map;
-    private Coordinate start;
-    private Coordinate goal;
     private final int mapLenghtX = map.getLengthX();
     private final int mapLengthY = map.getLengthY();
     private List<Node> nodes = new ArrayList<>();
-    private double totalPathCost; 
+    private double totalPathCost;
     private static final int STEP_COST = 1;
-    private ArrayList<Node> fringe = new ArrayList<>();
-    private ArrayList<Node> closedNodes = new ArrayList<>();
-    
+    private ArrayList<Node> fringe;
+    private ArrayList<Node> closedNodes;
+    Node mostPromising;
+    private Node startNode;
+    private Node goalNode;
+
     public Pathfinding() {
     }
-
+    
+    private void defineStartNode(Coordinate start) {
+        startNode = null;
+        for(Node node: nodes) {
+            if(node.getCenter().equals(start)){
+                startNode = node;
+            }
+        }
+    }
+    private void defineGoalNode(Coordinate goal) {
+        goalNode = null;
+        for(Node node: nodes) {
+            if(node.getCenter().equals(goal)){
+                goalNode = node;
+            }
+        }
+    }
     //TODO
     @Override
     public Coordinate getNextCoordinate(Coordinate currentCoord) {
@@ -37,10 +54,12 @@ public class Pathfinding implements IPathfinding {
     @Override
     public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) {
         createNodes();
+        fringe = new ArrayList<>();
+        
 
         return null;
     }
-    
+
     private Node assignNeighbour(int x, int y) { //Look out for null pointer
         for (Node node : nodes) {
             if (node.getCenter().getX() == x) {
@@ -64,23 +83,26 @@ public class Pathfinding implements IPathfinding {
         }
     }
 
-    
     //Find the most promising Node to move to next
-    public void findSuccessor(Node currentNode) {
+    public Node findSuccessor(Node currentNode) {
+        mostPromising.setHeuristic(Double.MAX_VALUE);
+        for (Node neighbour : currentNode.getNeighbours()) {
+            if (neighbour.getHeuristic() < mostPromising.getHeuristic()) {
+                mostPromising = neighbour;
+            }
+        }
+        return mostPromising;
+    }
+
+    public void addToFringe() {
         
     }
-    
-    public void addToFringe() {
-    
-    }
-    
-    
-    
-    
+
     /**
      * Method used to calculate the value of the heuristic function, used to
      * determine the estimated distance to the goal coordinate in a straight
      * line
+     *
      * @param currentNode is the Node that the pathfinding algorithm has reached
      * in its current iteration Variable a is the distance from currentNode's
      * center x Coordinate to the goal Coordinate Variable b is the distance
@@ -90,12 +112,12 @@ public class Pathfinding implements IPathfinding {
      * distance from the currentNode to the goal Coordinate
      */
     private void calculateHeuristic(Node currentNode) {
-        int sideA = (goal.getX() - currentNode.getCenter().getX());
-        int sideB = (goal.getY() - currentNode.getCenter().getY());
+        int sideA = (goalNode.getCenter().getX() - currentNode.getCenter().getX());
+        int sideB = (goalNode.getCenter().getY() - currentNode.getCenter().getY());
         double diagonal = Math.sqrt(Math.pow(sideA, 2.0) + Math.pow(sideB, 2.0));
         currentNode.setHeuristic(diagonal);
     }
-    
+
     private void calculateTotalPathCost(Node currentNode) {
         setTotalPathCost(currentNode.getAccumulatedStepCost() + currentNode.getHeuristic());
     }
@@ -110,28 +132,29 @@ public class Pathfinding implements IPathfinding {
     private void setLeftNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(x) - size of currentNode(x)) > min(x), we set left neighbour to be the node with center(x) = center(currentnode(x))-2 x size(x)
         if ((currentNode.getCenter().getX() - currentNode.getSize()) > 0) {
-            currentNode.setLeftNeighbour(assignNeighbour((currentNode.getCenter().getX() - (currentNode.getSize() * 2)), currentNode.getCenter().getY()));
+            currentNode.getNeighbours().add(assignNeighbour(currentNode.getCenter().getX() - (currentNode.getSize() * 2), currentNode.getCenter().getY()));
+
         }
     }
 
     private void setRightNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(x) + size of currentNode(x) < max(x), we set right neighbour
         if ((currentNode.getCenter().getX() + currentNode.getSize() < mapLenghtX)) {
-            currentNode.setRightNeighbour(assignNeighbour((currentNode.getCenter().getX() + (currentNode.getSize() * 2)), currentNode.getCenter().getY()));
+            currentNode.getNeighbours().add(assignNeighbour((currentNode.getCenter().getX() + (currentNode.getSize() * 2)), currentNode.getCenter().getY()));
         }
     }
 
     private void setUpNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(y) - size of currentNode(y)) > min(y), we set up neighbour  
         if ((currentNode.getCenter().getY() - currentNode.getSize() > 0)) {
-            currentNode.setUpNeighbour(assignNeighbour(currentNode.getCenter().getX(), currentNode.getCenter().getY() - (currentNode.getSize() * 2)));
+            currentNode.getNeighbours().add(assignNeighbour(currentNode.getCenter().getX(), currentNode.getCenter().getY() - (currentNode.getSize() * 2)));
         }
     }
 
     private void setDownNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(y) + size of currentNode(y)) < max(y), we set down neighbour  
         if (currentNode.getCenter().getY() + currentNode.getSize() < mapLengthY) {
-            currentNode.setDownNeightbour(assignNeighbour(currentNode.getCenter().getX(), currentNode.getCenter().getY() + (currentNode.getSize() * 2)));
+            currentNode.getNeighbours().add(assignNeighbour(currentNode.getCenter().getX(), currentNode.getCenter().getY() + (currentNode.getSize() * 2)));
         }
     }
 
