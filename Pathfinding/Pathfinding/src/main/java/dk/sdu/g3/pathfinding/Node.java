@@ -28,6 +28,10 @@ public class Node {
         this.isBlocked = isBlocked;
         neighbours = new ArrayList<>();
     }
+    
+    public void addNeighbour(Node neighbour) {
+        neighbours.add(neighbour);
+    }
 
     public Coordinate getCenter() {
         return center;
@@ -60,14 +64,8 @@ public class Node {
     public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
     }
-
-    public List<Node> getNeighbours() {
-        return neighbours;
-    }
-
-    public void setNeighbours(List<Node> neighbours) {
-        this.neighbours = neighbours;
-    }
+    
+    
     
     
     
