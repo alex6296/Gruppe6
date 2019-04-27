@@ -7,6 +7,8 @@ package dk.sdu.g3.pathfinding;
 
 import dk.sdu.g3.common.data.Coordinate;
 import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class Node {
@@ -15,8 +17,8 @@ public class Node {
     private final Coordinate center;
     private final int size;
     private boolean isBlocked;
-    private Node previousNode;
-    private ArrayList<Node> neighbours;
+    private List<Node> neighbours;
+    private double totalCost;
     private double accumulatedStepCost; //accumulatedStepCost + heuristic - estimated total cost from start to goal through this node
     private double heuristic; //estimated heuristic value, defined by the heuristic function
 
@@ -40,28 +42,12 @@ public class Node {
         this.isBlocked = isBlocked;
     }
 
-    public ArrayList<Node> getNeighbours() {
-        return neighbours;
-    }
-
-    public void setNeighbours(ArrayList<Node> neighbours) {
-        this.neighbours = neighbours;
-    }
-    
-    public void setPreviousNode(Node previousNode) {
-        this.previousNode = previousNode;
-    }
-
     public Coordinate getCenter() {
         return center;
     }
 
     public int getSize() {
         return size;
-    }
-
-    public Node getPreviousNode() {
-        return previousNode;
     }
     
     public double getAccumulatedStepCost() {
@@ -79,7 +65,19 @@ public class Node {
     public void setHeuristic(double heuristic) {
         this.heuristic = heuristic;
     }
- 
+
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public List<Node> getNeighbours() {
+        return neighbours;
+    }
+
     
     
 }
