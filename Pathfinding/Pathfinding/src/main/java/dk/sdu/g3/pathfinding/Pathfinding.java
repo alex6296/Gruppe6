@@ -56,6 +56,8 @@ public class Pathfinding implements IPathfinding {
                 calculateHeuristic(node);
                 node.setTotalCost(node.getAccumulatedStepCost() + node.getHeuristic());
             }
+            //Line 3 here!
+                //Find node with lowest totalCost (HINT: TotalCost calculated in line 57 (NetBeans))
 
             if (currentNode.getCenter().equals(goalNode.getCenter())) { //if Node with lowest cost == Goal --> success! (Line 5)
                 break; //Return path found
@@ -64,28 +66,31 @@ public class Pathfinding implements IPathfinding {
             currentNode = findSuccessor(currentNode); //Line 6
 
             for (Node successor : currentNode.getNeighbours()) { //(Line 7)
-                successor.setAccumulatedStepCost(currentNode.getAccumulatedStepCost() + STEP_COST); //Line 8
+                successor.setAccumulatedStepCost(currentNode.getAccumulatedStepCost() + STEP_COST); //Line 8 // XXXXXXX What is "w" in pseudocode? XXXXXXXXX
                 if (openList.contains(successor)) { //Line 9
-                    if (successor.getAccumulatedStepCost() <= successor.getTotalCost()) { //Check denne mod pseudo
+                    if (successor.getAccumulatedStepCost() <= successor.getTotalCost()) { //Line 10 //Check denne mod pseudo
                         Node tmpNode = currentNode;
                         currentNode = successor;
                         openList.remove(tmpNode);
-                        closedList.add(tmpNode);
+                        closedList.add(tmpNode); //Line 20
                     }  
-                } else if(closedList.contains(successor)) {
+                } else if(closedList.contains(successor)) { //Line 11
                     if (successor.getAccumulatedStepCost() <= successor.getTotalCost()) { //Check denne mod pseudo
-                        openList.add(successor);
-                        closedList.remove(successor);
+                        openList.add(successor);        //XXXXXXXXXX Add node to CLOSED List XXXXXXXXXX (Go to psueudo Line 20)
+                        closedList.remove(successor);   // - || -
                     }
                 } else {
-                    openList.add(successor);
-                    calculateHeuristic(successor);
+                    openList.add(successor); //Line 15
+                    calculateHeuristic(successor); //Line 16
                 }
-                successor.setAccumulatedStepCost(successor.getTotalCost());
-                successor.setParent(currentNode);
+                successor.setAccumulatedStepCost(successor.getTotalCost()); //Line 18
+                successor.setParent(currentNode); //Line 19
             }
             closedList.add(currentNode);
         }
+        //XXXXXXXXXX Missing Line 23 XXXXXXXXXX Need failure return
+        
+        
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println("NO GOAL NODE WAS FOUND");
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -134,7 +139,7 @@ public class Pathfinding implements IPathfinding {
     }
 
     //Find the most promising Node to move to next
-    public Node findSuccessor(Node currentNode) {
+    public Node findSuccessor(Node currentNode) { //XXXXXXXXXXXX Why public? XXXXXXXXXXX
         double lowestCost = Double.MAX_VALUE;
         for (Node node : openList) { //Finding Node with lowest total cost (Line 3+4)
             if (node.getTotalCost() < lowestCost) {
