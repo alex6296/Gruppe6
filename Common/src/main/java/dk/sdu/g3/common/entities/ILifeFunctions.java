@@ -5,6 +5,8 @@
  */
 package dk.sdu.g3.common.entities;
 
+import dk.sdu.g3.common.services.IUnit;
+
 /**
  *
  * @author pvies
