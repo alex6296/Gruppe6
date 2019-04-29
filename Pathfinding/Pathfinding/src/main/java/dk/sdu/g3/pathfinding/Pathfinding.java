@@ -236,6 +236,7 @@ public class Pathfinding implements IPathfinding {
         for (int i = 0; i < openList.size() - 1; i++) {
             //if X-value is equal in i+1 and i Y-value has changed
             if (openList.get(i).getCenter().getX() == openList.get(i + 1).getCenter().getX()) {
+                //Check if target coordinate is higher or lower value than current coordinate
                 if (openList.get(i).getCenter().getY() > openList.get(i + 1).getCenter().getY()) {
                     for (int y = openList.get(i).getCenter().getY(); y > openList.get(i + 1).getCenter().getY(); y--) {
                         coordinateList.add(new Coordinate(openList.get(i).getCenter().getX(), y));
@@ -247,6 +248,7 @@ public class Pathfinding implements IPathfinding {
                 }
                 //If Y-value is equal in i+1 and i X-value has changed
             } else if (openList.get(i).getCenter().getY() == openList.get(i + 1).getCenter().getY()) {
+                //Check if target coordinate is higher or lower value than current coordinate
                 if (openList.get(i).getCenter().getX() > openList.get(i + 1).getCenter().getX()) {
                     for (int x = openList.get(i).getCenter().getX(); x > openList.get(i + 1).getCenter().getX(); x--) {
                         coordinateList.add(new Coordinate(x, openList.get(i).getCenter().getY()));
