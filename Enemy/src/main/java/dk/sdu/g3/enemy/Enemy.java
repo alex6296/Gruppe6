@@ -6,8 +6,10 @@
 package dk.sdu.g3.enemy;
 
 import dk.sdu.g3.common.services.IEnemy;
-import dk.sdu.g3.common.services.ITower;
+import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.ITowerFactory;
+import dk.sdu.g3.common.services.IUnit;
+import dk.sdu.g3.common.services.IUnitFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
@@ -32,8 +34,8 @@ public class Enemy implements IEnemy {
     int bigUnits;
     int smallUnits;
     int counter;
-    ArrayList<ITower> waveList = new ArrayList();
-    ArrayList<ITowerFactory> towerList = new ArrayList();
+    ArrayList<IPlaceableEntity> EntityList = new ArrayList();
+    ArrayList<IUnitFactory> UnitFactoryList = new ArrayList();
     serviceLoaderEnemy unitLoader = new serviceLoaderEnemy();
 
     public Enemy() {
@@ -52,14 +54,14 @@ public class Enemy implements IEnemy {
         smallUnits = 100 - bigUnits;
         while(bigUnits == counter){
             for (ITowerFactory tower : unitLoader.getSP(ITowerFactory.class)){
-                waveList.add(tower.getNewTower());
+                EntityList.add(tower.getNewTower());
                 
                 
             }
         }
         while(smallUnits == counter){
             for (ITowerFactory tower : unitLoader.getSP(ITowerFactory.class)){
-                waveList.add(tower.getNewTower());
+                EntityList.add(tower.getNewTower());
         
             }
         }
@@ -70,25 +72,35 @@ public class Enemy implements IEnemy {
         
     return bigUnits;
 }
+
+    @Override
+    public boolean create(IUnit unit) {
+        for (ITowerFactory tower : unitLoader.getSP(ITowerFactory.class)){
+            
+                EntityList.add(tower.getNewTower());
+            return true;    
+        }
+        return false;
+    }
     
     
     public class serviceLoaderEnemy {
 
         private final Lookup lookup = Lookup.getDefault();
-        private Lookup.Result<ITowerFactory> result;
+        private Lookup.Result<IUnitFactory> result;
 
         public serviceLoaderEnemy() {
             //vars
             
-            result = lookup.lookupResult(ITowerFactory.class); //Finds SP'
+            result = lookup.lookupResult(IUnitFactory.class); //Finds SP'
             result.addLookupListener(lookupListener);
             result.allItems();
 
             System.out.println("---IGamePluginService---");
             //inizial load
-            for (ITowerFactory plugin : result.allInstances()) {
+            for (IUnitFactory plugin : result.allInstances()) {
                 System.out.println(plugin);
-                towerList.add(plugin);
+                UnitFactoryList.add(plugin);
             }
         }
 
@@ -96,20 +108,20 @@ public class Enemy implements IEnemy {
             @Override
             public void resultChanged(LookupEvent le) {
 
-                Collection<? extends ITowerFactory> updated = result.allInstances();
+                Collection<? extends IUnitFactory> updated = result.allInstances();
 
-                for (ITowerFactory us : updated) {
+                for (IUnitFactory us : updated) {
                     // Newly installed modules
-                    if (!towerList.contains(us)) {
-                        towerList.add(us);
+                    if (!UnitFactoryList.contains(us)) {
+                        UnitFactoryList.add(us);
                     }
                 }
 
                 // Stop and remove module
-                for (ITowerFactory gs : towerList) {
+                for (IUnitFactory gs : UnitFactoryList) {
                     if (!updated.contains(gs)) {
                         
-                        towerList.remove(gs);
+                        UnitFactoryList.remove(gs);
                     }
                 }
             }

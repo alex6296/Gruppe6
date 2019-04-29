@@ -8,8 +8,6 @@ package dk.sdu.g3.unit;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.services.IUnit;
-import org.openide.util.lookup.ServiceProvider;
-import org.openide.util.lookup.ServiceProviders;
 import dk.sdu.g3.common.data.ITile;
 import dk.sdu.g3.common.entities.ILifeFunctions;
 import dk.sdu.g3.common.rendering.IRenderableUnit;
@@ -19,7 +17,6 @@ import java.util.List;
 /**
  *
  */
-@ServiceProviders(value = {@ServiceProvider (service = IUnit.class),})
 public class Unit implements IUnit, IRenderableUnit{
     
     

@@ -11,6 +11,7 @@ package dk.sdu.g3.common.services;
  */
 public interface IEnemy {
     
+     boolean create(IUnit unit);
      int getCurrentWave();
      public  void createWave();
     

@@ -14,5 +14,13 @@ import dk.sdu.g3.common.entities.ILifeFunctions;
 public interface ITower extends IPlaceableEntity {
     
     public void shoot(ILifeFunctions[] enemiesInRange);
+    
+    public int getLife();
+
+    public int getDamage();
+
+    public int getAttackSpeed();
+
+    public int getAttackRange();
 
 }

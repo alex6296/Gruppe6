@@ -16,7 +16,6 @@ public interface IController {
     
     List<IPlaceableEntity> getEntities();
     
-    boolean create(IPlaceableEntity entity);
     void remove(ILifeFunctions livingEntity);
     boolean decreaseHp(int damage);     // returns boolean indicating whether this damage killed the controller
     
