@@ -89,15 +89,15 @@ public class Pathfinding implements IPathfinding {
             }
             closedList.add(currentNode);
         }
-        //XXXXXXXXXX Missing Line 23 XXXXXXXXXX Need failure return
-        
         convertNodes(openList);
         
         
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println("NO GOAL NODE WAS FOUND");
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        return null; //Change return
+        
+        
+        return coordinateList; //Change return
     }
 
     private void defineGoalNode(Coordinate goal) {
