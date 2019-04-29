@@ -6,6 +6,15 @@
 package dk.sdu.g3.enemy;
 
 import dk.sdu.g3.common.services.IEnemy;
+import dk.sdu.g3.common.services.ITower;
+import dk.sdu.g3.common.services.ITowerFactory;
+import dk.sdu.g3.towerfactory.towerFactory;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
+import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -18,14 +27,98 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = IEnemy.class)
 })
 public class Enemy implements IEnemy {
+    int currentWave = 0;
+    int gold = 0;
+    Random random = new Random();
+    int bigUnits;
+    int smallUnits;
+    int counter;
+    ArrayList<ITower> waveList = new ArrayList();
+    ArrayList<ITowerFactory> towerList = new ArrayList();
+    serviceLoader unitLoader = new serviceLoader();
+
+    public Enemy() {
+        
+    }
+
 
     @Override
     public int getCurrentWave() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return currentWave;
     }
 
     @Override
     public void createWave() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        bigUnits = generateWaveComposition();
+        smallUnits = 100 - bigUnits;
+        while(bigUnits == counter){
+            for (ITowerFactory tower : unitLoader.getSP(ITowerFactory.class)){
+                waveList.add(tower.getNewTower());
+                
+                
+            }
+        }
+        while(smallUnits == counter){
+            for (ITowerFactory tower : unitLoader.getSP(ITowerFactory.class)){
+                waveList.add(tower.getNewTower());
+        
+            }
+        }
+    }
+    public int generateWaveComposition(){
+        ArrayList<Object> wave = new ArrayList();
+        int bigUnits = random.nextInt(51);
+        
+    return bigUnits;
+}
+    
+    
+    public class serviceLoader {
+
+        private final Lookup lookup = Lookup.getDefault();
+        private Lookup.Result<ITowerFactory> result;
+
+        public serviceLoader() {
+            //vars
+            
+            result = lookup.lookupResult(ITowerFactory.class); //Finds SP'
+            result.addLookupListener(lookupListener);
+            result.allItems();
+
+            System.out.println("---IGamePluginService---");
+            //inizial load
+            for (ITowerFactory plugin : result.allInstances()) {
+                System.out.println(plugin);
+                towerList.add((towerFactory) plugin);
+            }
+        }
+
+        private final LookupListener lookupListener = new LookupListener() {
+            @Override
+            public void resultChanged(LookupEvent le) {
+
+                Collection<? extends ITowerFactory> updated = result.allInstances();
+
+                for (ITowerFactory us : updated) {
+                    // Newly installed modules
+                    if (!towerList.contains(us)) {
+                        towerList.add((towerFactory) us);
+                    }
+                }
+
+                // Stop and remove module
+                for (ITowerFactory gs : towerList) {
+                    if (!updated.contains(gs)) {
+                        
+                        towerList.remove(gs);
+                    }
+                }
+            }
+        };
+
+        private <T> Collection<? extends T> getSP(Class<T> SPI) {
+            return lookup.lookupAll(SPI);
+        }
+
     }
     }
