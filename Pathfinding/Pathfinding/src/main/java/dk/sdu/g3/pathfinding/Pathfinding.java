@@ -21,6 +21,7 @@ public class Pathfinding implements IPathfinding {
     private static final int STEP_COST = 1;
     private List<Node> openList;
     private List<Node> closedList;
+    private List<Coordinate> coordinateList;
     private Node startNode;
     private Node goalNode;
     private Node mostPromising;
@@ -89,6 +90,8 @@ public class Pathfinding implements IPathfinding {
             closedList.add(currentNode);
         }
         //XXXXXXXXXX Missing Line 23 XXXXXXXXXX Need failure return
+        
+        convertNodes(openList);
         
         
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -227,6 +230,25 @@ public class Pathfinding implements IPathfinding {
 
     public void setTotalPathCost(double totalPathCost) {
         this.totalPathCost = totalPathCost;
+    }
+
+    private List<Coordinate> convertNodes(List<Node> openList) {
+        coordinateList = new ArrayList<Coordinate>();
+        //Termination clause might have to be -2 as we don't need goalNode when creating Coordinates between Nodes
+        for(int i = 0; i < openList.size() -1; i++) {
+            //if X-value is equal in i+1 and i Y-value has changed
+            if(openList.get(i).getCenter().getX() == openList.get(i+1).getCenter().getX()) {
+                for(int y = openList.get(i).getCenter().getY(); y < openList.get(i+1).getCenter().getY(); y++) {
+                    coordinateList.add(new Coordinate(openList.get(i).getCenter().getX(), y));
+                }
+                //If Y-value is equal in i+1 and i X-value has changed
+            } else if(openList.get(i).getCenter().getY() == openList.get(i+1).getCenter().getY()){
+                for(int x = openList.get(i).getCenter().getX(); x < openList.get(i+1).getCenter().getX(); x++) {
+                    coordinateList.add(new Coordinate(x, openList.get(i).getCenter().getY()));
+                }
+            }
+        }
+        return coordinateList;
     }
 
 }
