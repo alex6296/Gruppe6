@@ -18,6 +18,7 @@ public class Map implements IMap {
     private ArrayList<Tile> tiles;
     private int lengthX, lengthY;
     private int scaler = 50; // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
+
     
     
     public Map() {      // this needs mutator methods for x and y lengths as well as a public generateMap method to work
@@ -34,7 +35,6 @@ public class Map implements IMap {
     public void generateMap() {    // probably called right after constructor, generates list of tiles based on map size.
         
         tiles  = new ArrayList<>();
-        
         int tileSize = lengthX / scaler;
         int x = 0;
         int y = 0;
@@ -48,12 +48,12 @@ public class Map implements IMap {
             
     }
     
-    @Override
     public void addEntity(IPlaceableEntity entity) {
         Coordinate pos = entity.getCurrentPosition();
         getTile(pos).add(entity);
     }
     
+
     @Override
     public void removeEntity(IPlaceableEntity entity) {
         Coordinate pos = entity.getCurrentPosition();
@@ -87,7 +87,18 @@ public class Map implements IMap {
     @Override
     public void setLengthY(int y) {
         this.lengthY = y;
+
     }
+    
+//    @Override
+//    public void setLengthX(int x) {
+//        this.lengthX = x;
+//    }
+//    
+//    @Override
+//    public void setLengthY(int y) {
+//        this.lengthY = y;
+//    }
 
     @Override
     public List<IPlaceableEntity> updatePositions() {

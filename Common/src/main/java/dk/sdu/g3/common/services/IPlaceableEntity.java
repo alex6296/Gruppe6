@@ -14,7 +14,6 @@ import dk.sdu.g3.common.data.Coordinate;
 public interface IPlaceableEntity {
     
     void setPosition(Coordinate coord);
-    
     int[][] getFootprint();
     Coordinate getCurrentPosition();
     int getCost();
