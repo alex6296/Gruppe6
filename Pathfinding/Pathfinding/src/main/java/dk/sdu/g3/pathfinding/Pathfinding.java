@@ -88,17 +88,13 @@ public class Pathfinding implements IPathfinding {
             }
             closedList.add(currentNode);
         }
+        //XXXXXXXXXX Missing Line 23 XXXXXXXXXX Need failure return
         
-        converNodes(openList);        
         
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println("NO GOAL NODE WAS FOUND");
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        return openList; //Changed to a Node return
-    }
-    
-    private List converNodes(List openList) {
-        //Convert all nodes in chronological order to all usable coordinates and return the new list prepared for return in "generatePath()"
+        return null; //Change return
     }
 
     private void defineGoalNode(Coordinate goal) {
@@ -152,6 +148,10 @@ public class Pathfinding implements IPathfinding {
             }
         }
         return mostPromising;
+    }
+
+    public void addToFringe() {
+
     }
 
     /**
