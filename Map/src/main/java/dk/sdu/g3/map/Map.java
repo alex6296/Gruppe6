@@ -17,6 +17,8 @@ public class Map implements IMap {
 
     private ArrayList<Tile> tiles;
     private int lengthX, lengthY;
+    private int scaler = 50; // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
+
     
     
     public Map() {      // this needs mutator methods for x and y lengths as well as a public generateMap method to work
@@ -29,22 +31,30 @@ public class Map implements IMap {
 //    }
     
     
-    // @Override
+    @Override
     public void generateMap() {    // probably called right after constructor, generates list of tiles based on map size.
         
         tiles  = new ArrayList<>();
+        int tileSize = lengthX / scaler;
+        int x = 0;
+        int y = 0;
         
-            // ***********************TODO***********************
+        while (y < this.lengthY) {
+            for (x = 0; x < this.lengthX; x += 2*tileSize) {
+                tiles.add(new Tile(x+tileSize, y+tileSize, tileSize));
+            }
+            y += 2*tileSize;
+        }
             
     }
     
-    //  @Override
     public void addEntity(IPlaceableEntity entity) {
         Coordinate pos = entity.getCurrentPosition();
         getTile(pos).add(entity);
     }
     
-    //  @Override
+
+    @Override
     public void removeEntity(IPlaceableEntity entity) {
         Coordinate pos = entity.getCurrentPosition();
         getTile(pos).remove(entity);
@@ -67,6 +77,17 @@ public class Map implements IMap {
     @Override
     public int getLengthY() {
         return this.lengthY;
+    }
+    
+    @Override
+    public void setLengthX(int x) {
+        this.lengthX = x;
+    }
+    
+    @Override
+    public void setLengthY(int y) {
+        this.lengthY = y;
+
     }
     
 //    @Override
@@ -94,12 +115,12 @@ public class Map implements IMap {
                     if (newPos == null) {               // if entity has reached the end of its path, it should be despawned.
                         toBeRemoved.add(entity);
                         Coordinate endPos = new Coordinate(this.lengthX, currentPos.getY());    // unit is at the end of its path - it is put at the end of the map until a controller removes it.
-                        entity.setCurrentPosition(endPos);
+                        entity.setPosition(endPos);
                         getTile(endPos).add(entity);        // place entity on end tile
                         continue;
                     }
                     
-                    entity.setCurrentPosition(newPos);
+                    entity.setPosition(newPos);
                     getTile(newPos).add(entity);        // place entity on new tile
                     
                 }

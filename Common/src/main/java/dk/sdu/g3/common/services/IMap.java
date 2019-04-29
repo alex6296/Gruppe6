@@ -18,6 +18,11 @@ public interface IMap {
     List<ITile> getTileList();
     int getLengthX();
     int getLengthY();
+    void setLengthX(int x);
+    void setLengthY(int y);
+    void generateMap();
+    void addEntity(IPlaceableEntity entity);
+    void removeEntity(IPlaceableEntity entity);
     
     List<IPlaceableEntity> updatePositions();
     void updateActions();

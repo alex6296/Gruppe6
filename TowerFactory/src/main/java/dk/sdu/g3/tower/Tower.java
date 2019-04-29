@@ -102,6 +102,7 @@ public class Tower implements ITower, IRenderableUnit {
         this.attackRange = attackRange;
     }
 
+    @Override
     public void setPosition(Coordinate position) {
         this.position = position;
     }

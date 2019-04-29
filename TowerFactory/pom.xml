@@ -44,11 +44,6 @@
                     <useDefaultManifestFile>true</useDefaultManifestFile>
                 </configuration>
             </plugin>
-            <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.15</version>
-            </plugin>
         </plugins>
     </build>
     
@@ -66,17 +61,21 @@
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util-lookup</artifactId>
-            <version>RELEASE82</version>
+            <version>${netbeans.version}</version>
             <type>jar</type>
         </dependency>
         
         <!-- NbModuleSuite functional in RELEASE70 or later: -->
+        
+        <!-- THIS GIVES PROBLEMS:       
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-modules-nbjunit</artifactId>
-            <version>RELEASE82</version> <!-- beyond platform cluster, this often needs to be dropped down to compile/runtime, some other modules in IDE clusters depend on it -->
+            <version>${netbeans.version}</version>  beyond platform cluster, this often needs to be dropped down to compile/runtime, some other modules in IDE clusters depend on it 
             <type>jar</type>
-        </dependency>
+        </dependency>-->
+        
+        
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
