@@ -7,7 +7,6 @@ package dk.sdu.g3.enemy;
 
 import dk.sdu.g3.common.services.IEnemy;
 import dk.sdu.g3.common.services.IPlaceableEntity;
-import dk.sdu.g3.common.services.ITowerFactory;
 import dk.sdu.g3.common.services.IUnit;
 import dk.sdu.g3.common.services.IUnitFactory;
 import java.util.ArrayList;
@@ -53,15 +52,15 @@ public class Enemy implements IEnemy {
         bigUnits = generateWaveComposition();
         smallUnits = 100 - bigUnits;
         while(bigUnits == counter){
-            for (ITowerFactory tower : unitLoader.getSP(ITowerFactory.class)){
-                EntityList.add(tower.getNewTower());
+            for (IUnitFactory unit : unitLoader.getSP(IUnitFactory.class)){
+                EntityList.add(unit.getNewUnit());
                 
                 
             }
         }
         while(smallUnits == counter){
-            for (ITowerFactory tower : unitLoader.getSP(ITowerFactory.class)){
-                EntityList.add(tower.getNewTower());
+            for (IUnitFactory unit : unitLoader.getSP(IUnitFactory.class)){
+                EntityList.add(unit.getNewUnit());
         
             }
         }
@@ -75,9 +74,9 @@ public class Enemy implements IEnemy {
 
     @Override
     public boolean create(IUnit unit) {
-        for (ITowerFactory tower : unitLoader.getSP(ITowerFactory.class)){
+        for (IUnitFactory unit1 : unitLoader.getSP(IUnitFactory.class)){
             
-                EntityList.add(tower.getNewTower());
+                EntityList.add(unit1.getNewUnit(unit.getCurrentHp(),unit.getDamage() , unit.getFootprint(), unit.getCost(), unit.getAttackRange(), unit.getAttackSpeed(), unit.getCurrentPosition()));
             return true;    
         }
         return false;

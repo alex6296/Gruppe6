@@ -15,6 +15,6 @@ public interface IUnitFactory {
     
     public IUnit getNewUnit();
     
-    public IUnit getNewTower(int hitPoints, int damage, int[][] footprint, int cost
+    public IUnit getNewUnit(int hitPoints, int damage, int[][] footprint, int cost
     , int attackRange, int attackSpeed, Coordinate position);
 }

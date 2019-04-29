@@ -123,5 +123,63 @@ public class Unit implements IUnit, IRenderableUnit{
         this.attackSpeed = attackSpeed;
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
+    public void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
+    }
+
+    public int getCostOfUnit() {
+        return costOfUnit;
+    }
+
+    public void setCostOfUnit(int costOfUnit) {
+        this.costOfUnit = costOfUnit;
+    }
+
+    public ITile getTile() {
+        return tile;
+    }
+
+    public void setTile(ITile tile) {
+        this.tile = tile;
+    }
+
+    public int[][] getUnitFootprint() {
+        return unitFootprint;
+    }
+
+    public void setUnitFootprint(int[][] unitFootprint) {
+        this.unitFootprint = unitFootprint;
+    }
+
+    public int getAttackRange() {
+        return attackRange;
+    }
+
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
+    }
+    
+    
+
     
 }

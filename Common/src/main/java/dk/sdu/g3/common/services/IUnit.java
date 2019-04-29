@@ -7,14 +7,17 @@
 package dk.sdu.g3.common.services;
 
 import dk.sdu.g3.common.data.Coordinate;
+import dk.sdu.g3.common.rendering.IRenderableUnit;
 import java.util.List;
 
 /**
  *
  */
-public interface IUnit extends IPlaceableEntity {
+public interface IUnit extends IPlaceableEntity,IRenderableUnit {
 
     public Coordinate getNextStep(Coordinate position);
     public void attack(List<IPlaceableEntity> targetList);
+   
+        
 
 }

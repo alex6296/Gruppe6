@@ -17,5 +17,12 @@ public interface IPlaceableEntity {
     int[][] getFootprint();
     Coordinate getCurrentPosition();
     int getCost();
+    int getAttackRange();
+    int getAttackSpeed();
+    public int getLife();
+    public int getDamage();
+                
+
+    
 
 }
