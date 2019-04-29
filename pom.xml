@@ -65,7 +65,7 @@
         <module>Unit</module>
         <module>Player</module>
         <module>Enemy</module>
-        <module>Tower</module>
+        <module>TowerFactory</module>
     </modules>
 
     <properties>
