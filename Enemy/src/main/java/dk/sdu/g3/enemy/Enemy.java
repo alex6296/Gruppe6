@@ -8,7 +8,6 @@ package dk.sdu.g3.enemy;
 import dk.sdu.g3.common.services.IEnemy;
 import dk.sdu.g3.common.services.ITower;
 import dk.sdu.g3.common.services.ITowerFactory;
-import dk.sdu.g3.towerfactory.towerFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
@@ -35,7 +34,7 @@ public class Enemy implements IEnemy {
     int counter;
     ArrayList<ITower> waveList = new ArrayList();
     ArrayList<ITowerFactory> towerList = new ArrayList();
-    serviceLoader unitLoader = new serviceLoader();
+    serviceLoaderEnemy unitLoader = new serviceLoaderEnemy();
 
     public Enemy() {
         
@@ -73,12 +72,12 @@ public class Enemy implements IEnemy {
 }
     
     
-    public class serviceLoader {
+    public class serviceLoaderEnemy {
 
         private final Lookup lookup = Lookup.getDefault();
         private Lookup.Result<ITowerFactory> result;
 
-        public serviceLoader() {
+        public serviceLoaderEnemy() {
             //vars
             
             result = lookup.lookupResult(ITowerFactory.class); //Finds SP'
@@ -89,7 +88,7 @@ public class Enemy implements IEnemy {
             //inizial load
             for (ITowerFactory plugin : result.allInstances()) {
                 System.out.println(plugin);
-                towerList.add((towerFactory) plugin);
+                towerList.add(plugin);
             }
         }
 
@@ -102,7 +101,7 @@ public class Enemy implements IEnemy {
                 for (ITowerFactory us : updated) {
                     // Newly installed modules
                     if (!towerList.contains(us)) {
-                        towerList.add((towerFactory) us);
+                        towerList.add(us);
                     }
                 }
 

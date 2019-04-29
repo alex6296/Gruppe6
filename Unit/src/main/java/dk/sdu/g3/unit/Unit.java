@@ -89,7 +89,7 @@ public class Unit implements IUnit, IRenderableUnit{
     }
 
     @Override
-    public void setCurrentPosition(Coordinate coord) {   
+    public void setPosition(Coordinate coord) {   
        this.position = coord;
     }
 
@@ -126,9 +126,5 @@ public class Unit implements IUnit, IRenderableUnit{
         this.attackSpeed = attackSpeed;
     }
 
-    @Override
-    public void setCurrentPosition(Coordinate coord) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
 }

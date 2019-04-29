@@ -7,7 +7,9 @@ package dk.sdu.g3.tower;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.entities.ILifeFunctions;
+import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.IUnit;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -76,10 +78,6 @@ public class TowerTest {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
-        @Override
-        public void attack() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
 
         @Override
         public int[][] getFootprint() {
@@ -98,6 +96,11 @@ public class TowerTest {
 
         @Override
         public void setPosition(Coordinate coord) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void attack(List<IPlaceableEntity> targetList) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
