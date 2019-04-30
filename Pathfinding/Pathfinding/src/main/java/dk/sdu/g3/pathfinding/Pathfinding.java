@@ -24,8 +24,6 @@ public class Pathfinding implements IPathfinding {
     private List<Coordinate> coordinateList;
     private Node startNode;
     private Node goalNode;
-    private Node mostPromising;
-    private Node currentNode;
 
     public Pathfinding() {
     }
@@ -41,56 +39,62 @@ public class Pathfinding implements IPathfinding {
     public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) {
         openList = new ArrayList<>();
         closedList = new ArrayList<>();
+        Node currentNode = null;
 
         createNodes(); //Convert all Coordinates to Nodes
         defineStartNode(start); //Define startNode from nodes
         defineGoalNode(goal); // Define goalNode from nodes
 
         calculateHeuristic(startNode);
-        startNode.setTotalCost(startNode.getHeuristic());
+        calculateTotalPathCost(startNode);
         openList.add(startNode); //Line 1
 
         while (!openList.isEmpty()) { //Line 2
+            currentNode = openList.get(0);
 
             for (Node node : openList) { //totalCost calcualted
                 calculateHeuristic(node);
-                node.setTotalCost(node.getAccumulatedStepCost() + node.getHeuristic());
+                calculateTotalPathCost(node);
+                if (node.getTotalCost() < currentNode.getTotalCost()) {
+                    currentNode = node;
+                }
             }
-            //Line 3 here!
-            //Find node with lowest totalCost (HINT: TotalCost calculated in line 57 (NetBeans))
 
             if (currentNode.getCenter().equals(goalNode.getCenter())) { //if Node with lowest cost == Goal --> success! (Line 5)
-                break; //Return path found
+                closedList.add(currentNode);
+                convertNodes(closedList);
+
+                return coordinateList; //Changed return
             }
 
-            currentNode = findSuccessor(currentNode); //Line 6
+            setAdjacentNodes(currentNode); //Line 6 //find all seccessorNodes
 
             for (Node successor : currentNode.getNeighbours()) { //(Line 7)
-                successor.setAccumulatedStepCost(currentNode.getAccumulatedStepCost() + STEP_COST); //Line 8 // XXXXXXX What is "w" in pseudocode? XXXXXXXXX
+                double successorCurrentCost = currentNode.getAccumulatedStepCost() + STEP_COST; //Line 8 // XXXXXXX What is "w" in pseudocode? XXXXXXXXX
                 if (openList.contains(successor)) { //Line 9
-                    if (successor.getAccumulatedStepCost() <= successor.getTotalCost()) { //Line 10 //Check denne mod pseudo
-                        Node tmpNode = currentNode;
-                        currentNode = successor;
-                        openList.remove(tmpNode);
-                        closedList.add(tmpNode); //Line 20
+                    if (successor.getAccumulatedStepCost() <= successorCurrentCost) { //Line 10
+                        closedList.add(currentNode); //Line 20
                     }
                 } else if (closedList.contains(successor)) { //Line 11
-                    if (successor.getAccumulatedStepCost() <= successor.getTotalCost()) { //Check denne mod pseudo
-                        openList.add(successor);        //XXXXXXXXXX Add node to CLOSED List XXXXXXXXXX (Go to psueudo Line 20)
-                        closedList.remove(successor);   // - || -
+                    if (successor.getAccumulatedStepCost() <= successorCurrentCost) { //Check denne mod pseudo
+                        closedList.add(currentNode);
+                    } else {
+                        openList.add(successor);        
+                        closedList.remove(successor);   
                     }
                 } else {
                     openList.add(successor); //Line 15
                     calculateHeuristic(successor); //Line 16
                 }
-                successor.setAccumulatedStepCost(successor.getTotalCost()); //Line 18
+                successor.setAccumulatedStepCost(successorCurrentCost); //Line 18
                 successor.setParent(currentNode); //Line 19
             }
             closedList.add(currentNode);
         }
-        convertNodes(openList);
-
-        return coordinateList; //Changed return
+        if(currentNode != goalNode) {
+            return null; //<- Insert exception handeling here
+        }
+        return null;
     }
 
     private void defineGoalNode(Coordinate goal) {
@@ -132,18 +136,6 @@ public class Pathfinding implements IPathfinding {
         for (Node node : nodes) {
             setAdjacentNodes(node);
         }
-    }
-
-    //Find the most promising Node to move to next
-    private Node findSuccessor(Node currentNode) {
-        double lowestCost = Double.MAX_VALUE;
-        for (Node node : openList) { //Finding Node with lowest total cost (Line 3+4)
-            if (node.getTotalCost() < lowestCost) {
-                lowestCost = node.getTotalCost();
-                mostPromising = node; //PROBLEM?!?!?!?
-            }
-        }
-        return mostPromising;
     }
 
     /**
@@ -226,10 +218,10 @@ public class Pathfinding implements IPathfinding {
         //Termination clause might have to be -2 as we don't need goalNode when creating Coordinates between Nodes
         for (int i = 0; i < openList.size() - 1; i++) {
             //initializing variables to avoid calling openList too much...
-            int currentX = openList.get(i).getCenter().getX();
-            int currentY = openList.get(i).getCenter().getY();
-            int nextX = openList.get(i + 1).getCenter().getX();
-            int nextY = openList.get(i + 1).getCenter().getY();
+            int currentX = closedList.get(i).getCenter().getX();
+            int currentY = closedList.get(i).getCenter().getY();
+            int nextX = closedList.get(i + 1).getCenter().getX();
+            int nextY = closedList.get(i + 1).getCenter().getY();
 
             //if X-value is equal in i+1 then i Y-value has changed
             if (currentX == nextX) {

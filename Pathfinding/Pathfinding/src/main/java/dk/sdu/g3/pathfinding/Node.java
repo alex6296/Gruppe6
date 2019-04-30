@@ -18,8 +18,8 @@ public class Node {
     private final int size;
     private boolean isBlocked;
     private List<Node> neighbours;
-    private double totalCost;
-    private double accumulatedStepCost; //accumulatedStepCost + heuristic - estimated total cost from start to goal through this node
+    private double totalCost; //accumulatedStepCost + heuristic - estimated total cost from start to goal through this node
+    private double accumulatedStepCost; 
     private double heuristic; //estimated heuristic value, defined by the heuristic function
     private Node parent;
 
