@@ -34,17 +34,8 @@ public class Node {
         neighbours.add(neighbour);
     }
 
-    //Compare two Nodes to see if they are equal
-    public boolean equals(Node node) {
-        return this.getCenter() == node.getCenter();
-    }
-
-    public boolean isIsBlocked() {
+    public boolean isBlocked() {
         return isBlocked;
-    }
-
-    public void setIsBlocked(boolean isBlocked) {
-        this.isBlocked = isBlocked;
     }
 
     public Coordinate getCenter() {

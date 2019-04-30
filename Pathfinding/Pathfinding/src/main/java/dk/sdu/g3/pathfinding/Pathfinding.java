@@ -16,9 +16,8 @@ public class Pathfinding implements IPathfinding {
     private IMap map;
     private int mapLenghtX = map.getLengthX();
     private int mapLengthY = map.getLengthY();
-    private List<Node> nodes = new ArrayList<>();
-    private double totalPathCost;
     private static final int STEP_COST = 1;
+    private List<Node> nodes = new ArrayList<>();
     private List<Node> openList;
     private List<Node> closedList;
     private List<Coordinate> coordinateList;
@@ -31,7 +30,19 @@ public class Pathfinding implements IPathfinding {
     //TODO
     @Override
     public Coordinate getNextCoordinate(Coordinate currentCoord) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //-1 in case of false return of -1
+        int coordIndex = -2;
+        if (currentCoord != goalNode.getCenter()) {
+            for (int i = 0; i <= coordinateList.size(); i++) {
+                if (currentCoord.getX() == coordinateList.get(i).getX()) {
+                    if (currentCoord.getY() == coordinateList.get(i).getY()) {
+                        coordIndex = i;
+                    }
+                }
+            }
+            return coordinateList.get(coordIndex + 1);
+        }
+        return null;
     }
 
     //TODO
@@ -79,8 +90,8 @@ public class Pathfinding implements IPathfinding {
                     if (successor.getAccumulatedStepCost() <= successorCurrentCost) { //Check denne mod pseudo
                         closedList.add(currentNode);
                     } else {
-                        openList.add(successor);        
-                        closedList.remove(successor);   
+                        openList.add(successor);
+                        closedList.remove(successor);
                     }
                 } else {
                     openList.add(successor); //Line 15
@@ -91,7 +102,7 @@ public class Pathfinding implements IPathfinding {
             }
             closedList.add(currentNode);
         }
-        if(currentNode != goalNode) {
+        if (currentNode != goalNode) {
             return null; //<- Insert exception handeling here
         }
         return null;
@@ -132,10 +143,6 @@ public class Pathfinding implements IPathfinding {
             Node node = new Node(tile.getCoordinate(), tile.getSize(), tile.isOccupied());
             nodes.add(node);
         }
-        //Set ajacent nodes right after all nodes has been created in the list
-        for (Node node : nodes) {
-            setAdjacentNodes(node);
-        }
     }
 
     /**
@@ -159,7 +166,7 @@ public class Pathfinding implements IPathfinding {
     }
 
     private void calculateTotalPathCost(Node currentNode) {
-        setTotalPathCost(currentNode.getAccumulatedStepCost() + currentNode.getHeuristic());
+        currentNode.setTotalCost(currentNode.getAccumulatedStepCost() + currentNode.getHeuristic());
     }
 
     private void setAdjacentNodes(Node currentNode) {
@@ -203,14 +210,6 @@ public class Pathfinding implements IPathfinding {
                 currentNode.addNeighbour(assignNeighbour(currentNode.getCenter().getX(), currentNode.getCenter().getY() + (currentNode.getSize() * 2)));
             }
         }
-    }
-
-    public double getTotalPathCost() {
-        return totalPathCost;
-    }
-
-    public void setTotalPathCost(double totalPathCost) {
-        this.totalPathCost = totalPathCost;
     }
 
     private List<Coordinate> convertNodes(List<Node> openList) {
