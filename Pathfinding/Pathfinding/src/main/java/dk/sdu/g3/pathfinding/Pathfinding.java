@@ -52,7 +52,6 @@ public class Pathfinding implements IPathfinding {
 
         while (!openList.isEmpty()) { //Line 2
 
-            Node bestNode = null; //XXXXXX Best node not in use XXXXXXXX
             for (Node node : openList) { //totalCost calcualted
                 calculateHeuristic(node);
                 node.setTotalCost(node.getAccumulatedStepCost() + node.getHeuristic());
@@ -91,11 +90,7 @@ public class Pathfinding implements IPathfinding {
         }
         convertNodes(openList);
 
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        System.out.println("NO GOAL NODE WAS FOUND");
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-
-        return coordinateList; //Change return
+        return coordinateList; //Changed return
     }
 
     private void defineGoalNode(Coordinate goal) {
@@ -140,7 +135,7 @@ public class Pathfinding implements IPathfinding {
     }
 
     //Find the most promising Node to move to next
-    public Node findSuccessor(Node currentNode) { //XXXXXXXXXXXX Why public? XXXXXXXXXXX
+    private Node findSuccessor(Node currentNode) {
         double lowestCost = Double.MAX_VALUE;
         for (Node node : openList) { //Finding Node with lowest total cost (Line 3+4)
             if (node.getTotalCost() < lowestCost) {
@@ -149,10 +144,6 @@ public class Pathfinding implements IPathfinding {
             }
         }
         return mostPromising;
-    }
-
-    public void addToFringe() {
-
     }
 
     /**
