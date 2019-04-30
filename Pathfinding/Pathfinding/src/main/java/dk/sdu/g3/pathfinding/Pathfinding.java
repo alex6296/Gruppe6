@@ -141,7 +141,10 @@ public class Pathfinding implements IPathfinding {
         List<ITile> tiles = map.getTileList();
         for (ITile tile : tiles) {
             Node node = new Node(tile.getCoordinate(), tile.getSize(), tile.isOccupied());
-            nodes.add(node);
+            //If Node has tower placed i.e. isBlocked -> no use for it (No need to add)
+            if (!node.isBlocked()) {
+                nodes.add(node);
+            }
         }
     }
 
