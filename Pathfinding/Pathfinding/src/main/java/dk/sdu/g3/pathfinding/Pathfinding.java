@@ -239,8 +239,8 @@ public class Pathfinding implements IPathfinding {
             int currentY = openList.get(i).getCenter().getY();
             int nextX = openList.get(i + 1).getCenter().getX();
             int nextY = openList.get(i + 1).getCenter().getY();
-            
-            //if X-value is equal in i+1 and i Y-value has changed
+
+            //if X-value is equal in i+1 then i Y-value has changed
             if (currentX == nextX) {
                 //Check if target coordinate is higher or lower value than current coordinate
                 if (currentY > nextY) {
