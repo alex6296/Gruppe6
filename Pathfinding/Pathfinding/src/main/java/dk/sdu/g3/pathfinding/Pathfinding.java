@@ -234,28 +234,34 @@ public class Pathfinding implements IPathfinding {
         coordinateList = new ArrayList<Coordinate>();
         //Termination clause might have to be -2 as we don't need goalNode when creating Coordinates between Nodes
         for (int i = 0; i < openList.size() - 1; i++) {
+            //initializing variables to avoid calling openList too much...
+            int currentX = openList.get(i).getCenter().getX();
+            int currentY = openList.get(i).getCenter().getY();
+            int nextX = openList.get(i + 1).getCenter().getX();
+            int nextY = openList.get(i + 1).getCenter().getY();
+            
             //if X-value is equal in i+1 and i Y-value has changed
-            if (openList.get(i).getCenter().getX() == openList.get(i + 1).getCenter().getX()) {
+            if (currentX == nextX) {
                 //Check if target coordinate is higher or lower value than current coordinate
-                if (openList.get(i).getCenter().getY() > openList.get(i + 1).getCenter().getY()) {
-                    for (int y = openList.get(i).getCenter().getY(); y > openList.get(i + 1).getCenter().getY(); y--) {
-                        coordinateList.add(new Coordinate(openList.get(i).getCenter().getX(), y));
+                if (currentY > nextY) {
+                    for (int y = currentY; y > nextY; y--) {
+                        coordinateList.add(new Coordinate(currentX, y));
                     }
                 } else {
-                    for (int y = openList.get(i).getCenter().getY(); y < openList.get(i + 1).getCenter().getY(); y++) {
-                        coordinateList.add(new Coordinate(openList.get(i).getCenter().getX(), y));
+                    for (int y = currentY; y < nextY; y++) {
+                        coordinateList.add(new Coordinate(currentX, y));
                     }
                 }
                 //If Y-value is equal in i+1 and i X-value has changed
-            } else if (openList.get(i).getCenter().getY() == openList.get(i + 1).getCenter().getY()) {
+            } else if (currentY == nextY) {
                 //Check if target coordinate is higher or lower value than current coordinate
-                if (openList.get(i).getCenter().getX() > openList.get(i + 1).getCenter().getX()) {
-                    for (int x = openList.get(i).getCenter().getX(); x > openList.get(i + 1).getCenter().getX(); x--) {
-                        coordinateList.add(new Coordinate(x, openList.get(i).getCenter().getY()));
+                if (currentX > nextX) {
+                    for (int x = currentX; x > nextX; x--) {
+                        coordinateList.add(new Coordinate(x, currentY));
                     }
                 } else {
-                    for (int x = openList.get(i).getCenter().getX(); x < openList.get(i + 1).getCenter().getX(); x++) {
-                        coordinateList.add(new Coordinate(x, openList.get(i).getCenter().getY()));
+                    for (int x = currentX; x < nextX; x++) {
+                        coordinateList.add(new Coordinate(x, currentY));
                     }
                 }
 
