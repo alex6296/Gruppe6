@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
+import java.lang.Exception;
 
 @ServiceProviders(value = {
     @ServiceProvider(service = IPathfinding.class),})
 public class Pathfinding implements IPathfinding {
-
-    private IMap map;
-    private final int mapLenghtX = map.getLengthX();
-    private final int mapLengthY = map.getLengthY();
+    
+    private int mapLengthX = 0;
+    private int mapLengthY = 0;
     private static final int STEP_COST = 1;
     private List<Node> nodes = new ArrayList<>();
     private List<Node> openList;
@@ -46,22 +46,23 @@ public class Pathfinding implements IPathfinding {
 //        return null;
 //    }
 
-    //TODO
     @Override
-    public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) {
-        openList = new ArrayList<>();
+    public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) throws Exception{
+        mapLengthX = map.getLengthX();
+        mapLengthY = map.getLengthY();
+        openList = new ArrayList<>(); 
         closedList = new ArrayList<>();
         Node currentNode = null;
 
-        createNodes(); //Convert all Coordinates to nodes
+        createNodes(map); //Convert all Coordinates to nodes
         defineStartNode(start); //Define startNode from nodes
         defineGoalNode(goal); // Define goalNode from nodes
 
         calculateHeuristic(startNode);
         calculateTotalPathCost(startNode);
-        openList.add(startNode); //Line 1
+        openList.add(startNode); 
 
-        while (!openList.isEmpty()) { //Line 2
+        while (!openList.isEmpty()) { 
             currentNode = openList.get(0);
 
             for (Node node : openList) { //totalCost calcualted
@@ -72,41 +73,39 @@ public class Pathfinding implements IPathfinding {
                 }
             }
 
-            if (currentNode.getCenter().equals(goalNode.getCenter())) { //if Node with lowest cost == Goal --> success! (Line 5)
+            if (currentNode.getCenter().equals(goalNode.getCenter())) { //if Node with lowest cost == Goal --> success! 
                 closedList.add(currentNode);
                 convertNodes(closedList);
 
-                return coordinateList; //Changed return
+                return coordinateList; 
             }
 
-            setAdjacentNodes(currentNode); //Line 6 //find all seccessorNodes
+            setAdjacentNodes(currentNode); //find all seccessorNodes
 
-            for (Node successor : currentNode.getNeighbours()) { //(Line 7)
-                double successorCurrentCost = currentNode.getAccumulatedStepCost() + STEP_COST; //Line 8 // XXXXXXX What is "w" in pseudocode? XXXXXXXXX
-                if (openList.contains(successor)) { //Line 9
-                    if (successor.getAccumulatedStepCost() <= successorCurrentCost) { //Line 10
-                        closedList.add(currentNode); //Line 20
+            for (Node successor : currentNode.getNeighbours()) { 
+                double successorCurrentCost = currentNode.getAccumulatedStepCost() + STEP_COST; 
+                if (openList.contains(successor)) {
+                    if (successor.getAccumulatedStepCost() <= successorCurrentCost) { 
+                        closedList.add(currentNode); 
                     }
-                } else if (closedList.contains(successor)) { //Line 11
-                    if (successor.getAccumulatedStepCost() <= successorCurrentCost) { //Check denne mod pseudo
+                } else if (closedList.contains(successor)) { 
+                    if (successor.getAccumulatedStepCost() <= successorCurrentCost) { 
                         closedList.add(currentNode);
                     } else {
                         openList.add(successor);
                         closedList.remove(successor);
                     }
                 } else {
-                    openList.add(successor); //Line 15
-                    calculateHeuristic(successor); //Line 16
+                    openList.add(successor); 
+                    calculateHeuristic(successor); 
                 }
-                successor.setAccumulatedStepCost(successorCurrentCost); //Line 18
-                successor.setParent(currentNode); //Line 19
+                successor.setAccumulatedStepCost(successorCurrentCost); 
+                successor.setParent(currentNode); 
             }
             closedList.add(currentNode);
         }
-        if (currentNode != goalNode) {
-            return null; //<- Insert exception handeling here
-        }
-        return null;
+            Exception e = new Exception();
+            throw e;
     }
 
     private void defineGoalNode(Coordinate goal) {
@@ -138,7 +137,7 @@ public class Pathfinding implements IPathfinding {
         return null;
     }
 
-    private void createNodes() {
+    private void createNodes(IMap map) {
         List<ITile> tiles = map.getTileList();
         for (ITile tile : tiles) {
             Node node = new Node(tile.getCoordinate(), tile.getSize(), tile.isOccupied());
@@ -191,7 +190,7 @@ public class Pathfinding implements IPathfinding {
 
     private void setRightNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(x) + size of currentNode(x) < max(x), we set right neighbour
-        if ((currentNode.getCenter().getX() + currentNode.getSize() < mapLenghtX)) {
+        if ((currentNode.getCenter().getX() + currentNode.getSize() < mapLengthX)) {
             if (assignNeighbour((currentNode.getCenter().getX() + (currentNode.getSize() * 2)), currentNode.getCenter().getY()) != null) {
                 currentNode.addNeighbour(assignNeighbour((currentNode.getCenter().getX() + (currentNode.getSize() * 2)), currentNode.getCenter().getY()));
             }
@@ -255,5 +254,6 @@ public class Pathfinding implements IPathfinding {
         }
         return coordinateList;
     }
+
 
 }
