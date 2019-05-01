@@ -93,7 +93,8 @@ public class STDGame extends Game {
 
     private void update() {     // this is the GameLoop
         
-        
+        //take indput
+        //handle input
         draw();
     }
 
