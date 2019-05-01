@@ -92,4 +92,6 @@ application/target/scuffedtd/platform/update_tracking/org-openide-filesystems.xm
 application/target/scuffedtd/platform/update_tracking/org-openide-util-lookup.xml
 application/target/scuffedtd/platform/update_tracking/org-openide-util-ui.xml
 application/target/scuffedtd/platform/update_tracking/org-openide-util.xml
+/Engine/nbproject/
 /SilentUpdater/target/
+/TowerFactory/target/
