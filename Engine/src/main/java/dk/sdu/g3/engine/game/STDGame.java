@@ -35,9 +35,9 @@ public class STDGame extends Game {
     public Renderer renderer = new Renderer(this);
 
     //modules
-    IEnemy enemy;
-    IPlayer player;
-    IMap map;
+    private IEnemy enemy;
+    private IPlayer player;
+    private IMap map;
 
     //dictonary
     Dict inputMapping = new Dictionary();
@@ -92,7 +92,8 @@ public class STDGame extends Game {
     }
 
     private void update() {     // this is the GameLoop
-
+        
+        
         draw();
     }
 
