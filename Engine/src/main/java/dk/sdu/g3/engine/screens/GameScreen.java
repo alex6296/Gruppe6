@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import dk.sdu.g3.engine.game.STDGame;
+import dk.sdu.g3.engine.game.gameInputHandler;
 
 
 public class GameScreen implements Screen {
@@ -18,6 +19,11 @@ public class GameScreen implements Screen {
         final GameScreen gamescreen = this;
         background = new Texture("assets/wall.png");
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        
+        // adding input Processer
+        Gdx.input.setInputProcessor(new gameInputHandler(game));
+        
+        
     }
 
     @Override
