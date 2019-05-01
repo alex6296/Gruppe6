@@ -19,7 +19,7 @@ public class TowerTest {
 
     private int life = 100;
     private int damage = 10;
-    private int[][] footprint = new int[][]{{3}, {3}};
+    private int footprint = 3;
     private int cost = 50;
     private int attackSpeed = 1;
     private int attackRange = 5;
@@ -82,7 +82,7 @@ public class TowerTest {
         }
 
         @Override
-        public int[][] getFootprint() {
+        public int getFootprint() {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 

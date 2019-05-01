@@ -15,7 +15,7 @@ public interface IPlaceableEntity {
     
     void setPosition(Coordinate coord);
     
-    int[][] getFootprint();
+    int getFootprint();
     Coordinate getCurrentPosition();
     int getCost();
 

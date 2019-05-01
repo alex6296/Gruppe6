@@ -50,7 +50,7 @@ public class Dictionary implements Dict {
      * @return the reference to the object hit
      */
     @Override
-    public inputMapping search(Coordinate target) {
+    public Object search(Coordinate target) {
         for (inputMapping m : mappings) {
             if (!(m.getOrigoX() <= target.getX() && target.getX() <= m.getBorderX())) {
 
@@ -59,7 +59,7 @@ public class Dictionary implements Dict {
 
             if (m.getOrigoY() <= target.getY() && target.getY() <= m.getBorderY()) {
 
-                return m;
+                return m.getReference();
             }
         }
         return null;

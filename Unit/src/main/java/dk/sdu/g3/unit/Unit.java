@@ -28,7 +28,7 @@ public class Unit implements IUnit{
     }
 
     @Override
-    public int[][] getFootprint() {
+    public int getFootprint() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
