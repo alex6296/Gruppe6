@@ -48,10 +48,51 @@ public class Map implements IMap {
             
     }
     
+    private boolean isPathBlocked(Coordinate currentPos) {
+        int tileSize = getTileSize();
+        Coordinate checkPos = new Coordinate(tileSize, currentPos.getY());
+        
+        boolean lOpen = false;
+        boolean rOpen = false;
+        
+        while(getTile(checkPos) != null) {
+            if (getTile(checkPos).isOccupied()) {
+                lOpen = false;
+                rOpen = false;
+            }
+            else {
+                Coordinate left = new Coordinate(checkPos.getX() - tileSize*2, checkPos.getY());
+                Coordinate right = new Coordinate(checkPos.getX() + tileSize*2, checkPos.getY());
+                
+                if (!getTile(left).isOccupied()) {
+                    lOpen = true;
+                }
+                if (!getTile(right).isOccupied()) {
+                    rOpen = true;
+                }
+                
+                if (lOpen && rOpen) {
+                    return false;
+                }
+            }
+            
+            int tempX = checkPos.getX();
+            int tempY = checkPos.getY();
+            checkPos = new Coordinate(tempX, tempY + tileSize*2);
+            
+        }
+        
+        return true;
+    }
+    
     @Override
-    public void addEntity(IPlaceableEntity entity) {
+    public boolean addEntity(IPlaceableEntity entity) {
+        if (isPathBlocked(entity.getCurrentPosition())) {
+                return false;
+        }
         Coordinate pos = entity.getCurrentPosition();
         getTile(pos).add(entity);
+        return true;
     }
     
     @Override
@@ -159,5 +200,9 @@ public class Map implements IMap {
             }
         }
         return null;
+    }
+    
+    public int getTileSize() {
+        return tiles.get(0).getSize();
     }
 }

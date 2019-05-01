@@ -21,7 +21,7 @@ public interface IMap {
     void setLengthX(int x);
     void setLengthY(int y);
     void generateMap();
-    void addEntity(IPlaceableEntity entity);
+    boolean addEntity(IPlaceableEntity entity);
     void removeEntity(IPlaceableEntity entity);
     
     List<IPlaceableEntity> updatePositions();
