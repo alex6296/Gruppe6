@@ -42,15 +42,51 @@
         </dependency>
         -->
         
-        <dependency>
-            <groupId>org.netbeans.api</groupId>
-            <artifactId>org-netbeans-modules-autoupdate-ui</artifactId>
-            <version>${netbeans.version}</version>
+<!--    MODULE DEPENDENCIES:    -->
+<!--        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>TowerFactory</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.netbeans.modules</groupId>
-            <artifactId>org-netbeans-core-windows</artifactId>
-            <version>${netbeans.version}</version>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Enemy</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Player</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Unit</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Pathfinding</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Map</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Engine</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Common</artifactId>
+            <version>${project.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Engine</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
