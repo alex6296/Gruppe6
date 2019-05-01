@@ -14,8 +14,8 @@ import org.openide.util.lookup.ServiceProviders;
 public class Pathfinding implements IPathfinding {
 
     private IMap map;
-    private int mapLenghtX = map.getLengthX();
-    private int mapLengthY = map.getLengthY();
+    private final int mapLenghtX = map.getLengthX();
+    private final int mapLengthY = map.getLengthY();
     private static final int STEP_COST = 1;
     private List<Node> nodes = new ArrayList<>();
     private List<Node> openList;
@@ -28,22 +28,23 @@ public class Pathfinding implements IPathfinding {
     }
 
     //TODO
-    @Override
-    public Coordinate getNextCoordinate(Coordinate currentCoord) {
-        //-1 in case of false return of -1
-        int coordIndex = -2;
-        if (currentCoord != goalNode.getCenter()) {
-            for (int i = 0; i <= coordinateList.size(); i++) {
-                if (currentCoord.getX() == coordinateList.get(i).getX()) {
-                    if (currentCoord.getY() == coordinateList.get(i).getY()) {
-                        coordIndex = i;
-                    }
-                }
-            }
-            return coordinateList.get(coordIndex + 1);
-        }
-        return null;
-    }
+//    @Override
+//    public Coordinate getNextCoordinate(Coordinate currentCoord) {
+//        //-1 in case of false return of -1
+//        List<Coordinate> coords = generatePath(map, startNode.getCenter(), goalNode.getCenter());
+//        int coordIndex = -2;
+//        if (currentCoord != goalNode.getCenter()) {
+//            for (int i = 0; i <= coordinateList.size(); i++) {
+//                if (currentCoord.getX() == coordinateList.get(i).getX()) {
+//                    if (currentCoord.getY() == coordinateList.get(i).getY()) {
+//                        coordIndex = i;
+//                    }
+//                }
+//            }
+//            return coordinateList.get(coordIndex + 1);
+//        }
+//        return null;
+//    }
 
     //TODO
     @Override
