@@ -7,16 +7,16 @@ package dk.sdu.g3.common.rendering;
 
 import dk.sdu.g3.common.data.Coordinate;
 
-
-
 /**
  *
  * @author pvies
  */
-public interface IRenderableEntity {
-    
+public interface IRenderableEntity extends IRenderable {
+
     String getSpriteUrl();
+
     Coordinate getCurrentPosition();
+
     int[][] getFootprint();
-    
+
 }
