@@ -53,7 +53,7 @@ public class Pathfinding implements IPathfinding {
         closedList = new ArrayList<>();
         Node currentNode = null;
 
-        createNodes(); //Convert all Coordinates to Nodes
+        createNodes(); //Convert all Coordinates to nodes
         defineStartNode(start); //Define startNode from nodes
         defineGoalNode(goal); // Define goalNode from nodes
 
