@@ -60,13 +60,12 @@
         <module>application</module>
         <module>Engine</module>
         <module>Common</module>
-        <module>Map</module>
         <module>Pathfinding/Pathfinding</module>
         <module>Unit</module>
         <module>Player</module>
         <module>Enemy</module>
         <module>TowerFactory</module>
-        <module>SilentUpdater</module>
+
     </modules>
 
     <properties>

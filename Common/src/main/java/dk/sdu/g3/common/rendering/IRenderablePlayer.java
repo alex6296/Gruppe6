@@ -9,9 +9,10 @@ package dk.sdu.g3.common.rendering;
  *
  * @author pvies
  */
-public interface IRenderablePlayer {
-    
+public interface IRenderablePlayer extends IRenderable {
+
     int getGold();
+
     int getHp();
-    
+
 }
