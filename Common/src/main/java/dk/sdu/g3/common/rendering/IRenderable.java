@@ -12,11 +12,25 @@ import java.util.List;
  * @author Administrator
  */
 public interface IRenderable {
-
-    public List<IRenderable> getForGroundElements();
-
-    public List<IRenderable> getMiddleGroundsElements();
-
-    public List<IRenderable> getBackGroundsElements();
+//    public List<IRenderable> getForGroundElements();
+//
+//    public List<IRenderable> getMiddleGroundsElements();
+//
+//    public List<IRenderable> getBackGroundsElements();
+    
+    public IStage getStage();
+    public void setStage(IStage stage); // skal den bruges??
+    public Layer getLayer();
+    public Layer setLayer(Layer layer);
+    public float getPosScaleX();
+    public float getPosScaleY();
+    public float getWithScale();
+    public float getHigthScale();
+    public void setPosScaleX(float scale);
+    public void setPosScaleY(float scale);
+    public void setWithScale(float scale);
+    public void setHigthScale(float scale);
+    
+    
 
 }
