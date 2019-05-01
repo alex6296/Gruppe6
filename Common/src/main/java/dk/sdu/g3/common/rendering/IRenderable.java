@@ -15,4 +15,8 @@ public interface IRenderable {
     public static int MIDDLEGROUND = 1;
     public static int BACKGROUND = 1;
     
+    
+    
+    
+    
 }

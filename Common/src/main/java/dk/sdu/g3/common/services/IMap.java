@@ -23,6 +23,7 @@ public interface IMap {
     void generateMap();
     void addEntity(IPlaceableEntity entity);
     void removeEntity(IPlaceableEntity entity);
+    int getTileSize();
     
     List<IPlaceableEntity> updatePositions();
     void updateActions();

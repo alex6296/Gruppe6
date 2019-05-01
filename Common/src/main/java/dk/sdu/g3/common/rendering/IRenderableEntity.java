@@ -17,6 +17,6 @@ public interface IRenderableEntity extends IRenderable {
 
     Coordinate getCurrentPosition();
 
-    int[][] getFootprint();
+    int getFootprint();
 
 }

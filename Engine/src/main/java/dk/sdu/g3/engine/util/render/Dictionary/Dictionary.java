@@ -5,13 +5,14 @@
  */
 package dk.sdu.g3.engine.util.render.Dictionary;
 
+import dk.sdu.g3.common.data.inputMapping;
 import dk.sdu.g3.common.data.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Dictionary implements Dict {
 
-    List<Mapping> mappings = new ArrayList<Mapping>();
+    List<inputMapping> mappings = new ArrayList<inputMapping>();
 
     /**
      *
@@ -22,7 +23,7 @@ public class Dictionary implements Dict {
      */
     @Override
     public void insert(Coordinate center, int tileSize, int footPrint, Object refrence) {
-        Mapping element = new Mapping(center, tileSize, footPrint, refrence);
+        inputMapping element = new inputMapping(center, tileSize, footPrint, refrence);
         mappings.add(element);
 
     }
@@ -34,7 +35,7 @@ public class Dictionary implements Dict {
      */
     @Override
     public void remove(Object refrence) {
-        for (Mapping m : mappings) {
+        for (inputMapping m : mappings) {
             if (m.getRefrence().equals(refrence)) {
                 mappings.remove(m);
                 break;
@@ -49,9 +50,8 @@ public class Dictionary implements Dict {
      * @return the reference to the object hit
      */
     @Override
-    public Object search(Coordinate target) {
-        Object refrence = null;
-        for (Mapping m : mappings) {
+    public inputMapping search(Coordinate target) {
+        for (inputMapping m : mappings) {
             if (!(m.getOrigoX() <= target.getX() && target.getX() <= m.getBorderX())) {
 
                 continue;
@@ -59,64 +59,12 @@ public class Dictionary implements Dict {
 
             if (m.getOrigoY() <= target.getY() && target.getY() <= m.getBorderY()) {
 
-                return m.getRefrence();
+                return m;
             }
         }
-        return refrence;
+        return null;
     }
 
-    private class Mapping {
-
-        private int origoX;
-        private int origoY;
-        private int BorderX;
-        private int BorderY;
-        private int footPrint;
-
-        private int size;
-        private Object reference;
-
-        public Mapping(Coordinate center, int size, int footPrint, Object reference) {
-            this.size = size;
-            this.reference = reference;
-            this.footPrint = footPrint;
-            origoX = center.getX() - size * footPrint;
-            origoY = center.getY() - size * footPrint;
-            BorderX = origoX + size * 2 * footPrint;
-            BorderY = origoY + size * 2 * footPrint;
-        }
-
-        public int getFootPrint() {
-            return footPrint;
-        }
-
-        public Object getReference() {
-            return reference;
-        }
-
-        public int getOrigoX() {
-            return origoX;
-        }
-
-        public int getOrigoY() {
-            return origoY;
-        }
-
-        public int getBorderX() {
-            return BorderX;
-        }
-
-        public int getBorderY() {
-            return BorderY;
-        }
-
-        public int getSize() {
-            return size;
-        }
-
-        public Object getRefrence() {
-            return reference;
-        }
-    }
+   
 
 }
