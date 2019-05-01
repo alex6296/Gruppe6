@@ -14,6 +14,5 @@ import java.util.List;
  */
 public interface IPathfinding {
     
-//    Coordinate getNextCoordinate(Coordinate currentCoord);
     List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) throws Exception; 
 }
