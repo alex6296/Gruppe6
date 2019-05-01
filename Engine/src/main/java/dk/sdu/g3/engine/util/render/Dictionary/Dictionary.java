@@ -15,13 +15,14 @@ public class Dictionary implements Dict {
 
     /**
      *
-     * @param center
-     * @param size
+     * @param center Coordinate of the center point of an square element
+     * @param tileSize the "radius" of an tile
+     * @param footPrint how many tiles this elemet takes up
      * @param refrence
      */
     @Override
-    public void insert(Coordinate center, int size, int footPrint, Object refrence) {
-        Mapping element = new Mapping(center, size, footPrint, refrence);
+    public void insert(Coordinate center, int tileSize, int footPrint, Object refrence) {
+        Mapping element = new Mapping(center, tileSize, footPrint, refrence);
         mappings.add(element);
 
     }
