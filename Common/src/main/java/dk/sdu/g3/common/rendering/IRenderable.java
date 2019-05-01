@@ -5,18 +5,18 @@
  */
 package dk.sdu.g3.common.rendering;
 
+import java.util.List;
+
 /**
  *
  * @author Administrator
  */
 public interface IRenderable {
-    
-    public static int FORGROUND = 1;
-    public static int MIDDLEGROUND = 1;
-    public static int BACKGROUND = 1;
-    
-    
-    
-    
-    
+
+    public List<IRenderable> getForGroundElements();
+
+    public List<IRenderable> getMiddleGroundsElements();
+
+    public List<IRenderable> getBackGroundsElements();
+
 }
