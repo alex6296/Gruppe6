@@ -284,8 +284,7 @@ public class Pathfinding implements IPathfinding {
             }
         }
         //Important to add the centerCoordinate for the last Node as the previous only adds the coordinate before next Node center
-        Coordinate lastCoordinate = list.get(list.size()-1).getCenter();
-        coordinateList.add(lastCoordinate);
+        coordinateList.add(list.get(list.size()-1).getCenter());
         return coordinateList;
     }
 

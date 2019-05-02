@@ -48,15 +48,23 @@ public class PathfindingTest {
     @Test
     public void testGeneratePath() throws Exception {
         System.out.println("generatePath");
-        IMap map = null;
-        Coordinate start = null;
-        Coordinate goal = null;
+        IMap map = new Map();
+        map.setLengthX(200);
+        map.setLengthY(200);
+        map.generateMap();
+        
+        Coordinate start = new Coordinate(4, 100);
+        Coordinate goal = new Coordinate(196, 100);
+        
         Pathfinding instance = new Pathfinding();
-        List<Coordinate> expResult = null;
         List<Coordinate> result = instance.generatePath(map, start, goal);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        boolean positiveResult = false;
+        if(result.contains(start) && result.contains(goal)) {
+            positiveResult = true;
+        }
+        
+        assertEquals(true, positiveResult);
     }
 
     /**
@@ -191,8 +199,8 @@ public class PathfindingTest {
     }
 
     /**
-     * Test of setRightNeighbour method, of class Pathfinding. Complete and
-     * compiled without error
+     * Test of setRightNeighbour method, of class Pathfinding. 
+     * Complete and compiled without error
      */
     @Test
     public void testSetRightNeighbour() {
@@ -226,6 +234,7 @@ public class PathfindingTest {
 
     /**
      * Test of setUpNeighbour method, of class Pathfinding.
+     * Complete and compiled without error
      */
     @Test
     public void testSetUpNeighbour() {
@@ -287,8 +296,8 @@ public class PathfindingTest {
     }
 
     /**
-     * Test of convertNodes method, of class Pathfinding.
-     * Complete and compiled without error
+     * Test of convertNodes method, of class Pathfinding. Complete and compiled
+     * without error
      */
     @Test
     public void testConvertNodes() {
