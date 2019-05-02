@@ -48,9 +48,13 @@ public class MapTest {
     public void testGenerateMap() {
         System.out.println("generateMap");
         Map instance = new Map();
+        instance.setLengthX(600);
+        instance.setLengthY(600);
         instance.generateMap();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int tileSize = instance.getTileSize();
+        int totalTiles = instance.getTileList().size();
+        System.out.println("TileSize: " + tileSize + "\n Total Tiles: " + totalTiles);
+        assertEquals(totalTiles, 625);
     }
 
     /**
@@ -59,11 +63,13 @@ public class MapTest {
     @org.junit.Test
     public void testAddEntity() {
         System.out.println("addEntity");
-        IPlaceableEntity entity = null;
+        IPlaceableEntity entity = null;     // ----- create entity
         Map instance = new Map();
-        instance.addEntity(entity);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.setLengthX(600);
+        instance.setLengthY(600);
+        instance.generateMap();
+        boolean result = instance.addEntity(entity);
+        assertEquals(result, true);
     }
 
     /**
@@ -72,8 +78,11 @@ public class MapTest {
     @org.junit.Test
     public void testRemoveEntity() {
         System.out.println("removeEntity");
-        IPlaceableEntity entity = null;
+        IPlaceableEntity entity = null;        // -------- also create entity
         Map instance = new Map();
+        instance.setLengthX(600);
+        instance.setLengthY(600);
+        instance.generateMap();
         instance.removeEntity(entity);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

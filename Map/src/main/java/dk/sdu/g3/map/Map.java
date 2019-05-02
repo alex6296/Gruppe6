@@ -88,8 +88,11 @@ public class Map implements IMap {
     @Override
     public boolean addEntity(IPlaceableEntity entity) {
         Coordinate pos = entity.getCurrentPosition();
+        if (!(entity instanceof IMovable) && (pos.getX() < getTileSize()*2 || pos.getX() > lengthX - getTileSize()*2)) {        // can't place towers in the first or last row
+            return false;
+        }
         getTile(pos).add(entity);
-        if (isPathBlocked(entity.getCurrentPosition())) {
+        if (!(entity instanceof IMovable) && isPathBlocked(entity.getCurrentPosition())) {
             getTile(pos).remove(entity);
             return false;
         }
