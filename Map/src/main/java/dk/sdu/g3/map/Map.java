@@ -89,14 +89,17 @@ public class Map implements IMap {
     @Override
     public boolean addEntity(IPlaceableEntity entity) {
         Coordinate pos = entity.getCurrentPosition();
+        
         if (!(entity instanceof IMovable) && (pos.getX() < getTileSize()*2 || pos.getX() > lengthX - getTileSize()*2)) {        // can't place towers in the first or last row
             return false;
         }
+        
         getTile(pos).add(entity);
-        if (!(entity instanceof IMovable) && isPathBlocked(entity.getCurrentPosition())) {
-            getTile(pos).remove(entity);
+        if (!(entity instanceof IMovable) && isPathBlocked(entity.getCurrentPosition())) {      // checks if this blocks a viable path for units
+            getTile(pos).remove(entity);            // if so, it shouldn't be allowed to be put on the map in that position
             return false;
         }
+        
         return true;
     }
     
@@ -149,7 +152,7 @@ public class Map implements IMap {
                     
                     if (newPos == null) {               // if entity has reached the end of its path, it should be despawned.
                         toBeRemoved.add(entity);
-                        Coordinate endPos = new Coordinate(this.lengthX, currentPos.getY());    // unit is at the end of its path - it is put at the end of the map until a controller removes it.
+                        Coordinate endPos = new Coordinate(this.lengthX-1, currentPos.getY());    // unit is at the end of its path - it is put at the end of the map until a controller removes it.
                         entity.setPosition(endPos);
                         getTile(endPos).add(entity);        // place entity on end tile
                         continue;
