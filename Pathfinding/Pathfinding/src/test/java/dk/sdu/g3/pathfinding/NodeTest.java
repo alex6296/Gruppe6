@@ -53,20 +53,6 @@ public class NodeTest {
     }
 
     /**
-     * Test of isBlocked method, of class Node.
-     */
-    @Test
-    public void testIsBlocked() {
-        System.out.println("isBlocked");
-        Node instance = null;
-        boolean expResult = false;
-        boolean result = instance.isBlocked();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getCenter method, of class Node.
      */
     @Test
