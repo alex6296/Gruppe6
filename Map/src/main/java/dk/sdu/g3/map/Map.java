@@ -17,21 +17,22 @@ public class Map implements IMap {
 
     private ArrayList<Tile> tiles;
     private int lengthX, lengthY;
-    private int scaler = 50; // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
+    private int scaler = 50;    // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
     
     
-    public Map() {      // this needs mutator methods for x and y lengths as well as a public generateMap method to work
+    public Map() {      // remember to also call generateMap when this constructor is used.
     }
     
-//    public Map(int lengthX, int lengthY) {
-//        this.lengthX = lengthX;
-//        this.lengthY = lengthY;
-//        generateMap();
-//    }
+    public Map(int lengthX, int lengthY) {
+        generateMap(lengthX, lengthY);
+    }
     
     
     @Override
-    public void generateMap() {    // probably called right after constructor, generates list of tiles based on map size.
+    public void generateMap(int lenX, int lenY) {    // probably called right after constructor, generates list of tiles based on map size.
+        
+        this.lengthX = lenX;
+        this.lengthY = lenY;
         
         tiles  = new ArrayList<>();
         
@@ -50,7 +51,7 @@ public class Map implements IMap {
     
     private boolean isPathBlocked(Coordinate currentPos) {
         int tileSize = getTileSize();
-        Coordinate checkPos = new Coordinate(tileSize, currentPos.getY());
+        Coordinate checkPos = new Coordinate(currentPos.getX(), tileSize);
         
         boolean lOpen = false;
         boolean rOpen = false;

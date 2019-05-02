@@ -8,6 +8,7 @@ package dk.sdu.g3.map;
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.data.ITile;
 import dk.sdu.g3.common.services.IPlaceableEntity;
+import dk.sdu.g3.tower.Tower;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -48,13 +49,11 @@ public class MapTest {
     public void testGenerateMap() {
         System.out.println("generateMap");
         Map instance = new Map();
-        instance.setLengthX(600);
-        instance.setLengthY(600);
-        instance.generateMap();
+        instance.generateMap(600, 600);
         int tileSize = instance.getTileSize();
         int totalTiles = instance.getTileList().size();
         System.out.println("TileSize: " + tileSize + "\n Total Tiles: " + totalTiles);
-        assertEquals(totalTiles, 625);
+        assertEquals(625, totalTiles);
     }
 
     /**
@@ -63,13 +62,12 @@ public class MapTest {
     @org.junit.Test
     public void testAddEntity() {
         System.out.println("addEntity");
-        IPlaceableEntity entity = null;     // ----- create entity
+        int[][] footprint = new int[1][1];
+        IPlaceableEntity entity = new Tower(100, 10, footprint, 2, 2, 5, new Coordinate(56,60));
         Map instance = new Map();
-        instance.setLengthX(600);
-        instance.setLengthY(600);
-        instance.generateMap();
+        instance.generateMap(600, 600);
         boolean result = instance.addEntity(entity);
-        assertEquals(result, true);
+        assertEquals(true, result);
     }
 
     /**
@@ -78,14 +76,17 @@ public class MapTest {
     @org.junit.Test
     public void testRemoveEntity() {
         System.out.println("removeEntity");
-        IPlaceableEntity entity = null;        // -------- also create entity
+        int[][] footprint = new int[1][1];
+        Coordinate pos = new Coordinate(56,60);
+        IPlaceableEntity entity = new Tower(100, 10, footprint, 2, 2, 5, pos);        // -------- also create entity
         Map instance = new Map();
-        instance.setLengthX(600);
-        instance.setLengthY(600);
-        instance.generateMap();
+        instance.generateMap(600, 600);
+        instance.addEntity(entity);
         instance.removeEntity(entity);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        IPlaceableEntity result = instance.getTileList().get(0).getEntities().get(0);
+        
+        assertEquals(null, result);
     }
 
     /**
@@ -95,11 +96,12 @@ public class MapTest {
     public void testGetTileList() {
         System.out.println("getTileList");
         Map instance = new Map();
-        List<ITile> expResult = null;
-        List<ITile> result = instance.getTileList();
+        instance.generateMap(600, 600);
+        
+        int expResult = 625;
+        int result = instance.getTileList().size();
+        
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -109,11 +111,10 @@ public class MapTest {
     public void testGetLengthX() {
         System.out.println("getLengthX");
         Map instance = new Map();
-        int expResult = 0;
+        instance.setLengthX(600);
+        int expResult = 600;
         int result = instance.getLengthX();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -123,11 +124,11 @@ public class MapTest {
     public void testGetLengthY() {
         System.out.println("getLengthY");
         Map instance = new Map();
-        int expResult = 0;
+        instance.setLengthY(600);
+        int expResult = 600;
         int result = instance.getLengthY();
+        
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -136,11 +137,13 @@ public class MapTest {
     @org.junit.Test
     public void testSetLengthX() {
         System.out.println("setLengthX");
-        int x = 0;
+        int x = 600;
         Map instance = new Map();
         instance.setLengthX(x);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int result = instance.getLengthX();
+        int expected = x;
+        
+        assertEquals(expected, result);
     }
 
     /**
@@ -149,11 +152,13 @@ public class MapTest {
     @org.junit.Test
     public void testSetLengthY() {
         System.out.println("setLengthY");
-        int y = 0;
+        int y = 600;
         Map instance = new Map();
         instance.setLengthY(y);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int result = instance.getLengthY();
+        int expected = y;
+        
+        assertEquals(expected, result);
     }
 
     /**
@@ -163,6 +168,7 @@ public class MapTest {
     public void testUpdatePositions() {
         System.out.println("updatePositions");
         Map instance = new Map();
+        instance.generateMap(600, 600);
         List<IPlaceableEntity> expResult = null;
         List<IPlaceableEntity> result = instance.updatePositions();
         assertEquals(expResult, result);
@@ -177,6 +183,7 @@ public class MapTest {
     public void testUpdateActions() {
         System.out.println("updateActions");
         Map instance = new Map();
+        instance.generateMap(600, 600);
         instance.updateActions();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -188,13 +195,14 @@ public class MapTest {
     @org.junit.Test
     public void testInspect() {
         System.out.println("inspect");
-        Coordinate coord = null;
+        Coordinate coord = new Coordinate(1, 1);
         Map instance = new Map();
-        List<IPlaceableEntity> expResult = null;
+        instance.generateMap(600, 600);
+        
+        List<IPlaceableEntity> expResult = instance.getTileList().get(0).getEntities();
         List<IPlaceableEntity> result = instance.inspect(coord);
+        
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
