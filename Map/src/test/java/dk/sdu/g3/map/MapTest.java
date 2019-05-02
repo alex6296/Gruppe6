@@ -171,11 +171,11 @@ public class MapTest {
         System.out.println("updatePositions");
         Map instance = new Map();
         instance.generateMap(600, 600);
-        List<IPlaceableEntity> expResult = null;
+        List<IPlaceableEntity> expResult = new ArrayList<IPlaceableEntity>();
         List<IPlaceableEntity> result = instance.updatePositions();
+        
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // TODO review the generated test code.
     }
 
     /**
@@ -187,6 +187,7 @@ public class MapTest {
         Map instance = new Map();
         instance.generateMap(600, 600);
         instance.updateActions();
+        
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
