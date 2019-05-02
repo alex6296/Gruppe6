@@ -145,7 +145,7 @@ public class PathfindingTest {
         instance.setGoalNode(node2);
         instance.calculateHeuristic(currentNode);
         double result = currentNode.getHeuristic();
-        double expResult = Math.sqrt(149);
+        double expResult = Math.sqrt(149) * 5;
 
         assertEquals(expResult, result, expResult - result);
     }
