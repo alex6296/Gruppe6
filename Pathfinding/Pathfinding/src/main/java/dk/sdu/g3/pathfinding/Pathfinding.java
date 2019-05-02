@@ -86,25 +86,25 @@ public class Pathfinding implements IPathfinding {
             throw e;
     }
 
-    private void defineGoalNode(Coordinate goal) {
+    public void defineGoalNode(Coordinate goal) {
         goalNode = null;
         for (Node node : nodes) {
             if (node.getCenter().equals(goal)) {
-
+                setGoalNode(node);
             }
         }
     }
 
-    private void defineStartNode(Coordinate start) {
+    public void defineStartNode(Coordinate start) {
         startNode = null;
         for (Node node : nodes) {
             if (node.getCenter().equals(start)) {
-                startNode = node;
+                setStartNode(node);
             }
         }
     }
 
-    private Node assignNeighbour(int x, int y) { //Look out for null pointer
+    public Node assignNeighbour(int x, int y) { //Look out for null pointer
         for (Node node : nodes) {
             if (node.getCenter().getX() == x) {
                 if (node.getCenter().getY() == y) {
@@ -115,7 +115,7 @@ public class Pathfinding implements IPathfinding {
         return null;
     }
 
-    private void createNodes(IMap map) {
+    public void createNodes(IMap map) {
         List<ITile> tiles = map.getTileList();
         for (ITile tile : tiles) {
             Node node = new Node(tile.getCoordinate(), tile.getSize(), tile.isOccupied());
@@ -139,17 +139,18 @@ public class Pathfinding implements IPathfinding {
      * b and c By using pythagore, the variable c is calculated, which is the
      * distance from the currentNode to the goal Coordinate
      */
-    private void calculateHeuristic(Node currentNode) {
+    public void calculateHeuristic(Node currentNode) {
         int sideA = (goalNode.getCenter().getX() - currentNode.getCenter().getX());
         int sideB = (goalNode.getCenter().getY() - currentNode.getCenter().getY());
         double diagonal = Math.sqrt(Math.pow(sideA, 2.0) + Math.pow(sideB, 2.0));
         currentNode.setHeuristic(diagonal);
     }
 
-    private void calculateTotalPathCost(Node currentNode) {
+    public void calculateTotalPathCost(Node currentNode) {
         currentNode.setTotalCost(currentNode.getAccumulatedStepCost() + currentNode.getHeuristic());
     }
 
+    //No test needed as it runs through all neighbour-methods anyway
     private void setAdjacentNodes(Node currentNode) {
         setLeftNeighbour(currentNode);
         setRightNeighbour(currentNode);
@@ -157,7 +158,7 @@ public class Pathfinding implements IPathfinding {
         setDownNeighbour(currentNode);
     }
 
-    private void setLeftNeighbour(Node currentNode) {
+    public void setLeftNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(x) - size of currentNode(x)) > min(x), set left neighbour
         if ((currentNode.getCenter().getX() - currentNode.getSize()) > 0) {
             if (assignNeighbour((currentNode.getCenter().getX() - (currentNode.getSize() * 2)), currentNode.getCenter().getY()) != null) {
@@ -166,7 +167,7 @@ public class Pathfinding implements IPathfinding {
         }
     }
 
-    private void setRightNeighbour(Node currentNode) {
+    public void setRightNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(x) + size of currentNode(x) < max(x), set right neighbour
         if ((currentNode.getCenter().getX() + currentNode.getSize() < mapLengthX)) {
             if (assignNeighbour((currentNode.getCenter().getX() + (currentNode.getSize() * 2)), currentNode.getCenter().getY()) != null) {
@@ -175,7 +176,7 @@ public class Pathfinding implements IPathfinding {
         }
     }
 
-    private void setUpNeighbour(Node currentNode) {
+    public void setUpNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(y) - size of currentNode(y)) > min(y), set up neighbour  
         if ((currentNode.getCenter().getY() - currentNode.getSize() > 0)) {
             if (assignNeighbour(currentNode.getCenter().getX(), currentNode.getCenter().getY() - (currentNode.getSize() * 2)) != null) {
@@ -184,7 +185,7 @@ public class Pathfinding implements IPathfinding {
         }
     }
 
-    private void setDownNeighbour(Node currentNode) {
+    public void setDownNeighbour(Node currentNode) {
         //If (center coordinate of currentNode(y) + size of currentNode(y)) < max(y), set down neighbour  
         if (currentNode.getCenter().getY() + currentNode.getSize() < mapLengthY) {
             if (assignNeighbour(currentNode.getCenter().getX(), currentNode.getCenter().getY() + (currentNode.getSize() * 2)) != null) {
@@ -193,7 +194,7 @@ public class Pathfinding implements IPathfinding {
         }
     }
 
-    private List<Coordinate> convertNodes(List<Node> openList) {
+    public List<Coordinate> convertNodes(List<Node> openList) {
         coordinateList = new ArrayList<Coordinate>();
         //Termination clause might have to be -2 as we don't need goalNode when creating Coordinates between Nodes
         for (int i = 0; i < openList.size() - 1; i++) {
@@ -232,6 +233,34 @@ public class Pathfinding implements IPathfinding {
         }
         return coordinateList;
     }
+
+    public Node getStartNode() {
+        return startNode;
+    }
+
+    public void setStartNode(Node startNode) {
+        this.startNode = startNode;
+    }
+
+    public Node getGoalNode() {
+        return goalNode;
+    }
+
+    public void setGoalNode(Node goalNode) {
+        this.goalNode = goalNode;
+    }
+
+    public List<Node> getNodes() {
+        return nodes;
+    }
+
+    public void addNode(Node node) {
+        this.nodes.add(node);
+    }
+    
+    
+    
+    
 
 
 }
