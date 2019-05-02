@@ -53,43 +53,15 @@ public class NodeTest {
     }
 
     /**
-     * Test of equals method, of class Node.
+     * Test of isBlocked method, of class Node.
      */
     @Test
-    public void testEquals() {
-        System.out.println("equals");
-        Node node = null;
+    public void testIsBlocked() {
+        System.out.println("isBlocked");
         Node instance = null;
         boolean expResult = false;
-        boolean result = instance.equals(node);
+        boolean result = instance.isBlocked();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isIsBlocked method, of class Node.
-     */
-    @Test
-    public void testIsIsBlocked() {
-        System.out.println("isIsBlocked");
-        Node instance = null;
-        boolean expResult = false;
-        boolean result = instance.isIsBlocked();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setIsBlocked method, of class Node.
-     */
-    @Test
-    public void testSetIsBlocked() {
-        System.out.println("setIsBlocked");
-        boolean isBlocked = false;
-        Node instance = null;
-        instance.setIsBlocked(isBlocked);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

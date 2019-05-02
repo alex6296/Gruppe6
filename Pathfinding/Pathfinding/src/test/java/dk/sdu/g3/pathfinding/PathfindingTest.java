@@ -41,25 +41,10 @@ public class PathfindingTest {
     }
 
     /**
-     * Test of getNextCoordinate method, of class Pathfinding.
-     */
-    @Test
-    public void testGetNextCoordinate() {
-        System.out.println("getNextCoordinate");
-        Coordinate currentCoord = null;
-        Pathfinding instance = new Pathfinding();
-        Coordinate expResult = null;
-        Coordinate result = instance.getNextCoordinate(currentCoord);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of generatePath method, of class Pathfinding.
      */
     @Test
-    public void testGeneratePath() {
+    public void testGeneratePath() throws Exception {
         System.out.println("generatePath");
         IMap map = null;
         Coordinate start = null;
@@ -68,60 +53,6 @@ public class PathfindingTest {
         List<Coordinate> expResult = null;
         List<Coordinate> result = instance.generatePath(map, start, goal);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of findSuccessor method, of class Pathfinding.
-     */
-    @Test
-    public void testFindSuccessor() {
-        System.out.println("findSuccessor");
-        Node currentNode = null;
-        Pathfinding instance = new Pathfinding();
-        Node expResult = null;
-        Node result = instance.findSuccessor(currentNode);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of addToFringe method, of class Pathfinding.
-     */
-    @Test
-    public void testAddToFringe() {
-        System.out.println("addToFringe");
-        Pathfinding instance = new Pathfinding();
-        instance.addToFringe();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getTotalPathCost method, of class Pathfinding.
-     */
-    @Test
-    public void testGetTotalPathCost() {
-        System.out.println("getTotalPathCost");
-        Pathfinding instance = new Pathfinding();
-        double expResult = 0.0;
-        double result = instance.getTotalPathCost();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setTotalPathCost method, of class Pathfinding.
-     */
-    @Test
-    public void testSetTotalPathCost() {
-        System.out.println("setTotalPathCost");
-        double totalPathCost = 0.0;
-        Pathfinding instance = new Pathfinding();
-        instance.setTotalPathCost(totalPathCost);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
