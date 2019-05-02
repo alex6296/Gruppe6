@@ -8,6 +8,7 @@ package dk.sdu.g3.pathfinding;
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.map.Map;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -65,11 +66,11 @@ public class PathfindingTest {
     @Test
     public void testDefineGoalNode() {
         System.out.println("defineGoalNode");
-        Coordinate goal = new Coordinate(10, 10);
+        Coordinate goal = new Coordinate(20, 20);
         Node node = new Node(goal, 10);
         Pathfinding instance = new Pathfinding();
         instance.addNode(node);
-        instance.defineStartNode(goal);
+        instance.defineGoalNode(goal);
 
         assertEquals((instance.getGoalNode().getCenter()), goal);
     }
@@ -254,8 +255,8 @@ public class PathfindingTest {
     }
 
     /**
-     * Test of setDownNeighbour method, of class Pathfinding.
-     * Complete and compiled without error
+     * Test of setDownNeighbour method, of class Pathfinding. Complete and
+     * compiled without error
      */
     @Test
     public void testSetDownNeighbour() {
@@ -263,22 +264,22 @@ public class PathfindingTest {
         Node currentNode = new Node(new Coordinate(20, 20), 5);
         Node downNode = new Node(new Coordinate(20, 30), 5);
         Pathfinding instance = new Pathfinding();
-        
+
         instance.setMapLengthY(200);
         instance.addNode(currentNode);
         instance.addNode(downNode);
-        
+
         instance.setDownNeighbour(currentNode);
-        
+
         Node result = null;
-        
-        for(Node node : currentNode.getNeighbours()) {
-            if(downNode.getCenter() == node.getCenter()) {
+
+        for (Node node : currentNode.getNeighbours()) {
+            if (downNode.getCenter() == node.getCenter()) {
                 result = node;
             }
         }
-        
-        if(result != null) {
+
+        if (result != null) {
             assertEquals(downNode.getCenter(), result.getCenter());
         } else {
             fail("CurrentNode DownNeighbour was null - Test failure");
@@ -287,17 +288,34 @@ public class PathfindingTest {
 
     /**
      * Test of convertNodes method, of class Pathfinding.
+     * Complete and compiled without error
      */
     @Test
     public void testConvertNodes() {
         System.out.println("convertNodes");
-        List<Node> openList = null;
         Pathfinding instance = new Pathfinding();
-        List<Coordinate> expResult = null;
-        List<Coordinate> result = instance.convertNodes(openList);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        List<Node> closedList = new ArrayList<>();
+        List<Coordinate> expResult = new ArrayList<>();
+
+        closedList.add(new Node(new Coordinate(10, 20), 5));
+        closedList.add(new Node(new Coordinate(10, 30), 5));
+        closedList.add(new Node(new Coordinate(20, 30), 5));
+
+        //Creating 21 coordinates for testing of function in pathfinding
+        for (int i = 20; i < 30; i++) {
+            expResult.add(new Coordinate(10, i));
+        }
+        for (int i = 10; i <= 20; i++) {
+            expResult.add(new Coordinate(i, 30));
+        }
+
+        List<Coordinate> result = instance.convertNodes(closedList);
+
+        if (!result.isEmpty()) {
+            assertEquals(expResult.size(), result.size());
+        } else {
+            fail("Result was empty - Test failure");
+        }
     }
 
 }

@@ -283,6 +283,9 @@ public class Pathfinding implements IPathfinding {
 
             }
         }
+        //Important to add the centerCoordinate for the last Node as the previous only adds the coordinate before next Node center
+        Coordinate lastCoordinate = list.get(list.size()-1).getCenter();
+        coordinateList.add(lastCoordinate);
         return coordinateList;
     }
 
@@ -335,6 +338,18 @@ public class Pathfinding implements IPathfinding {
     public void setMapLengthY(int mapLengthY) {
         this.mapLengthY = mapLengthY;
     }
+
+    //For tests
+    public List<Node> getClosedList() {
+        return closedList;
+    }
+
+    //For tests
+    public void setClosedList(List<Node> closedList) {
+        this.closedList = closedList;
+    }
+    
+    
     
     
     
