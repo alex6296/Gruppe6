@@ -87,11 +87,12 @@ public class Map implements IMap {
     
     @Override
     public boolean addEntity(IPlaceableEntity entity) {
-        if (isPathBlocked(entity.getCurrentPosition())) {
-                return false;
-        }
         Coordinate pos = entity.getCurrentPosition();
         getTile(pos).add(entity);
+        if (isPathBlocked(entity.getCurrentPosition())) {
+            getTile(pos).remove(entity);
+            return false;
+        }
         return true;
     }
     
