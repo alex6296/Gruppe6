@@ -9,6 +9,7 @@ import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.data.ITile;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.tower.Tower;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -84,9 +85,10 @@ public class MapTest {
         instance.addEntity(entity);
         instance.removeEntity(entity);
         
-        IPlaceableEntity result = instance.getTileList().get(0).getEntities().get(0);
+        List<IPlaceableEntity> result = instance.getTileList().get(0).getEntities();
+        List<IPlaceableEntity> expected = new ArrayList<>();
         
-        assertEquals(null, result);
+        assertEquals(expected, result);
     }
 
     /**
