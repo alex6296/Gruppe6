@@ -16,6 +16,8 @@ import dk.sdu.g3.common.rendering.IRenderableSprite;
 import dk.sdu.g3.common.rendering.IRenderableText;
 import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.engine.game.STDGame;
+import java.util.ArrayList;
+import java.util.List;
 import static javafx.scene.text.Font.font;
 
 /**
@@ -29,6 +31,7 @@ public class Renderer {
     FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 
     private final STDGame game;
+    private Color standardTextColor = new Color(Color.WHITE);
 
     public Renderer(final STDGame game) {
         this.game = game;
@@ -41,12 +44,51 @@ public class Renderer {
      * render stuff
      */
     public void renderAll() {
+        RenderStages(game.getStages);
+        RenderRenderables(game.getRenderList());
+
         parameter.size = 50;
         font = generator.generateFont(parameter);
         font.setColor(Color.RED);
         font.draw(game.batch, "TEST Test og mere test", 100, 500);
         //font.dispose();
 
+    }
+
+    public void RenderStages(List<IStage> stageList) {
+        for (IStage stage : stageList) {
+            RenderStage(stage);
+        }
+    }
+
+    public void RenderRenderables(ArrayList<ArrayList<IRenderable>> list) {
+        for (List<IRenderable> renderList : list) {
+            for (IRenderable render : renderList) {
+                if (render instanceof IRenderableSprite) {
+                    drawSprite((IRenderableSprite) render);
+                } else if (render instanceof IRenderableText) {
+                    drawText((IRenderableText) render);
+                } else {
+                    throw new UnsupportedClassVersionError(render.toString() + "do not implement a supported interface type");
+                }
+            }
+        }
+    }
+
+    private void RenderStage(IStage stage) {
+        Texture texture = new Texture(stage.getBackgroundFile());
+        float X = getStageX(stage);
+        float Y = getStageY(stage);
+        float width = getStageWith(stage);
+        float hight = getStageHigth(stage);
+        int imageX = 0;
+        int imagey = 0;
+        int imageWidth = texture.getWidth();
+        int imageHigth = texture.getHeight();
+        boolean flipX = false;
+        boolean flipy = false;
+        game.batch.draw(texture, X, Y, width, hight, imageX, imagey, imageWidth, imageHigth, flipX, flipy);
+        texture.dispose();
     }
 
     public void drawSprite(IRenderableSprite renderable) {
@@ -66,7 +108,15 @@ public class Renderer {
     }
 
     public void drawText(IRenderableText text) {
-        //font.s
+        parameter.size = (int) getRenderHigth(text);
+        font = generator.generateFont(parameter);
+        if (text.getColor() != null) {
+            float[] colorArr = text.getColor();
+            font.setColor(colorArr[0], colorArr[1], colorArr[2], colorArr[3]);
+        } else {
+            font.setColor(standardTextColor);
+        }
+        font.draw(game.batch, text.getText(), getRenderX(text), (getRenderY(text) - getRenderHigth(text)));
     }
 
     // methods for converting scales to screen sizes:

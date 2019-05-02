@@ -11,12 +11,16 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import dk.sdu.g3.common.rendering.IRenderable;
+import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.services.IEnemy;
 import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPlayer;
 import dk.sdu.g3.engine.util.render.Dictionary.Dict;
 import dk.sdu.g3.engine.util.render.Dictionary.Dictionary;
 import dk.sdu.g3.renderer.Renderer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -35,6 +39,7 @@ public class STDGame extends Game {
 
     //dictonary
     Dict inputMapping = new Dictionary();
+    public List<IStage> getStages;
 
     //RenderLists
 //    private List<IRenderableEntity> forGrounds = new ArrayList<>();
@@ -149,4 +154,11 @@ public class STDGame extends Game {
     public void StartGame() {
         this.setScreen(new GameScreen(this));
     }
+
+    public ArrayList<ArrayList<IRenderable>> getRenderList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
+
+
