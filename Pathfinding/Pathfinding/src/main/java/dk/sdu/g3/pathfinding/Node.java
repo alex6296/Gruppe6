@@ -16,26 +16,20 @@ public class Node {
     
     private final Coordinate center;
     private final int size;
-    private boolean isBlocked;
-    private List<Node> neighbours;
+    private List<Node> neighbours; //List of adjacent Nodes
     private double totalCost; //accumulatedStepCost + heuristic - estimated total cost from start to goal through this node
     private double accumulatedStepCost; 
     private double heuristic; //estimated heuristic value, defined by the heuristic function
     private Node parent;
 
-    public Node(Coordinate center, int size, boolean isBlocked) {
+    public Node(Coordinate center, int size) {
         this.center = center;
         this.size = size;
-        this.isBlocked = isBlocked;
         neighbours = new ArrayList<>();
     }
     
     public void addNeighbour(Node neighbour) {
         neighbours.add(neighbour);
-    }
-
-    public boolean isBlocked() {
-        return isBlocked;
     }
 
     public Coordinate getCenter() {
