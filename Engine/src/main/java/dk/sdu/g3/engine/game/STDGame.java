@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.g3.common.rendering.IRenderable;
 import dk.sdu.g3.common.rendering.IStage;
+import dk.sdu.g3.common.rendering.Layer;
 import dk.sdu.g3.common.services.IEnemy;
 import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPlayer;
@@ -155,8 +156,44 @@ public class STDGame extends Game {
         this.setScreen(new GameScreen(this));
     }
 
-    public ArrayList<ArrayList<IRenderable>> getRenderList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<ArrayList<IRenderable>> getRenderList() throws Exception {
+        ArrayList<IRenderable> renderlist = new ArrayList<>();
+        //renderlist .add(new Tower())
+        
+        ArrayList<ArrayList<IRenderable>> renderListList = new ArrayList<>();
+        ArrayList<IRenderable> backgroundList = new ArrayList<>();
+        ArrayList<IRenderable> midgroundList = new ArrayList<>();
+        ArrayList<IRenderable> forgroundlist = new ArrayList<>();
+        ArrayList<IRenderable> notdefinedList = new ArrayList<>();
+        
+        for (IRenderable rend : renderlist){
+            if (rend.getLayer() == Layer.BACKGROUND){
+                backgroundList.add(rend);
+            }
+            else if (rend.getLayer() == Layer.MIDGROUND){
+                midgroundList.add(rend);
+            }
+            else if (rend.getLayer() == Layer.FORGOUND){
+                forgroundlist.add(rend);
+            }
+            else{
+                notdefinedList.add(rend);
+            }
+        }
+        if (!notdefinedList.isEmpty()){
+            throw new Exception("there were things not defined in layer" + notdefinedList.toString());
+        }
+        renderListList.add(backgroundList);
+        renderListList.add(midgroundList);
+        renderListList.add(forgroundlist);
+        
+        return renderListList;         
+    }
+
+    public List<IStage> getStages() {
+        ArrayList<IStage> stagelist;
+        stagelist.add(new Towerpicker());
+       return stagelist;
     }
 
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import dk.sdu.g3.engine.game.STDGame;
 import dk.sdu.g3.engine.game.gameInputHandler;
+import org.openide.util.Exceptions;
 
 
 public class GameScreen implements Screen {
@@ -37,7 +38,11 @@ public class GameScreen implements Screen {
         //drawing background
         game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, 0, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3, false, false);
        
-        game.renderer.renderAll();
+        try {
+            game.renderer.renderAll();
+        } catch (Exception ex) {
+            Exceptions.printStackTrace(ex);
+        }
         
         game.batch.end();
     }
