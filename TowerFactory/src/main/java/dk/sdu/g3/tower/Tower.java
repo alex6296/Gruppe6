@@ -144,4 +144,9 @@ public class Tower implements ITower, IRenderableUnit {
         return this.SpriteUrl;
     }
 
+    @Override
+    public Coordinate getPath() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

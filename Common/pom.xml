@@ -20,6 +20,7 @@
                         <publicPackage>dk.sdu.g3.common.data</publicPackage>
                         <publicPackage>dk.sdu.g3.common.entities</publicPackage>
                         <publicPackage>dk.sdu.g3.common.rendering</publicPackage>
+                        <publicPackage>dk.sdu.g3.common.serviceLoader</publicPackage>
                         <publicPackage>dk.sdu.g3.common.services</publicPackage>
                     </publicPackages>
                 </configuration>

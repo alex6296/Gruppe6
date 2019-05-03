@@ -9,7 +9,7 @@ package dk.sdu.g3.common.services;
  *
  * @author robertfrancisti
  */
-public interface IEnemy {
+public interface IEnemy extends IController {
     
      boolean create(IUnit unit);
      int getCurrentWave();

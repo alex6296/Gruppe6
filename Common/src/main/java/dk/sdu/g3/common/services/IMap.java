@@ -7,6 +7,7 @@ package dk.sdu.g3.common.services;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.data.ITile;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,5 +28,5 @@ public interface IMap {
     List<IPlaceableEntity> updatePositions();
     void updateActions();
     List<IPlaceableEntity> inspect(Coordinate coord);
-    
+
 }

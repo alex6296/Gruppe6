@@ -6,7 +6,9 @@
 package dk.sdu.g3.enemy;
 
 import dk.sdu.g3.common.data.Coordinate;
+import dk.sdu.g3.common.entities.ILifeFunctions;
 import dk.sdu.g3.common.services.IEnemy;
+import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPathfinding;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.IUnit;
@@ -19,6 +21,8 @@ import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
+import dk.sdu.g3.common.serviceLoader.ServiceLoader;
+import java.util.List;
 
 /**
  *
@@ -38,11 +42,28 @@ public class Enemy implements IEnemy {
     ArrayList<IPlaceableEntity> EntityList = new ArrayList();
     ArrayList<IUnitFactory> UnitFactoryList = new ArrayList();
     serviceLoaderEnemy unitLoader = new serviceLoaderEnemy();
-
+    //valid tileSize = 2 * map.tilesize
     public Enemy() {
         
     }
 
+    
+    // put this method in IController, since both player/enemy uses it
+    public void putEntityOnMap(IUnit unit){
+        for (IMap map : unitLoader.getSP(IMap.class)){
+//             Coordinate startPosition = new Coordinate(map.getTileSize,random.nextInt(map.getLengthY()/(2*map.getTileSize))));
+//               unit.setPosition(startPosition);
+             map.addEntity(unit);
+                
+
+        }
+    }
+    
+    public void removeEntityFromMap(IUnit unit){
+        for (IMap map : unitLoader.getSP(IMap.class)){
+             map.removeEntity(unit);
+        }
+    }
     public void addPathToUnit(Coordinate path, IUnit unit){
         unit.setPath(path);
     }
@@ -85,7 +106,23 @@ public class Enemy implements IEnemy {
         }
         return false;
     }
+
+    @Override
+    public List<IPlaceableEntity> getEntities() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void remove(ILifeFunctions livingEntity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean decreaseHp(int damage) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
+
     
     public class serviceLoaderEnemy {
 
