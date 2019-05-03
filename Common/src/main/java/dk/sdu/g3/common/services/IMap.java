@@ -15,6 +15,7 @@ import java.util.List;
  */
 public interface IMap {
     
+    IMap getMap();
     List<ITile> getTileList();
     int getLengthX();
     int getLengthY();

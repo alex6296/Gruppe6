@@ -15,18 +15,26 @@ import org.openide.util.lookup.ServiceProviders;
 @ServiceProviders(value = { @ServiceProvider(service = IMap.class),})
 public class Map implements IMap {
 
+    private static IMap instance;
     private ArrayList<Tile> tiles;
     private int lengthX, lengthY;
     private int scaler = 50;    // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
     
     
     public Map() {      // remember to also call generateMap when this constructor is used.
+        generateMap(600, 600);
+        instance = this;
     }
     
-    public Map(int lengthX, int lengthY) {
-        generateMap(lengthX, lengthY);
-    }
+//    public Map(int lengthX, int lengthY) {
+//        generateMap(lengthX, lengthY);
+//    }
     
+    
+    @Override
+    public IMap getMap() {
+        return instance;
+    }
     
     @Override
     public void generateMap(int lenX, int lenY) {    // probably called right after constructor, generates list of tiles based on map size.
