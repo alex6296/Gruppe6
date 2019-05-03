@@ -39,6 +39,9 @@ public class STDGame extends Game {
     private IPlayer player;
     private IMap map;
 
+    private TowerPicker towerPicker = new TowerPicker();
+    private TowerPicker towerPicker2 = new TowerPicker();
+   
     //dictonary
     Dict inputMapping = new Dictionary();
     public List<IStage> getStages;
@@ -160,7 +163,9 @@ public class STDGame extends Game {
 
     public ArrayList<ArrayList<IRenderable>> getRenderList() throws Exception {
         ArrayList<IRenderable> renderlist = new ArrayList<>();
-        //renderlist .add(new Tower())
+        for (IRenderable iRenderable : towerPicker.getTower()) {
+            renderlist.add(iRenderable);
+        }
         
         ArrayList<ArrayList<IRenderable>> renderListList = new ArrayList<>();
         ArrayList<IRenderable> backgroundList = new ArrayList<>();
@@ -194,7 +199,8 @@ public class STDGame extends Game {
 
     public List<IStage> getStages() {
         ArrayList<IStage> stagelist = new ArrayList<>();
-        stagelist.add(new TowerPicker());
+        
+        stagelist.add(towerPicker);
        return stagelist;
     }
 

@@ -18,5 +18,6 @@ public interface IPlaceableEntity {
     int getFootprint();
     Coordinate getCurrentPosition();
     int getCost();
+    String getSpriteUrl();
 
 }

@@ -7,11 +7,11 @@ package dk.sdu.g3.tower;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.entities.ILifeFunctions;
-import dk.sdu.g3.common.rendering.IRenderableUnit;
+import dk.sdu.g3.common.rendering.IRenderable;
 import dk.sdu.g3.common.services.ITower;
 import dk.sdu.g3.common.services.IUnit;
 
-public class Tower implements ITower, IRenderableUnit{
+public class Tower implements ITower{
 
     private int life = 100;
     private int MAXLIFE = life;
@@ -121,17 +121,17 @@ public class Tower implements ITower, IRenderableUnit{
         }
     }
 
-    @Override
+    //@Override
     public int getMaxHp() {
         return this.MAXLIFE;
     }
 
-    @Override
+   /// @Override
     public int getCurrentHp() {
         return this.life;
     }
 
-    @Override
+    //@Override
     public String getSpriteUrl() {
         return this.SpriteUrl;
     }
