@@ -5,6 +5,7 @@
  */
 package dk.sdu.g3.engine.game;
 
+import TestPackage.TowerPicker;
 import dk.sdu.g3.engine.screens.GameScreen;
 import dk.sdu.g3.engine.screens.MainMenuScreen;
 import com.badlogic.gdx.Game;
@@ -191,8 +192,8 @@ public class STDGame extends Game {
     }
 
     public List<IStage> getStages() {
-        ArrayList<IStage> stagelist;
-        stagelist.add(new Towerpicker());
+        ArrayList<IStage> stagelist = new ArrayList<>();
+        stagelist.add(new TowerPicker());
        return stagelist;
     }
 

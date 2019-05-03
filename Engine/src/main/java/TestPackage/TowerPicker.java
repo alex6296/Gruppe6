@@ -18,7 +18,9 @@ public class TowerPicker implements IStage {
     private final float getPosX = (float) 0.8;
     private final float getPosY = (float) 0.5;
      
-
+    //try to get an instance of a tower 
+    
+    
     public TowerPicker(){
     }
       
