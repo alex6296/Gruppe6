@@ -37,6 +37,11 @@ public class GameScreen implements Screen {
         time = time + f;
         if (time >= 0.1) {
             System.out.println("float time: " + time);
+            
+            //gameloop
+            game.gameLoop();
+
+            //this is what renders stuff
             game.batch.begin();
             //drawing background
             game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, 0, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3, false, false);

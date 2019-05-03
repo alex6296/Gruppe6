@@ -69,7 +69,7 @@ public class TowerPicker implements IStage {
     @Override
     
     public String getBackgroundFile() {  
-        return "assets/wall22.png";    
+        return "Common/src/main/resources/assets/wall22.png";    
     }
     
     

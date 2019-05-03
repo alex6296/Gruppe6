@@ -76,7 +76,7 @@ public class Renderer {
     }
 
     private void RenderStage(IStage stage) {
-        Texture texture = new Texture(stage.getBackgroundFile());
+        Texture texture = game.getTexture(stage.getBackgroundFile());
         float X = getStageX(stage);
         float Y = getStageY(stage);
         float width = getStageWith(stage);
@@ -93,7 +93,7 @@ public class Renderer {
     }
 
     public void drawSprite(IRenderableSprite renderable) {
-        Texture texture = new Texture(renderable.getFile());
+        Texture texture = game.getTexture(renderable.getFile());
         float X = getRenderX(renderable);
         float Y = getRenderY(renderable);
         float width = getRenderWith(renderable);

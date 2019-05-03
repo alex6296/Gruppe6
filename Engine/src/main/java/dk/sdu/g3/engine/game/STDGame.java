@@ -11,17 +11,22 @@ import dk.sdu.g3.engine.screens.MainMenuScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import dk.sdu.g3.common.rendering.Graphic;
+import dk.sdu.g3.common.rendering.GraphicsMap;
 import dk.sdu.g3.common.rendering.IRenderable;
 import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.rendering.Layer;
 import dk.sdu.g3.common.services.IEnemy;
 import dk.sdu.g3.common.services.IMap;
+import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.IPlayer;
 import dk.sdu.g3.engine.util.render.Dictionary.Dict;
 import dk.sdu.g3.engine.util.render.Dictionary.Dictionary;
 import dk.sdu.g3.renderer.Renderer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -38,6 +43,9 @@ public class STDGame extends Game {
     private IEnemy enemy;
     private IPlayer player;
     private IMap map;
+    
+    private GraphicsMap graphMap = new GraphicsMap();
+    private HashMap<Graphic,Texture> textureMap;
 
     private TowerPicker towerPicker = new TowerPicker();
     private TowerPicker towerPicker2 = new TowerPicker();
@@ -57,12 +65,20 @@ public class STDGame extends Game {
         cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         cam.translate(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         cam.update();
+        createTextures();
 
         batch = new SpriteBatch();
 
         this.renderer = new Renderer(this);
 
         this.setScreen(new MainMenuScreen(this));
+    }
+    
+    public void gameLoop() {
+//        for(IPlaceableEntity: map.updatePositions()){
+//            enemy.
+//        }
+        
     }
 
 //    public void addForGroundElement(IRenderableEntity e, Coordinate location) {
@@ -203,6 +219,20 @@ public class STDGame extends Game {
         stagelist.add(towerPicker);
        return stagelist;
     }
+
+    public Texture getTexture(Graphic file) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void createTextures() {
+        textureMap = new HashMap<>();
+        for(Graphic e : graphMap.getGraphics().keySet()){
+            textureMap.put(e, new Texture(graphMap.getGraphics().get(e)));
+            
+            
+        }
+    }
+
 
 }
 

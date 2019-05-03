@@ -12,6 +12,6 @@ public interface IStage {
 //    public void setPosScaleY(float scale);
 //    public void setWithScale(float scale);
 //    public void setHigthScale(float scale);
-    public String getBackgroundFile();
+    public Graphic getBackgroundFile();
 
 }
