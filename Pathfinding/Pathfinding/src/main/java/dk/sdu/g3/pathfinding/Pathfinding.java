@@ -47,6 +47,8 @@ public class Pathfinding implements IPathfinding {
         defineStartNode(start); //Define startNode from nodes
         defineGoalNode(goal); // Define goalNode from nodes
 
+        calculateHeuristic(startNode); //Calculate and set the heuristic value of startNode
+        startNode.setTotalCost(startNode.getHeuristic());
         openList.add(startNode); //Add startNode to openList to enable the Node to be currentNode
 
         while (!openList.isEmpty()) {
@@ -106,19 +108,17 @@ public class Pathfinding implements IPathfinding {
     }
 
     public void defineGoalNode(Coordinate goal) {
-        goalNode = null;
         for (Node node : nodes) {
-            if (node.getCenter().equals(goal)) {
-                setGoalNode(node);
+            if (node.getCenter().getX() == goal.getX() && node.getCenter().getY() == goal.getY()) {
+                goalNode = node;
             }
         }
     }
 
     public void defineStartNode(Coordinate start) {
-        startNode = null;
         for (Node node : nodes) {
-            if (node.getCenter().equals(start)) {
-                setStartNode(node);
+            if (node.getCenter().getX() == start.getX() && node.getCenter().getY() == start.getY()) {
+                startNode = node;
             }
         }
     }

@@ -60,8 +60,13 @@ public class PathfindingTest {
         List<Coordinate> result = instance.generatePath(map, start, goal);
         
         boolean positiveResult = false;
-        if(result.contains(start) && result.contains(goal)) {
-            positiveResult = true;
+        for(Coordinate coord : result) {
+            if(coord.getX() == goal.getX()) {
+                if(coord.getY() == goal.getY()) {
+                    System.out.println("Goal found: " + coord.getX() + ", " + coord.getY());
+                    positiveResult = true;
+                }
+            }
         }
         
         assertEquals(true, positiveResult);
