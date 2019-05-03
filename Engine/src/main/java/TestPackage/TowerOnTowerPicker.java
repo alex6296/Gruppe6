@@ -16,17 +16,23 @@ import dk.sdu.g3.common.rendering.Layer;
 public class TowerOnTowerPicker implements IRenderableSprite {
 
     
+   
     
-    private  float getWidth = (float) 0.1;
+    private  float getWidth = (float) 0.3;
     private  float getHeight = (float) 0.3;
-    private  float getPosX = (float) 0.8;
-    private  float getPosY = (float) 0.5;  
+    private  float getPosX = (float) 0.5;
+    private  float getPosY;  
     private IStage picker;
     private Layer layer;
     
-    public TowerOnTowerPicker(IStage stage){
+    
+    
+    public TowerOnTowerPicker(IStage stage, float YPosition){
        this.picker = stage;
+       this.getPosY = YPosition;
     }
+
+  
     
     @Override
     public String getFile() {
@@ -48,10 +54,6 @@ public class TowerOnTowerPicker implements IRenderableSprite {
         return layer.FORGOUND;
     }
 
-//    @Override
-//    public void setLayer(Layer layer) {
-//        this.layer = layer;
-//    }
 
     @Override
     public void setPosScaleX(final float scale) {
