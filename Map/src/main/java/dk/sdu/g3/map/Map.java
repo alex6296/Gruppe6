@@ -10,11 +10,25 @@ import java.util.ArrayList;
 import java.util.List;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
+import dk.sdu.g3.common.rendering.IStage;
+import dk.sdu.g3.common.rendering.IRenderable;
 
 
-@ServiceProviders(value = { @ServiceProvider(service = IMap.class),})
-public class Map implements IMap {
+@ServiceProviders(value = {
+    @ServiceProvider(service = IMap.class),
+    @ServiceProvider(service = IStage.class),
+})
+public class Map implements IMap, IStage {
 
+    // renderable variables
+    private float width = 0.65f;
+    private float height = 0.6f;
+    private float posX = 0.3f;
+    private float posY = 0.5f;
+    private String background = "";
+    private float tileScaleX, tileScaleY;
+    
+    // functionality variables
     private static IMap instance;
     private ArrayList<Tile> tiles;
     private int lengthX, lengthY;
@@ -45,16 +59,21 @@ public class Map implements IMap {
         tiles  = new ArrayList<>();
         
         int tileSize = lengthX / scaler;
-        int x = 0;
-        int y = 0;
+        tileScaleX = 2*tileSize / lengthX;
+        tileScaleY = 2*tileSize / lengthY;
+        
+        int x = tileSize;
+        int y = tileSize;
         
         while (y < this.lengthY) {
             for (x = 0; x < this.lengthX; x += 2*tileSize) {
-                tiles.add(new Tile(x+tileSize, y+tileSize, tileSize));
+                float tPosX = x / lengthX;
+                float tPosY = y / lengthY;
+                tiles.add(new Tile(x, y, tileSize, tPosX, tPosY, tileScaleX, tileScaleY, this));
             }
             y += 2*tileSize;
         }
-            
+        
     }
     
     private boolean isPathBlocked(Coordinate currentPos) {
@@ -220,5 +239,39 @@ public class Map implements IMap {
     
     public int getTileSize() {
         return tiles.get(0).getSize();
+    }
+
+    @Override
+    public float getPosScaleX() {
+        return this.posX;
+    }
+
+    @Override
+    public float getPosScaleY() {
+        return this.posY;
+    }
+
+    @Override
+    public float getWithScale() {
+        return this.width;
+    }
+
+    @Override
+    public float getHigthScale() {
+        return this.height;
+    }
+
+    @Override
+    public String getBackgroundFile() {
+        return this.background;
+    }
+    
+    //@Override
+    public List<IRenderable> getRenderables() {
+        ArrayList<IRenderable> returnTiles = new ArrayList<>();
+        for (Tile tile : tiles) {
+            returnTiles.add(tile);
+        }
+        return returnTiles;
     }
 }
