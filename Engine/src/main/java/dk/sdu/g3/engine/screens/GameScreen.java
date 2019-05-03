@@ -34,6 +34,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float f) {
+        System.out.println("float time: " + f);
         game.batch.begin();
         //drawing background
         game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, 0, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3, false, false);
