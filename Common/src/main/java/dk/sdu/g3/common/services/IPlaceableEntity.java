@@ -21,6 +21,7 @@ public interface IPlaceableEntity {
     int getAttackSpeed();
     public int getLife();
     public int getDamage();
+    public Coordinate getPath();
                 
 
     

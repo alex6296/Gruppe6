@@ -6,6 +6,7 @@
 package dk.sdu.g3.player;
 
 import dk.sdu.g3.common.entities.ILifeFunctions;
+import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.IPlayer;
 import dk.sdu.g3.common.services.ITower;
@@ -73,6 +74,11 @@ public class Player implements IPlayer {
     public void remove(ILifeFunctions livingEntity) {
         EntityList.remove(livingEntity);
     }
+    
+    public void placeTowerOnMap(ITower Tower){
+//    unitLoader.getSP(IMap.class).add(Tower);
+
+}
 
     @Override
     public boolean decreaseHp(int damage) {

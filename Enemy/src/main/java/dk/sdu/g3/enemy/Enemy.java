@@ -5,7 +5,9 @@
  */
 package dk.sdu.g3.enemy;
 
+import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.services.IEnemy;
+import dk.sdu.g3.common.services.IPathfinding;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.IUnit;
 import dk.sdu.g3.common.services.IUnitFactory;
@@ -41,7 +43,9 @@ public class Enemy implements IEnemy {
         
     }
 
-
+    public void addPathToUnit(Coordinate path, IUnit unit){
+        unit.setPath(path);
+    }
     @Override
     public int getCurrentWave() {
         return currentWave;
@@ -76,7 +80,7 @@ public class Enemy implements IEnemy {
     public boolean create(IUnit unit) {
         for (IUnitFactory unit1 : unitLoader.getSP(IUnitFactory.class)){
             
-                EntityList.add(unit1.getNewUnit(unit.getCurrentHp(),unit.getDamage() , unit.getFootprint(), unit.getCost(), unit.getAttackRange(), unit.getAttackSpeed(), unit.getCurrentPosition()));
+                EntityList.add(unit1.getNewUnit(unit.getCurrentHp(),unit.getDamage() , unit.getFootprint(), unit.getCost(), unit.getAttackRange(), unit.getAttackSpeed(), unit.getCurrentPosition(), unit.getPath()));
             return true;    
         }
         return false;

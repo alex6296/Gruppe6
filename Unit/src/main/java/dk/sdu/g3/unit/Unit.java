@@ -38,12 +38,12 @@ public class Unit implements IUnit, IRenderableUnit{
     private int attackSpeed; 
     private Coordinate position;
     private final String spriteUrl = "";
+    private Coordinate path;
     
     
     
     
-    public Unit(int hitPoints, int damage, int[][] footprint, int cost
-    , int attackRange, int attackSpeed, Coordinate position){
+    public Unit(int hitPoints, int damage, int[][] footprint, int cost, int attackRange, int attackSpeed, Coordinate position, Coordinate path){
         
         this.hitPoints = hitPoints; 
         this.damage = damage; 
@@ -52,8 +52,10 @@ public class Unit implements IUnit, IRenderableUnit{
         this.attackRange = attackRange;
         this.attackSpeed = attackSpeed;
         this.position = position;
+        this.path = path;
         
     }
+
     @Override
     public Coordinate getNextStep(Coordinate position) {
         
@@ -178,8 +180,24 @@ public class Unit implements IUnit, IRenderableUnit{
     public void setAttackRange(int attackRange) {
         this.attackRange = attackRange;
     }
+
+    @Override
+    public int getAttackSpeed() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getLife() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
+    public void setPath(Coordinate cord){
+        this.path = cord;
+    }
     
+    public Coordinate getPath(){
+        return path;
+    }
 
     
 }
