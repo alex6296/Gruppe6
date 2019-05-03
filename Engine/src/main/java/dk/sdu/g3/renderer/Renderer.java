@@ -83,12 +83,13 @@ public class Renderer {
         float hight = getStageHigth(stage);
         int imageX = 0;
         int imagey = 0;
-        int imageWidth = texture.getWidth();
-        int imageHigth = texture.getHeight();
+        int imageWidth = (int) getStageWith(stage)/2;
+        int imageHigth = (int) getStageHigth(stage)/2;
         boolean flipX = false;
         boolean flipy = false;
+        texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         game.batch.draw(texture, X, Y, width, hight, imageX, imagey, imageWidth, imageHigth, flipX, flipy);
-        texture.dispose();
+        //texture.dispose();
     }
 
     public void drawSprite(IRenderableSprite renderable) {
@@ -104,7 +105,7 @@ public class Renderer {
         boolean flipX = false;
         boolean flipy = false;
         game.batch.draw(texture, X, Y, width, hight, imageX, imagey, imageWidth, imageHigth, flipX, flipy);
-        texture.dispose();
+        //texture.dispose();
     }
 
     public void drawText(IRenderableText text) {
