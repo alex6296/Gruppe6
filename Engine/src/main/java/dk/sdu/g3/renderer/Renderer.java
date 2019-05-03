@@ -43,8 +43,8 @@ public class Renderer {
      * this is the method that will be called everytime the Screen want to
      * render stuff
      */
-    public void renderAll() {
-        RenderStages(game.getStages);
+    public void renderAll() throws Exception {
+        RenderStages(game.getStages());
         RenderRenderables(game.getRenderList());
 
         parameter.size = 50;
