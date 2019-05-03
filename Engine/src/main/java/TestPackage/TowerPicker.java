@@ -45,8 +45,11 @@ public class TowerPicker implements IStage {
     }  
 
     @Override
-    public String getBackgroundFile() {       
+    
+    public String getBackgroundFile() {  
+        System.out.println("tries to handle ");
         return "assets/wall22.png";
+        
     }
     
 }
