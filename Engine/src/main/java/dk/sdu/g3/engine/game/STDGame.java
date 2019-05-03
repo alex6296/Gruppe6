@@ -155,6 +155,7 @@ public class STDGame extends Game {
 
     public void StartGame() {
         this.setScreen(new GameScreen(this));
+        
     }
 
     public ArrayList<ArrayList<IRenderable>> getRenderList() throws Exception {
