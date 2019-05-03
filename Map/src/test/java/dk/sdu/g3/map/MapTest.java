@@ -63,8 +63,7 @@ public class MapTest {
     @org.junit.Test
     public void testAddEntity() {
         System.out.println("addEntity");
-        int[][] footprint = new int[1][1];
-        IPlaceableEntity entity = new Tower(100, 10, footprint, 2, 2, 5, new Coordinate(56,60));
+        IPlaceableEntity entity = new Tower(100, 10, 1, 2, 2, 5, new Coordinate(56,60));
         Map instance = new Map();
         instance.generateMap(600, 600);
         boolean result = instance.addEntity(entity);
@@ -77,9 +76,8 @@ public class MapTest {
     @org.junit.Test
     public void testRemoveEntity() {
         System.out.println("removeEntity");
-        int[][] footprint = new int[1][1];
         Coordinate pos = new Coordinate(56,60);
-        IPlaceableEntity entity = new Tower(100, 10, footprint, 2, 2, 5, pos);        // -------- also create entity
+        IPlaceableEntity entity = new Tower(100, 10, 1, 2, 2, 5, pos);
         Map instance = new Map();
         instance.generateMap(600, 600);
         instance.addEntity(entity);
