@@ -8,7 +8,7 @@ public class FontMap {
 
     public FontMap() {
         fontmap = new HashMap<>();
-        fontmap.put(Fonts.AINCIENT, "assets/AincientMedium.ttf");
+        fontmap.put(Fonts.AINCIENT, "assets/AncientMedium.ttf");
         fontmap.put(Fonts.ENCHANTED, "assets/EnchantedLand.otf");
         fontmap.put(Fonts.GREGORIAN, "assets/GregorianFLF.ttf");
     }

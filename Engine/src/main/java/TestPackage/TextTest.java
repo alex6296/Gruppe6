@@ -11,7 +11,7 @@ public class TextTest implements IRenderableText{
     private float x = (float) 0.1;
     private float y = (float) 0.1;
     private float with = (float) 0.8;
-    private float hight = (float) 0.2;
+    private float hight = (float) 0.1;
     private IStage stage;
     private String text = "Hans gik en tur";
     private Fonts font = Fonts.AINCIENT;

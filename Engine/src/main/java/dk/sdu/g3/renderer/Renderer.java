@@ -94,15 +94,14 @@ public class Renderer {
     }
 
     public void drawText(IRenderableText text) {
-       BitmapFont font = game.getFont(text.getFont());
+       BitmapFont font = game.getFont(text);
        if (text.getColor() != null) {
             float[] colorArr = text.getColor();
             font.setColor(colorArr[0], colorArr[1], colorArr[2], colorArr[3]);
         } else {
             font.setColor(standardTextColor);
         }
-       font.setScale(text.getWithScale()*text.getStage().getWithScale(), text.getHigthScale()*text.getStage().getWithScale());
-        font.draw(game.batch, text.getText(), getRenderX(text), (getRenderY(text) - getRenderHigth(text)));
+        font.draw(game.batch, text.getText(), ((text.getPosScaleX()*getStageWith(text.getStage()))+getStageX(text.getStage())), ((getStageHigth(text.getStage())* text.getPosScaleY() + getStageY(text.getStage())) + getRenderHigth(text)));
     }
 
     // methods for converting scales to screen sizes:

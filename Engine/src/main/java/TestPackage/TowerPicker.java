@@ -17,60 +17,56 @@ import java.util.List;
  * @author robertfrancisti
  */
 public class TowerPicker implements IStage {
-    
+
     private final float getWidth = (float) 0.25;
     private final float getHeight = (float) 0.6;
     private final float getPosX = (float) 0.8;
     private final float getPosY = (float) 0.5;
-    
+
     private TowerOnTowerPicker tower;
     private TowerOnTowerPicker tower2;
-    
-    //try to get an instance of a tower 
-    
-    
-    public TowerPicker(){
+    private TextTest text;
+    private ArrayList<IRenderable> renderlist;
 
-      tower = new TowerOnTowerPicker(this, (float) 0.8);
-      tower2 = new TowerOnTowerPicker(this, (float) 0.4);
-       
-        
+    //try to get an instance of a tower 
+    public TowerPicker() {
+        renderlist = new ArrayList<>();
+        tower = new TowerOnTowerPicker(this, (float) 0.8);
+        renderlist.add(tower);
+        tower2 = new TowerOnTowerPicker(this, (float) 0.4);
+        renderlist.add(tower2);
+        text = new TextTest(this);
+        renderlist.add(text);
     }
-    
-    public List<IRenderable> getTower(){
-        
-        ArrayList<IRenderable> renderList = new ArrayList<>();
-        
-        renderList.add(tower);
-        renderList.add(tower2);
-        return renderList;
-    }
-    
-   
-      
+
     @Override
-    public float getPosScaleX() {      
+    public List<IRenderable> getRenderables() {
+        return renderlist;
+    }
+
+    @Override
+    public float getPosScaleX() {
         return this.getPosX;
     }
+
     @Override
     public float getPosScaleY() {
-       return this.getPosY;
+        return this.getPosY;
     }
 
     @Override
     public float getWithScale() {
-       return this.getWidth;
+        return this.getWidth;
     }
 
     @Override
     public float getHigthScale() {
-       return this.getHeight;
-    }  
+        return this.getHeight;
+    }
 
     @Override
-        public Graphic getBackgroundFile() {  
-        return Graphic.WALL2;    
+    public Graphic getBackgroundFile() {
+        return Graphic.WALL2;
     }
-    
-    
+
 }

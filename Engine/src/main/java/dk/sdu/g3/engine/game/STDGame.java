@@ -20,6 +20,7 @@ import dk.sdu.g3.common.rendering.Fonts;
 import dk.sdu.g3.common.rendering.Graphic;
 import dk.sdu.g3.common.rendering.GraphicsMap;
 import dk.sdu.g3.common.rendering.IRenderable;
+import dk.sdu.g3.common.rendering.IRenderableText;
 import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.rendering.Layer;
 import dk.sdu.g3.common.services.IEnemy;
@@ -37,7 +38,7 @@ import java.util.List;
  * @author Administrator
  */
 public class STDGame extends Game {
-    
+
     public static OrthographicCamera cam;
     public SpriteBatch batch;
     public Renderer renderer;
@@ -46,18 +47,15 @@ public class STDGame extends Game {
     private IEnemy enemy;
     private IPlayer player;
     private IMap map;
-    
+    private List<IStage> stagelist;
+
     private final GraphicsMap graphMap = new GraphicsMap();
     private final FontMap fontLib = new FontMap();
     private HashMap<Graphic, Texture> textureMap;
-    private HashMap<Fonts, BitmapFont> fontMap;
-    
-    private TowerPicker towerPicker = new TowerPicker();
-    private TowerPicker towerPicker2 = new TowerPicker();
+    private HashMap<String, BitmapFont> fontMap = new HashMap<>();
 
     //dictonary
     Dict inputMapping = new Dictionary();
-    public List<IStage> getStages;
 
     //RenderLists
 //    private List<IRenderableEntity> forGrounds = new ArrayList<>();
@@ -65,25 +63,30 @@ public class STDGame extends Game {
 //    private List<IRenderableEntity> backGrounds = new ArrayList<>();
     @Override
     public void create() {
-        
+
         cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         cam.translate(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         cam.update();
         createTextures();
-        createFonts();
+        getStages();
         
+        //For tets purpse shuld be don through service loader!!!!!
+        TowerPicker towerPicker = new TowerPicker();
+        stagelist = new ArrayList<>();
+        stagelist.add(towerPicker);
+
         batch = new SpriteBatch();
-        
+
         this.renderer = new Renderer(this);
-        
+
         this.setScreen(new MainMenuScreen(this));
     }
-    
+
     public void gameLoop() {
 //        for(IPlaceableEntity: map.updatePositions()){
 //            enemy.
 //        }
-        
+
     }
 
 //    public void addForGroundElement(IRenderableEntity e, Coordinate location) {
@@ -162,7 +165,7 @@ public class STDGame extends Game {
     @Override
     public void resize(int i, int i1) {
     }
-    
+
     @Override
     public void render() {
         super.render(); // tror den her skal være der.
@@ -174,33 +177,42 @@ public class STDGame extends Game {
         //update();
         //draw();
     }
-    
+
     public void StartGame() {
         this.setScreen(new GameScreen(this));
-        
+
     }
-    
+
     public ArrayList<ArrayList<IRenderable>> getRenderList() throws Exception {
         ArrayList<IRenderable> renderlist = new ArrayList<>();
-        for (IRenderable iRenderable : towerPicker.getTower()) {
-            renderlist.add(iRenderable);
+        for (IStage stage : stagelist){
+            for(IRenderable rend : stage.getRenderables()){
+                renderlist.add(rend);
+            }
         }
-        
+
         ArrayList<ArrayList<IRenderable>> renderListList = new ArrayList<>();
         ArrayList<IRenderable> backgroundList = new ArrayList<>();
         ArrayList<IRenderable> midgroundList = new ArrayList<>();
         ArrayList<IRenderable> forgroundlist = new ArrayList<>();
         ArrayList<IRenderable> notdefinedList = new ArrayList<>();
-        
+
         for (IRenderable rend : renderlist) {
-            if (rend.getLayer() == Layer.BACKGROUND) {
-                backgroundList.add(rend);
-            } else if (rend.getLayer() == Layer.MIDGROUND) {
-                midgroundList.add(rend);
-            } else if (rend.getLayer() == Layer.FORGOUND) {
-                forgroundlist.add(rend);
-            } else {
+            if (null == rend.getLayer()) {
                 notdefinedList.add(rend);
+            } else switch (rend.getLayer()) {
+                case BACKGROUND:
+                    backgroundList.add(rend);
+                    break;
+                case MIDGROUND:
+                    midgroundList.add(rend);
+                    break;
+                case FORGOUND:
+                    forgroundlist.add(rend);
+                    break;
+                default:
+                    notdefinedList.add(rend);
+                    break;
             }
         }
         if (!notdefinedList.isEmpty()) {
@@ -209,42 +221,39 @@ public class STDGame extends Game {
         renderListList.add(backgroundList);
         renderListList.add(midgroundList);
         renderListList.add(forgroundlist);
-        
-        return renderListList;        
+
+        return renderListList;
     }
-    
+
     public List<IStage> getStages() {
-        ArrayList<IStage> stagelist = new ArrayList<>();
-        
-        stagelist.add(towerPicker);
         return stagelist;
     }
-    
+
     public Texture getTexture(Graphic graph) {
         return textureMap.get(graph);
     }
-    
-    public BitmapFont getFont(Fonts font){
-        return fontMap.get(font);
+
+    public BitmapFont getFont(IRenderableText text) {
+                //Hvis ikke klassens font er i mappet
+        if(!fontMap.containsKey(text.getFont().toString() + text.toString())){
+            System.out.println("made a new font: " + text.getFont().toString() + text.toString());
+        
+        //set font op
+            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontLib.getFontmap().get(text.getFont())));
+            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+            parameter.size = (int) ((text.getStage().getHigthScale()*Gdx.graphics.getHeight())*text.getHigthScale());
+            //adfont til map
+            fontMap.put((text.getFont().toString() + text.toString()), generator.generateFont(parameter));
+            generator.dispose();
+        }
+        return fontMap.get(text.getFont().toString() + text.toString());
     }
-    
+
     private void createTextures() {
         textureMap = new HashMap<>();
         for (Graphic e : graphMap.getGraphics().keySet()) {
             textureMap.put(e, new Texture(graphMap.getGraphics().get(e)));
-            
+
         }
     }
-    
-    private void createFonts() {
-        fontMap = new HashMap<>();
-        for (Fonts f : fontLib.getFontmap().keySet()) {
-            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontLib.getFontmap().get(f)));
-            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            parameter.size = (int) (0.1*Gdx.graphics.getHeight());
-            fontMap.put(f, generator.generateFont(parameter));
-            
-        }
-    }
-    
 }

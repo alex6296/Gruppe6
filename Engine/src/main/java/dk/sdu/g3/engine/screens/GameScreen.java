@@ -36,7 +36,7 @@ public class GameScreen implements Screen {
     public void render(float f) {
         time = time + f;
         if (time >= 0.1) {
-            System.out.println("float time: " + time);
+            //System.out.println("float time: " + time);
             
             //gameloop
             game.gameLoop();
@@ -54,6 +54,7 @@ public class GameScreen implements Screen {
 
             game.batch.end();
             time = 0;
+            //dispose fonts?
         }
     }
 

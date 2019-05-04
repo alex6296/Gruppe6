@@ -1,5 +1,7 @@
 package dk.sdu.g3.common.rendering;
 
+import java.util.List;
+
 
 public interface IStage {
     //Definerer midten af "towerpicker"
@@ -13,5 +15,6 @@ public interface IStage {
 //    public void setWithScale(float scale);
 //    public void setHigthScale(float scale);
     public Graphic getBackgroundFile();
+    public List<IRenderable> getRenderables();
 
 }
