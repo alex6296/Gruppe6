@@ -59,7 +59,7 @@ public class PathfindingTest {
         Pathfinding instance = new Pathfinding();
         List<Coordinate> result = instance.generatePath(map, start, goal);
         
-        //Prints every coordinate in the path from start to goal
+        //Prints every coordinate in the found path from start to goal
         for (Coordinate coord : result) {
             System.out.println("Coordinate = " + coord.getX() + ", " + coord.getY());
         }
