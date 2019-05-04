@@ -9,8 +9,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import dk.sdu.g3.common.rendering.IRenderable;
 import dk.sdu.g3.common.rendering.IRenderableSprite;
 import dk.sdu.g3.common.rendering.IRenderableText;
@@ -18,7 +16,6 @@ import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.engine.game.STDGame;
 import java.util.ArrayList;
 import java.util.List;
-import static javafx.scene.text.Font.font;
 
 /**
  *
@@ -26,17 +23,11 @@ import static javafx.scene.text.Font.font;
  */
 public class Renderer {
 
-    BitmapFont font;
-    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("assets/Ancient Medium.ttf"));
-    FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-
     private final STDGame game;
     private Color standardTextColor = new Color(Color.WHITE);
 
     public Renderer(final STDGame game) {
         this.game = game;
-        font = generator.generateFont(parameter);
-
     }
 
     /**
@@ -46,12 +37,6 @@ public class Renderer {
     public void renderAll() throws Exception {
         RenderStages(game.getStages());
         RenderRenderables(game.getRenderList());
-
-        parameter.size = 50;
-        font = generator.generateFont(parameter);
-        font.setColor(Color.RED);
-        font.draw(game.batch, "TEST Test og mere test", 100, 500);
-        //font.dispose();
 
     }
 
@@ -109,14 +94,14 @@ public class Renderer {
     }
 
     public void drawText(IRenderableText text) {
-        parameter.size = (int) getRenderHigth(text);
-        font = generator.generateFont(parameter);
-        if (text.getColor() != null) {
+       BitmapFont font = game.getFont(text.getFont());
+       if (text.getColor() != null) {
             float[] colorArr = text.getColor();
             font.setColor(colorArr[0], colorArr[1], colorArr[2], colorArr[3]);
         } else {
             font.setColor(standardTextColor);
         }
+       font.setScale(text.getWithScale()*text.getStage().getWithScale(), text.getHigthScale()*text.getStage().getWithScale());
         font.draw(game.batch, text.getText(), getRenderX(text), (getRenderY(text) - getRenderHigth(text)));
     }
 

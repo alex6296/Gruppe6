@@ -5,6 +5,7 @@
  */
 package TestPackage;
 
+import dk.sdu.g3.common.rendering.Graphic;
 import dk.sdu.g3.common.rendering.IRenderable;
 import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.services.ITower;
@@ -67,9 +68,8 @@ public class TowerPicker implements IStage {
     }  
 
     @Override
-    
-    public String getBackgroundFile() {  
-        return "Common/src/main/resources/assets/wall22.png";    
+        public Graphic getBackgroundFile() {  
+        return Graphic.WALL2;    
     }
     
     

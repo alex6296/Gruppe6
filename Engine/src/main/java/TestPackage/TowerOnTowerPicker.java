@@ -5,6 +5,7 @@
  */
 package TestPackage;
 
+import dk.sdu.g3.common.rendering.Graphic;
 import dk.sdu.g3.common.rendering.IRenderableSprite;
 import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.rendering.Layer;
@@ -35,8 +36,8 @@ public class TowerOnTowerPicker implements IRenderableSprite {
   
     
     @Override
-    public String getFile() {
-       return "assets/wall.png";
+    public Graphic getFile() {
+       return Graphic.WALL;
     }
 
     @Override
