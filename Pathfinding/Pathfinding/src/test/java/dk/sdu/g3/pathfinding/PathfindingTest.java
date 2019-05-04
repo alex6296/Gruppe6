@@ -52,23 +52,26 @@ public class PathfindingTest {
         map.setLengthX(200);
         map.setLengthY(200);
         map.generateMap();
-        
-        Coordinate start = new Coordinate(4, 100);
-        Coordinate goal = new Coordinate(196, 100);
-        
+
+        Coordinate start = new Coordinate(4, 4);
+        Coordinate goal = new Coordinate(196, 196);
+
         Pathfinding instance = new Pathfinding();
         List<Coordinate> result = instance.generatePath(map, start, goal);
         
+        //Prints every coordinate in the path from start to goal
+        for (Coordinate coord : result) {
+            System.out.println("Coordinate = " + coord.getX() + ", " + coord.getY());
+        }
         boolean positiveResult = false;
-        for(Coordinate coord : result) {
-            if(coord.getX() == goal.getX()) {
-                if(coord.getY() == goal.getY()) {
-                    System.out.println("Goal found: " + coord.getX() + ", " + coord.getY());
+        for (Coordinate coord : result) {
+            if (coord.getX() == 100) {
+                if (coord.getY() == 100) {
                     positiveResult = true;
                 }
             }
         }
-        
+
         assertEquals(true, positiveResult);
     }
 
@@ -204,8 +207,8 @@ public class PathfindingTest {
     }
 
     /**
-     * Test of setRightNeighbour method, of class Pathfinding. 
-     * Complete and compiled without error
+     * Test of setRightNeighbour method, of class Pathfinding. Complete and
+     * compiled without error
      */
     @Test
     public void testSetRightNeighbour() {
@@ -238,8 +241,8 @@ public class PathfindingTest {
     }
 
     /**
-     * Test of setUpNeighbour method, of class Pathfinding.
-     * Complete and compiled without error
+     * Test of setUpNeighbour method, of class Pathfinding. Complete and
+     * compiled without error
      */
     @Test
     public void testSetUpNeighbour() {
