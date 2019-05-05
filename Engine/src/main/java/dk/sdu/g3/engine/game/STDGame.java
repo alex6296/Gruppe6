@@ -5,7 +5,6 @@
  */
 package dk.sdu.g3.engine.game;
 
-import TestPackage.TowerPicker;
 import dk.sdu.g3.engine.screens.GameScreen;
 import dk.sdu.g3.engine.screens.MainMenuScreen;
 import com.badlogic.gdx.Game;
@@ -32,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import static java.util.Locale.lookup;
 import org.openide.util.Lookup;
 
 /**
@@ -73,11 +71,6 @@ public class STDGame extends Game {
         createTextures();
         getStages();
         
-        //For tets purpse shuld be don through service loader!!!!!
-        TowerPicker towerPicker = new TowerPicker();
-//        stagelist = new ArrayList<>();
-//        stagelist.add(towerPicker);
-
         batch = new SpriteBatch();
 
         this.renderer = new Renderer(this);
