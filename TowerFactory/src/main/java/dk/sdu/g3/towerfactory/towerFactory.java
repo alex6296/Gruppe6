@@ -19,11 +19,13 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = ITowerFactory.class),})
 public class towerFactory implements ITowerFactory  {
     
+    @Override
     public ITower getNewTower() {
         return (ITower) new Tower();
     }
 
-    public ITower getNewTower(int life, int damage, int[][] footprint, int cost, int attackSpeed, int attackRange, Coordinate position) {
+    @Override
+    public ITower getNewTower(int life, int damage, int footprint, int cost, int attackSpeed, int attackRange, Coordinate position) {
         return (ITower) new Tower(life, damage, footprint, cost, attackSpeed, attackRange, position);
     }
 

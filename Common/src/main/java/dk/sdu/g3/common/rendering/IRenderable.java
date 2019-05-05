@@ -6,13 +6,27 @@
 package dk.sdu.g3.common.rendering;
 
 /**
- *
- * @author Administrator
+ * general interface for all rendering, Shuld not be used for implementation, chose ither IRenderingText or IRenderingSprite based on your spesific need
+ * @author Rasmus
  */
-public interface IRenderable {
+public interface IRenderable{
     
-    public static int FORGROUND = 1;
-    public static int MIDDLEGROUND = 1;
-    public static int BACKGROUND = 1;
+    /**
+     * 
+     * @return 
+     */
+    public IStage getStage();
+    public void setStage(IStage stage); // skal den bruges??
+    public Layer getLayer();
+    public float getPosScaleX();
+    public float getPosScaleY();
+    public float getWithScale();
+    public float getHigthScale();
+    public void setPosScaleX(float scale);
+    public void setPosScaleY(float scale);
+    public void setWithScale(float scale);
+    public void setHigthScale(float scale);
     
+    
+
 }

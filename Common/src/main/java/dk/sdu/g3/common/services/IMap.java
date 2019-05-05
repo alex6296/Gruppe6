@@ -16,14 +16,16 @@ import java.util.List;
  */
 public interface IMap {
     
+    IMap getMap();
     List<ITile> getTileList();
     int getLengthX();
     int getLengthY();
     void setLengthX(int x);
     void setLengthY(int y);
-    void generateMap();
-    void addEntity(IPlaceableEntity entity);
+    void generateMap(int lenX, int lenY);
+    boolean addEntity(IPlaceableEntity entity);
     void removeEntity(IPlaceableEntity entity);
+    int getTileSize();
     
     List<IPlaceableEntity> updatePositions();
     void updateActions();

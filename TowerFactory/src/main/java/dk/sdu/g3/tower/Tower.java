@@ -7,16 +7,16 @@ package dk.sdu.g3.tower;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.entities.ILifeFunctions;
-import dk.sdu.g3.common.rendering.IRenderableUnit;
+import dk.sdu.g3.common.rendering.IRenderable;
 import dk.sdu.g3.common.services.ITower;
 import dk.sdu.g3.common.services.IUnit;
 
-public class Tower implements ITower, IRenderableUnit {
+public class Tower implements ITower{
 
     private int life = 100;
     private int MAXLIFE = life;
     private int damage = 10;
-    private int[][] footprint = new int[][]{{3}, {3}};
+    private int footprint = 3;
     private int cost = 50;
     private int attackSpeed = 4;
     private int attackRange = 5;
@@ -37,7 +37,7 @@ public class Tower implements ITower, IRenderableUnit {
      * @param attackRange how far the tower can attack
      * @param position wcordinates of the tower
      */
-    public Tower(int life, int damage, int[][] footprint, int cost, int attackSpeed, int attackRange, Coordinate position) {
+    public Tower(int life, int damage, int footprint, int cost, int attackSpeed, int attackRange, Coordinate position) {
         this.life = life;
         this.damage = damage;
         this.footprint = footprint;
@@ -55,10 +55,6 @@ public class Tower implements ITower, IRenderableUnit {
         return damage;
     }
 
-    @Override
-    public int[][] getFootprint() {
-        return footprint;
-    }
 
     public int getAttackSpeed() {
         return attackSpeed;
@@ -84,10 +80,6 @@ public class Tower implements ITower, IRenderableUnit {
 
     public void setDamage(int damage) {
         this.damage = damage;
-    }
-
-    public void setFootprint(int[][] footprint) {
-        this.footprint = footprint;
     }
 
     public void setCost(int cost) {
@@ -129,17 +121,17 @@ public class Tower implements ITower, IRenderableUnit {
         }
     }
 
-    @Override
+    //@Override
     public int getMaxHp() {
         return this.MAXLIFE;
     }
 
-    @Override
+   /// @Override
     public int getCurrentHp() {
         return this.life;
     }
 
-    @Override
+    //@Override
     public String getSpriteUrl() {
         return this.SpriteUrl;
     }
@@ -147,6 +139,9 @@ public class Tower implements ITower, IRenderableUnit {
     @Override
     public Coordinate getPath() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public int getFootprint() {
+       return footprint;
     }
 
 }

@@ -14,7 +14,6 @@ import dk.sdu.g3.common.data.Coordinate;
 public interface IPlaceableEntity {
     
     void setPosition(Coordinate coord);
-    int[][] getFootprint();
     Coordinate getCurrentPosition();
     int getCost();
     int getAttackRange();
@@ -22,8 +21,6 @@ public interface IPlaceableEntity {
     public int getLife();
     public int getDamage();
     public Coordinate getPath();
-                
-
-    
+    int getFootprint();
 
 }
