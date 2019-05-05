@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-OpenIDE-Module-Install: dk/sdu/g3/silentupdater/UpdateActivator.class
-OpenIDE-Module-Localizing-Bundle: dk/sdu/g3/silentupdater/Bundle.properties
-OpenIDE-Module-Layer: dk/sdu/g3/silentupdater/layer.xml
-
