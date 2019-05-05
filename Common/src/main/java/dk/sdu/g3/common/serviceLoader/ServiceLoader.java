@@ -16,13 +16,13 @@ import org.openide.util.LookupListener;
  * @author sebastian
  */
 public class ServiceLoader {
-        ArrayList<Class> ServiceProviderList = new ArrayList();
+        ArrayList<Object> ServiceProviderList = new ArrayList();
         Class IService;
 
         private final Lookup lookup = Lookup.getDefault();
         private Lookup.Result<Class> result;
 
-        public ServiceLoader( Class IService) {
+        public ServiceLoader(Class IService) {
             //vars
             this.IService = IService;
             result = lookup.lookupResult(IService); //Finds SP'
@@ -31,7 +31,7 @@ public class ServiceLoader {
 
             System.out.println("---IGamePluginService---");
             //inizial load
-            for (Class plugin : result.allInstances()) {
+            for (Object plugin : result.allInstances()) {
                 System.out.println(plugin);
                 ServiceProviderList.add(plugin);
             }
@@ -43,7 +43,7 @@ public class ServiceLoader {
 
                 Collection<? extends Class> updated = result.allInstances();
 
-                for (Class us : updated) {
+                for (Object us : updated) {
                     // Newly installed modules
                     if (!ServiceProviderList.contains(us)) {
                         ServiceProviderList.add(us);
@@ -51,9 +51,9 @@ public class ServiceLoader {
                 }
 
                 // Stop and remove module
-                for (Class gs : ServiceProviderList) {
+                for (Object gs : ServiceProviderList) {
                     if (!updated.contains(gs)) {
-                        
+
                         ServiceProviderList.remove(gs);
                     }
                 }
@@ -63,8 +63,8 @@ public class ServiceLoader {
         private <T> Collection<? extends T> getSP(Class<T> SPI) {
             return lookup.lookupAll(SPI);
         }
-    public ArrayList<Class> getServiceProviderList() {
+    public ArrayList<?> getServiceProviderList() {
         return ServiceProviderList;
     }
-    
+
     }
