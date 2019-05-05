@@ -21,6 +21,7 @@ import dk.sdu.g3.common.rendering.GraphicsMap;
 import dk.sdu.g3.common.rendering.IRenderable;
 import dk.sdu.g3.common.rendering.IRenderableText;
 import dk.sdu.g3.common.rendering.IStage;
+import dk.sdu.g3.common.serviceLoader.ServiceLoader;
 import dk.sdu.g3.common.services.IEnemy;
 import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPlayer;
@@ -28,8 +29,11 @@ import dk.sdu.g3.engine.util.render.Dictionary.Dict;
 import dk.sdu.g3.engine.util.render.Dictionary.Dictionary;
 import dk.sdu.g3.renderer.Renderer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import static java.util.Locale.lookup;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -40,12 +44,13 @@ public class STDGame extends Game {
     public static OrthographicCamera cam;
     public SpriteBatch batch;
     public Renderer renderer;
+    private final Lookup lookup = Lookup.getDefault();
 
     //modules
-    private IEnemy enemy;
-    private IPlayer player;
-    private IMap map;
-    private List<IStage> stagelist;
+    private List<IEnemy> enemyList;
+    private List<IPlayer> playerList;
+    private List<IMap> mapList;
+//    private List<IStage> stagelist;
 
     private final GraphicsMap graphMap = new GraphicsMap();
     private final FontMap fontLib = new FontMap();
@@ -70,14 +75,19 @@ public class STDGame extends Game {
         
         //For tets purpse shuld be don through service loader!!!!!
         TowerPicker towerPicker = new TowerPicker();
-        stagelist = new ArrayList<>();
-        stagelist.add(towerPicker);
+//        stagelist = new ArrayList<>();
+//        stagelist.add(towerPicker);
 
         batch = new SpriteBatch();
 
         this.renderer = new Renderer(this);
 
         this.setScreen(new MainMenuScreen(this));
+        
+        //subscribing to services:
+        enemyList = (List<IEnemy>) new ServiceLoader(IEnemy.class).getServiceProviderList();
+        mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
+        playerList = (List<IPlayer>) new ServiceLoader(IPlayer.class).getServiceProviderList();
     }
 
     public void gameLoop() {
@@ -104,7 +114,7 @@ public class STDGame extends Game {
 
     public ArrayList<ArrayList<IRenderable>> getRenderList() throws Exception {
         ArrayList<IRenderable> renderlist = new ArrayList<>();
-        for (IStage stage : stagelist){
+        for (IStage stage : getStages()){
             for(IRenderable rend : stage.getRenderables()){
                 renderlist.add(rend);
             }
@@ -144,8 +154,8 @@ public class STDGame extends Game {
         return renderListList;
     }
 
-    public List<IStage> getStages() {
-        return stagelist;
+    public Collection<? extends IStage> getStages() {
+        return lookup.lookupAll(IStage.class);
     }
 
     public Texture getTexture(Graphic graph) {

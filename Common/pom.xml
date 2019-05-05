@@ -21,6 +21,7 @@
                         <publicPackage>dk.sdu.g3.common.entities</publicPackage>
                         <publicPackage>dk.sdu.g3.common.rendering</publicPackage>
                         <publicPackage>dk.sdu.g3.common.rendering.PQ</publicPackage>
+                        <publicPackage>dk.sdu.g3.common.serviceLoader</publicPackage>
                         <publicPackage>dk.sdu.g3.common.services</publicPackage>
                     </publicPackages>
                 </configuration>
@@ -44,6 +45,12 @@
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-api-annotations-common</artifactId>
             <version>${netbeans.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-util-lookup</artifactId>
+            <version>RELEASE81</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <properties>
