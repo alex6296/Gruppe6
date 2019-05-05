@@ -17,15 +17,13 @@ import org.openide.util.LookupListener;
  */
 public class ServiceLoader {
         ArrayList<Class> ServiceProviderList = new ArrayList();
-        Class ServiceProvider;
         Class IService;
 
         private final Lookup lookup = Lookup.getDefault();
         private Lookup.Result<Class> result;
 
-        public ServiceLoader(Class ServiceProvider, Class IService) {
+        public ServiceLoader( Class IService) {
             //vars
-            this.ServiceProvider = ServiceProvider;
             this.IService = IService;
             result = lookup.lookupResult(IService); //Finds SP'
             result.addLookupListener(lookupListener);
@@ -65,5 +63,8 @@ public class ServiceLoader {
         private <T> Collection<? extends T> getSP(Class<T> SPI) {
             return lookup.lookupAll(SPI);
         }
-
+    public ArrayList<Class> getServiceProviderList() {
+        return ServiceProviderList;
+    }
+    
     }

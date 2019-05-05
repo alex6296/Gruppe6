@@ -70,6 +70,7 @@ public class Enemy implements IEnemy {
     @Override
     public int getCurrentWave() {
         return currentWave;
+        
     }
 
     @Override
