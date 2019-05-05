@@ -2,7 +2,10 @@ package dk.sdu.g3.common.rendering;
 
 import java.util.HashMap;
 
-
+/**
+ * Class for assosiating a Font with a specific file 
+ * @author Rasmus
+ */
 public class FontMap {
     private HashMap<Fonts, String> fontmap;
 

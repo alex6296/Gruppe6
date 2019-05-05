@@ -5,13 +5,16 @@
  */
 package dk.sdu.g3.common.rendering;
 
-import java.util.List;
-
 /**
- *
- * @author Administrator
+ * general interface for all rendering, Shuld not be used for implementation, chose ither IRenderingText or IRenderingSprite based on your spesific need
+ * @author Rasmus
  */
-public interface IRenderable {
+public interface IRenderable{
+    
+    /**
+     * 
+     * @return 
+     */
     public IStage getStage();
     public void setStage(IStage stage); // skal den bruges??
     public Layer getLayer();

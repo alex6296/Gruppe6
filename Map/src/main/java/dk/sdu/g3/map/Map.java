@@ -4,6 +4,7 @@ import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.data.ITile;
 import dk.sdu.g3.common.entities.IAction;
 import dk.sdu.g3.common.entities.IMovable;
+import dk.sdu.g3.common.rendering.Graphic;
 import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class Map implements IMap, IStage {
     private float height = 0.6f;
     private float posX = 0.3f;
     private float posY = 0.5f;
-    private String background = "";
+    private Graphic background = Graphic.WALL;
     private float tileScaleX, tileScaleY;
     
     // functionality variables
@@ -262,7 +263,7 @@ public class Map implements IMap, IStage {
     }
 
     @Override
-    public String getBackgroundFile() {
+    public Graphic getBackgroundFile() {
         return this.background;
     }
     

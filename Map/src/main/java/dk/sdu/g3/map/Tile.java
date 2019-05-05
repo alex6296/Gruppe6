@@ -3,6 +3,7 @@ package dk.sdu.g3.map;
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.data.ITile;
 import dk.sdu.g3.common.entities.IMovable;
+import dk.sdu.g3.common.rendering.Graphic;
 import dk.sdu.g3.common.rendering.IRenderableSprite;
 import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.rendering.Layer;
@@ -15,7 +16,7 @@ public class Tile implements ITile, IRenderableSprite {
     
     // renderable attributes
     private Layer layer;
-    private String file = "";
+    private Graphic file = Graphic.WALL2;
     private float posX;
     private float posY;
     private float width;
@@ -76,7 +77,7 @@ public class Tile implements ITile, IRenderableSprite {
     }
 
     @Override
-    public String getFile() {
+    public Graphic getFile() {
         return this.file;
     }
 
