@@ -7,12 +7,11 @@
 package dk.sdu.g3.common.services;
 
 import dk.sdu.g3.common.entities.ILifeFunctions;
-import dk.sdu.g3.common.rendering.IRenderableUnit;
 
 /**
  *
  */
-public interface ITower extends IPlaceableEntity,IRenderableUnit  {
+public interface ITower extends IPlaceableEntity  {
     
     public void shoot(ILifeFunctions[] enemiesInRange);
     

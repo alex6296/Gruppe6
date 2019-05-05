@@ -102,7 +102,7 @@ public class Enemy implements IEnemy {
     public boolean create(IUnit unit) {
         for (IUnitFactory unit1 : unitLoader.getSP(IUnitFactory.class)){
             
-                EntityList.add(unit1.getNewUnit(unit.getCurrentHp(),unit.getDamage() , unit.getFootprint(), unit.getCost(), unit.getAttackRange(), unit.getAttackSpeed(), unit.getCurrentPosition(), unit.getPath()));
+                EntityList.add(unit1.getNewUnit(unit.getLife(),unit.getDamage() , unit.getFootprint(), unit.getCost(), unit.getAttackRange(), unit.getAttackSpeed(), unit.getCurrentPosition(), unit.getPath()));
             return true;    
         }
         return false;

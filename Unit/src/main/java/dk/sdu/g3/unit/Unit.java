@@ -10,14 +10,13 @@ import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.services.IUnit;
 import dk.sdu.g3.common.data.ITile;
 import dk.sdu.g3.common.entities.ILifeFunctions;
-import dk.sdu.g3.common.rendering.IRenderableUnit;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import java.util.List;
 
 /**
  *
  */
-public class Unit implements IUnit, IRenderableUnit{
+public class Unit implements IUnit{
     
     
     public Unit(){
@@ -33,7 +32,7 @@ public class Unit implements IUnit, IRenderableUnit{
     private Unit unit;
     private int costOfUnit;
     private ITile tile;
-    private int[][] unitFootprint;
+    private int unitFootprint;
     private int attackRange;
     private int attackSpeed; 
     private Coordinate position;
@@ -43,7 +42,7 @@ public class Unit implements IUnit, IRenderableUnit{
     
     
     
-    public Unit(int hitPoints, int damage, int[][] footprint, int cost, int attackRange, int attackSpeed, Coordinate position, Coordinate path){
+    public Unit(int hitPoints, int damage, int footprint, int cost, int attackRange, int attackSpeed, Coordinate position, Coordinate path){
         
         this.hitPoints = hitPoints; 
         this.damage = damage; 
@@ -69,7 +68,7 @@ public class Unit implements IUnit, IRenderableUnit{
    
 
     @Override
-    public int[][] getFootprint() {
+    public int getFootprint() {
         
         return this.unitFootprint;
         
@@ -112,12 +111,10 @@ public class Unit implements IUnit, IRenderableUnit{
         return this.spriteUrl;
     }
 
-    @Override
     public int getMaxHp() {  
        return this.MAXHP;    
     }
 
-    @Override
     public int getCurrentHp() {  
         return this.hitPoints;
     }
@@ -165,11 +162,11 @@ public class Unit implements IUnit, IRenderableUnit{
         this.tile = tile;
     }
 
-    public int[][] getUnitFootprint() {
+    public int getUnitFootprint() {
         return unitFootprint;
     }
 
-    public void setUnitFootprint(int[][] unitFootprint) {
+    public void setUnitFootprint(int unitFootprint) {
         this.unitFootprint = unitFootprint;
     }
 
@@ -186,10 +183,6 @@ public class Unit implements IUnit, IRenderableUnit{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void setPosition(Coordinate coord) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     public void setPath(Coordinate cord){
         this.path = cord;
@@ -197,6 +190,11 @@ public class Unit implements IUnit, IRenderableUnit{
     
     public Coordinate getPath(){
         return path;
+    }
+
+    @Override
+    public int getLife() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 
