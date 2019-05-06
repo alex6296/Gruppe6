@@ -5,6 +5,8 @@
  */
 package dk.sdu.g3.common.services;
 
+import dk.sdu.g3.common.data.Coordinate;
+
 /**
  *
  * @author pvies
@@ -12,5 +14,6 @@ package dk.sdu.g3.common.services;
 public interface IPlayer extends IController {
     int getCurrentHp();
     int getCurrentGold();
+    void placeReservedTower(Coordinate coor);
     
 }
