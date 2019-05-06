@@ -66,7 +66,7 @@ public class Player implements IPlayer {
 
     @Override
     public IPlaceableEntity create() {
-        factoryList =  (List<ITowerFactory>) new ServiceLoader(ITowerFactory.class);
+        factoryList =  (List<ITowerFactory>) new ServiceLoader(ITowerFactory.class).getServiceProviderList();
         for (ITowerFactory tower : factoryList){
             ITower createdTower = tower.getNewTower();
             return createdTower;    
@@ -75,9 +75,9 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void remove(ILifeFunctions livingEntity) {
+    public void remove(IPlaceableEntity livingEntity) {
        for (IMap map : mapList){
-           map.removeEntity((IPlaceableEntity) livingEntity);
+           map.removeEntity( livingEntity);
        }
     }
     
@@ -103,6 +103,7 @@ public class Player implements IPlayer {
     }
 
     public void reserveTower(ITower tower){
+        mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
         reservedTower = tower;
     }
     @Override
@@ -111,7 +112,7 @@ public class Player implements IPlayer {
 //         for (ITower tower : towerlist){
              reservedTower.setPosition(coor);
 //         }
-         mapList = (List<IMap>) new ServiceLoader(IMap.class);
+         mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
          for (IMap map : mapList){
              map.getMap();
          }

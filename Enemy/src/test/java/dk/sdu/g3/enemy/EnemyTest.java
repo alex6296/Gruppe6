@@ -52,134 +52,30 @@ public class EnemyTest {
     @After
     public void tearDown() {
     }
-
+}
     /**
      * Test of putEntityOnMap method, of class Enemy.
      */
-    @Test
-    public void testPutEntityOnMap() throws Exception {
-        System.out.println("putEntityOnMap");
-        unitFactory1 =  (IUnitFactory) new ServiceLoader(IUnitFactory.class);
-        IPlaceableEntity unit = unitFactory1.getNewUnit();
-        Enemy instance = new Enemy();
-        mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
-        for(IMap map1 : mapList){
-        instance.putEntityOnMap(unit, map1.getMap());
-        
-    }
-    }
-}
-
-    /**
-     * Test of removeEntityFromMap method, of class Enemy.
-     */
 //    @Test
-//    public void testRemoveEntityFromMap() {
-//        System.out.println("removeEntityFromMap");
-//        IPlaceableEntity unit = unitFactory.getNewUnit();
+//    public void testPutEntityOnMap() throws Exception {
+//        System.out.println("putEntityOnMap");
+//        unitFactoryList = (List<IUnitFactory>) new ServiceLoader(IUnitFactory.class).getServiceProviderList();
+//        for(IUnitFactory Unitfactory : unitFactoryList){
+//        IUnit unit = Unitfactory.getNewUnit();
+//        
 //        Enemy instance = new Enemy();
-//        instance.removeEntityFromMap(unit);
+//        
+//        
+//        mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
+//        for(IMap map1 : mapList){
+//            map1.generateMap(600, 600);
+//        Coordinate startposition = new Coordinate(12,12);
+//        unit.setPosition(startposition);
+//        instance.putEntityOnMap(unit, map1.getMap());
+//        
+//        assertEquals(map1.inspect(startposition).get(0),unit);
+//        }
 //    }
-//
-//    /**
-//     * Test of addPathToUnit method, of class Enemy.
-//     */
-//    @Test
-//    public void testAddPathToUnit() throws Exception {
-//        System.out.println("addPathToUnit");
-//        Enemy instance = new Enemy();
-//        IUnit unit = unitFactory.getNewUnit();
-//        Coordinate startPosition = new Coordinate(map1.getTileSize(),random.nextInt(map1.getLengthY()/(2*map1.getTileSize())));
-//        Coordinate goal = new Coordinate(map1.getTileSize(),random.nextInt(map1.getLengthY()/(map1.getTileSize())));
-//        List<Coordinate> path = pathing.generatePath(map1.getMap(),startPosition , goal);
-//        instance.addPathToUnit(path, unit);
-//    }
-//
-//    /**
-//     * Test of getCurrentWave method, of class Enemy.
-//     */
-//    @Test
-//    public void testGetCurrentWave() {
-//        System.out.println("getCurrentWave");
-//        Enemy instance = new Enemy();
-//        int expResult = 0;
-//        int result = instance.getCurrentWave();
-//        System.out.println("expResult" + expResult + "result" + result);
-//        assertEquals(expResult, result);
-//    }
-//
-//    /**
-//     * Test of createWave method, of class Enemy.
-//     */
-//    @Test
-//    public void testCreateWave() {
-//        System.out.println("createWave");
-//        Enemy instance = new Enemy();
-//        instance.createWave();
-//    }
-//
-//    /**
-//     * Test of generateWaveComposition method, of class Enemy.
-//     */
-//    @Test
-//    public void testGenerateWaveComposition() {
-//        System.out.println("generateWaveComposition");
-//        Enemy instance = new Enemy();
-//        int expResult = 0;
-//        int result = instance.generateWaveComposition();
-//        System.out.println("expResult" + expResult + "result" + result);
-//        assertEquals(expResult, result);
-//    }
-//
-//    /**
-//     * Test of create method, of class Enemy.
-//     */
-//    @Test
-//    public void testCreate() {
-//        System.out.println("create");
-//        Enemy instance = new Enemy();
-//        IPlaceableEntity expResult = null;
-//        IPlaceableEntity result = instance.create();
-//        System.out.println("expResult" + expResult + "result" + result);
-//        assertEquals(expResult, result);
-//    }
-//
-//    /**
-//     * Test of getEntities method, of class Enemy.
-//     */
-//    @Test
-//    public void testGetEntities() {
-//        System.out.println("getEntities");
-//        Enemy instance = new Enemy();
-//        List<IPlaceableEntity> expResult = null;
-//        List<IPlaceableEntity> result = instance.getEntities();
-//        System.out.println("expResult" + expResult + "result" + result);
-//        assertEquals(expResult, result);
-//    }
-//
-//    /**
-//     * Test of remove method, of class Enemy.
-//     */
-//    @Test
-//    public void testRemove() {
-//        System.out.println("remove");
-//        ILifeFunctions livingEntity = null;
-//        Enemy instance = new Enemy();
-//        instance.remove(livingEntity);
-//    }
-//
-//    /**
-//     * Test of decreaseHp method, of class Enemy.
-//     */
-//    @Test
-//    public void testDecreaseHp() {
-//        System.out.println("decreaseHp");
-//        int damage = 0;
-//        Enemy instance = new Enemy();
-//        boolean expResult = false;
-//        boolean result = instance.decreaseHp(damage);
-//        System.out.println("expResult" + expResult + "result" + result);
-//        assertEquals(expResult, result);
 //    }
 //    
 //}
