@@ -9,6 +9,7 @@ import dk.sdu.g3.common.rendering.Graphic;
 import dk.sdu.g3.common.rendering.IRenderableSprite;
 import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.rendering.Layer;
+import dk.sdu.g3.common.services.ITowerFactory;
 
 /**
  *
@@ -18,6 +19,8 @@ public class TowerOnTowerPicker implements IRenderableSprite {
 
     
    
+    private ITowerFactory itf;
+
     
     private  float getWidth = (float) 0.3;
     private  float getHeight = (float) 0.3;
@@ -37,7 +40,7 @@ public class TowerOnTowerPicker implements IRenderableSprite {
     
     @Override
     public Graphic getFile() {
-       return Graphic.Towers;
+       return Graphic.TOWERS;
     }
 
     @Override
@@ -96,6 +99,13 @@ public class TowerOnTowerPicker implements IRenderableSprite {
     public float getHigthScale() {
        
         return this.getHeight;
+    }
+    public ITowerFactory getItf() {
+        return itf;
+    }
+
+    public void setItf(ITowerFactory itf) {
+        this.itf = itf;
     }
 
  

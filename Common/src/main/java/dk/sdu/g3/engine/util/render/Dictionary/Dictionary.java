@@ -64,6 +64,34 @@ public class Dictionary implements Dict {
         }
         return null;
     }
+     @Override
+    public Object search(float targetX, float targetY) {
+        
+        for (inputMapping m : mappings) {
+            if ((m.getReference() == null)) {
+                mappings.remove(m);
+                continue;
+            }
+            
+            if (!(m.getOrigoX() <= targetX && targetX <= m.getBorderX())) {
+
+                continue;
+            }
+
+            if (m.getOrigoY() <= targetY && targetY <= m.getBorderY()) {
+
+                return m.getReference();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void insert(float Xorigo, float YOrigo, float XBorder, float YBorder, Object reference) {
+         inputMapping element = new inputMapping(Xorigo, YOrigo, XBorder, YBorder, reference);
+        mappings.add(element);
+    }
+
 
    
 

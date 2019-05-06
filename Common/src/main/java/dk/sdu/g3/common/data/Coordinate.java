@@ -17,6 +17,10 @@ public class Coordinate {
         this.x = x;
         this.y = y;
     }
+
+    public Coordinate(float XScale, float YScale) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public int getX() {
         return this.x;

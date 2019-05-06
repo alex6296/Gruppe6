@@ -13,9 +13,10 @@ public class GraphicsMap {
         graphics = new HashMap<>();
         graphics.put(Graphic.WALL, "assets/wall.png");
         graphics.put(Graphic.WALL2, "assets/wall22.png");
-        graphics.put(Graphic.TowerPickerBackground, "assets/Par1.png");
-        graphics.put(Graphic.Towers, "assets/SmallStatue.png");
-        graphics.put(Graphic.Coins, "assets/Coin.png");
+        graphics.put(Graphic.TOWERPICKERBACKGROUND, "assets/Par1.png");
+        graphics.put(Graphic.TOWERS, "assets/SmallStatue.png");
+        graphics.put(Graphic.COINS, "assets/Coin.png");
+        graphics.put(Graphic.ENEMYUNITS,"assets/32x32Ghost_Hit.png" );
     }
 
     public HashMap<Graphic, String> getGraphics() {

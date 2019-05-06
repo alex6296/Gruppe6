@@ -8,17 +8,17 @@ package dk.sdu.g3.player;
 import dk.sdu.g3.common.rendering.Graphic;
 import dk.sdu.g3.common.rendering.IRenderable;
 import dk.sdu.g3.common.rendering.IStage;
-import dk.sdu.g3.common.services.IPlayer;
-import dk.sdu.g3.common.services.ITower;
+import dk.sdu.g3.common.services.ITowerFactory;
+import dk.sdu.g3.engine.util.render.Dictionary.Dictionary;
+import dk.sdu.g3.towerfactory.towerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
 @ServiceProviders(value = {
-  @ServiceProvider(service = IStage.class)    
+    @ServiceProvider(service = IStage.class)
 })
-
 
 /**
  *
@@ -26,30 +26,36 @@ import org.openide.util.lookup.ServiceProviders;
  */
 public class TowerPicker implements IStage {
 
+    private float startpoint = (float) 1.5;
+    private float interval = (float) 0.2;
+    private List<ITowerFactory> tfs = new ArrayList<>();
+
+    private Dictionary dict = new Dictionary();
     private final float getWidth = (float) 0.25;
     private final float getHeight = (float) 0.6;
-    private final float getPosX = (float) 0.8;
+    private final float getPosX = (float) 0.83;
     private final float getPosY = (float) 0.5;
 
-    private TowerOnTowerPicker tower;
-    private TowerOnTowerPicker tower2;
-    private PlayerGoldPlayerHealth pp;
     private TextTest text;
     private ArrayList<IRenderable> renderlist;
 
     //try to get an instance of a tower 
-    
-    
     public TowerPicker() {
         renderlist = new ArrayList<>();
-        tower = new TowerOnTowerPicker(this, (float) 0.8);
-        renderlist.add(tower);
-        tower2 = new TowerOnTowerPicker(this, (float) 0.4);
-        renderlist.add(tower2);
+
         text = new TextTest(this);
         renderlist.add(text);
-        pp = new PlayerGoldPlayerHealth(this, (float) 0.2);
-        renderlist.add(pp);
+
+        ITowerFactory test = new towerFactory();
+        insertTower(test);
+        ITowerFactory test1 = new towerFactory();
+        insertTower(test1);
+        ITowerFactory test2 = new towerFactory();
+        insertTower(test2);
+        ITowerFactory test3 = new towerFactory();
+        insertTower(test3);
+        ITowerFactory test4 = new towerFactory();
+        insertTower(test4);
     }
 
     @Override
@@ -79,12 +85,50 @@ public class TowerPicker implements IStage {
 
     @Override
     public Graphic getBackgroundFile() {
-        return Graphic.TowerPickerBackground;
+        return Graphic.TOWERPICKERBACKGROUND;
     }
 
     @Override
     public Object handleInput(float XScale, float YScale) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Object resolved = dict.search(XScale, YScale);
+        System.out.println("---RESOLVED--- = " + resolved.toString());
+        return resolved;
+
+    }
+
+    public void insertTower(ITowerFactory towerf) {
+        
+        for (IRenderable t: renderlist) {
+            try{
+            TowerOnTowerPicker temp = (TowerOnTowerPicker ) t;
+            if (temp.getItf()==null) {
+                renderlist.remove(t);
+            }
+            }catch(ClassCastException e){}
+        }
+        
+        for (ITowerFactory tf : tfs) {
+            if(tf == null){
+                tfs.remove(tf);
+            }
+        }
+        if (tfs.size() >= 3) {
+            System.out.println(" !ERROR!  to many factories");
+            return;
+        }
+
+        tfs.add(towerf);
+        float dif = this.startpoint * tfs.size() * interval;
+
+        //add to render
+        TowerOnTowerPicker towerBox = new TowerOnTowerPicker(this, dif);
+        towerBox.setItf(towerf);
+        renderlist.add(towerBox);
+        
+        
+
+        //add to inputhandler
+        dict.insert(this.getWidth / 2, this.getHeight / 2, this.getWidth / 2 * -1, this.getHeight / 2 * -1, towerf);
     }
 
 }
