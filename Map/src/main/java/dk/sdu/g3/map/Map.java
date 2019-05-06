@@ -33,7 +33,7 @@ public class Map implements IMap, IStage {
     private static IMap instance;
     private ArrayList<Tile> tiles;
     private int lengthX, lengthY;
-    private int scaler = 50;    // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
+    private int scaler = 20;    // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
 
     public Map() {      // remember to also call generateMap when this constructor is used.
         generateMap(600, 600);
