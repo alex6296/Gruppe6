@@ -7,16 +7,14 @@ package dk.sdu.g3.player;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.entities.ILifeFunctions;
+import dk.sdu.g3.common.serviceLoader.ServiceLoader;
 import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.IPlayer;
 import dk.sdu.g3.common.services.ITower;
 import dk.sdu.g3.common.services.ITowerFactory;
 import java.util.ArrayList;
-import java.util.Collection;
-import org.openide.util.Lookup;
-import org.openide.util.LookupEvent;
-import org.openide.util.LookupListener;
+import java.util.List;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -35,8 +33,11 @@ public class Player implements IPlayer {
     int gold = 10;
     ArrayList<IPlaceableEntity> EntityList = new ArrayList();
     ArrayList<ITowerFactory> TowerFactoryList = new ArrayList();
-    serviceLoaderPlayer unitLoader = new serviceLoaderPlayer();
     ITower tower1;
+    List<IMap> mapList;
+    ITower reservedTower;
+    List<ITowerFactory> factoryList;
+    List<ITower> towerlist;
     
     public Player(){
        tp = new TowerPicker();
@@ -62,18 +63,20 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public boolean create(ITower tower2) {
-        for (ITowerFactory tower : unitLoader.getSP(ITowerFactory.class)){
-            
-                EntityList.add(tower.getNewTower(tower2.getLife(), tower2.getDamage(), tower2.getFootprint(), tower2.getCost(), tower2.getAttackSpeed(), tower2.getAttackRange(), tower2.getCurrentPosition()));
-            return true;    
+    public IPlaceableEntity create() {
+        factoryList =  (List<ITowerFactory>) new ServiceLoader(ITowerFactory.class).getServiceProviderList();
+        for (ITowerFactory tower : factoryList){
+            ITower createdTower = tower.getNewTower();
+            return createdTower;    
         }
-        return false;
+        return null;
     }
 
     @Override
-    public void remove(IPlaceableEntity entity) {
-        EntityList.remove(entity);
+    public void remove(IPlaceableEntity livingEntity) {
+       for (IMap map : mapList){
+           map.removeEntity( livingEntity);
+       }
     }
     
     public void placeTowerOnMap(ITower Tower){
@@ -91,61 +94,26 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void placeReservedTower(Coordinate coor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void putEntityOnMap(IPlaceableEntity Entity, IMap map1) throws Exception {
+        for (IMap map : mapList){
+            map.getMap().addEntity(Entity);
+        }
     }
 
-    
-        public class serviceLoaderPlayer {
-
-        private final Lookup lookup = Lookup.getDefault();
-        private Lookup.Result<ITowerFactory> result;
-
-        public serviceLoaderPlayer() {
-            //vars
-            
-            result = lookup.lookupResult(ITowerFactory.class); //Finds SP'
-            result.addLookupListener(lookupListener);
-            result.allItems();
-
-            System.out.println("---IGamePluginService---");
-            //inizial load
-            for (ITowerFactory plugin : result.allInstances()) {
-                System.out.println(plugin);
-                TowerFactoryList.add(plugin);
-            }
-        }
-
-        private final LookupListener lookupListener = new LookupListener() {
-            @Override
-            public void resultChanged(LookupEvent le) {
-
-                Collection<? extends ITowerFactory> updated = result.allInstances();
-
-                for (ITowerFactory us : updated) {
-                    // Newly installed modules
-                    if (!TowerFactoryList.contains(us)) {
-                        TowerFactoryList.add(us);
-                    }
-                }
-
-                // Stop and remove module
-                for (ITowerFactory gs : TowerFactoryList) {
-                    if (!updated.contains(gs)) {
-                        
-                        TowerFactoryList.remove(gs);
-                    }
-                }
-            }
-        };
-
-        private <T> Collection<? extends T> getSP(Class<T> SPI) {
-            return lookup.lookupAll(SPI);
-        }
-        
-        public String toString(){
-            return getCurrentGold() + " \t" + getCurrentHp();
-        }
+    public void reserveTower(ITower tower){
+        mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
+        reservedTower = tower;
+    }
+    @Override
+    public void placeReservedTower(Coordinate coor) {
+//        towerlist = (List<ITower>) new ServiceLoader(ITower.class);
+//         for (ITower tower : towerlist){
+             reservedTower.setPosition(coor);
+//         }
+         mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
+         for (IMap map : mapList){
+             map.getMap();
+         }
 
     }
 }

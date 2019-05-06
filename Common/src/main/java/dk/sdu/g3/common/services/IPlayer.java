@@ -12,8 +12,6 @@ import dk.sdu.g3.common.data.Coordinate;
  * @author pvies
  */
 public interface IPlayer extends IController {
-    
-    boolean create(ITower tower);
     int getCurrentHp();
     int getCurrentGold();
     void placeReservedTower(Coordinate coor);
