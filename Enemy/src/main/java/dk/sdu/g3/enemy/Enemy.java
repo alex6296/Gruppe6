@@ -18,8 +18,6 @@ import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 import dk.sdu.g3.common.serviceLoader.ServiceLoader;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -41,7 +39,9 @@ public class Enemy implements IEnemy {
     List<IPathfinding> pathlist;
     List<IUnit> Unitlist;
     List<IPlaceableEntity> EntityList;
+    List<IPlaceableEntity> EntitiesOnMap;
     List<IUnitFactory> UnitFactoryList;
+    int unitNumber;
     //valid tileSize = 2 * map.tilesize
     public Enemy() {
         
@@ -85,27 +85,24 @@ public class Enemy implements IEnemy {
 
     @Override
     public void createWave() {
-        UnitFactoryList =  (List<IUnitFactory>) new ServiceLoader(IUnitFactory.class);
-        counter = generateWaveComposition();
-        while(counter > 0){
-            try {
-                putEntityOnMap(create(),realMap.getMap());
-            } catch (Exception ex) {
-                Logger.getLogger(Enemy.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+   
 
     }
     public int generateWaveComposition(){
-        int unitNumber = random.nextInt(101);
+        counter = 0;
+        unitNumber = random.nextInt(101);
+        while(unitNumber>0){
+            create();
+        }
         
     return unitNumber;
 }
 
     @Override
-    public IPlaceableEntity create() {
+    public  IPlaceableEntity create() {
         for (IUnitFactory unitfactory : UnitFactoryList){
             IUnit createdUnit = unitfactory.getNewUnit();
+            EntityList.add(createdUnit);
             return createdUnit;    
         }
         return null;
@@ -113,7 +110,7 @@ public class Enemy implements IEnemy {
 
     @Override
     public List<IPlaceableEntity> getEntities() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return EntityList;
     }
 
     @Override
@@ -125,7 +122,19 @@ public class Enemy implements IEnemy {
     public boolean decreaseHp(int damage) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    public boolean Update() throws Exception{
+        for(IMap map : mapList){
+        if(counter < EntityList.size()){
+            putEntityOnMap(EntityList.get(counter),map.getMap());
+            counter++;
+        }
+        }
+        if(EntitiesOnMap.isEmpty()){
+        return false;
+        }
+        return true;
+    }
     
 
 }
