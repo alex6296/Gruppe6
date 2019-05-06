@@ -16,6 +16,7 @@ public class GraphicsMap {
         graphics.put(Graphic.TowerPickerBackground, "assets/Par1.png");
         graphics.put(Graphic.Towers, "assets/SmallStatue.png");
         graphics.put(Graphic.Coins, "assets/Coin.png");
+        graphics.put(Graphic.ICE_TOWER, "assets/IceTower.png");
     }
 
     public HashMap<Graphic, String> getGraphics() {

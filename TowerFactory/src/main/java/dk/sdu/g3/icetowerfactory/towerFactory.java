@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dk.sdu.g3.towerfactory;
+package dk.sdu.g3.icetowerfactory;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.services.ITower;

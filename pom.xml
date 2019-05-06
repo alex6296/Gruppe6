@@ -67,7 +67,7 @@
         <module>TowerFactory</module>
         <module>Map</module>
         <module>SilentUpdater</module>
-
+        <module>IceTowerFactory</module>
     </modules>
 
     <properties>
