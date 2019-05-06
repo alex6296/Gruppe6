@@ -23,6 +23,7 @@ import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.serviceLoader.ServiceLoader;
 import dk.sdu.g3.common.services.IEnemy;
 import dk.sdu.g3.common.services.IMap;
+import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.IPlayer;
 import dk.sdu.g3.engine.util.render.Dictionary.Dict;
 import dk.sdu.g3.engine.util.render.Dictionary.Dictionary;
@@ -43,6 +44,9 @@ public class STDGame extends Game {
     public SpriteBatch batch;
     public Renderer renderer;
     private final Lookup lookup = Lookup.getDefault();
+    private GameScreen gameScreen;
+    private boolean isWavePhase = false;
+    private float time = 1;
 
     //modules
     private List<IEnemy> enemyList;
@@ -70,24 +74,61 @@ public class STDGame extends Game {
         cam.update();
         createTextures();
         getStages();
-        
+
         batch = new SpriteBatch();
 
         this.renderer = new Renderer(this);
 
         this.setScreen(new MainMenuScreen(this));
-        
+
         //subscribing to services:
         enemyList = (List<IEnemy>) new ServiceLoader(IEnemy.class).getServiceProviderList();
         mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
         playerList = (List<IPlayer>) new ServiceLoader(IPlayer.class).getServiceProviderList();
     }
 
-    public void gameLoop() {
+    public void gameLogic(float f) {
+
+        if (isWavePhase) {
+            time = time + f;
+            if (time >= 0.1) {
+                for (IEnemy enemy : enemyList) {
+                if (!enemy.update()) {
+                    endWavePhase();
+                }
+                }
+                for (IMap map : mapList) {
+                    List<IPlaceableEntity> toBeRemoved = map.updatePositions();
+                    for (IPlayer player : playerList) {
+                        player.decreaseHp(toBeRemoved.size());
+                    }
+                    for (IEnemy enemy : enemyList) {
+                        for (IPlaceableEntity entity : toBeRemoved) {
+                            enemy.remove(entity);
+                        }
+                    }
+                }
+                for (IMap map : mapList) {
+                    map.updateActions();
+                }
+                time = 0;
+            }
+        }
 //        for(IPlaceableEntity: map.updatePositions()){
 //            enemy.
 //        }
 
+    }
+
+    public void startWavePhase() {
+        isWavePhase = true;
+        for (IEnemy enemy : enemyList) {
+            enemy.createWave();
+        }
+    }
+
+    private void endWavePhase() {
+        isWavePhase = false;
     }
 
     @Override
@@ -101,14 +142,15 @@ public class STDGame extends Game {
     }
 
     public void StartGame() {
-        this.setScreen(new GameScreen(this));
+        gameScreen = new GameScreen(this);
+        this.setScreen(gameScreen);
 
     }
 
     public ArrayList<ArrayList<IRenderable>> getRenderList() throws Exception {
         ArrayList<IRenderable> renderlist = new ArrayList<>();
-        for (IStage stage : getStages()){
-            for(IRenderable rend : stage.getRenderables()){
+        for (IStage stage : getStages()) {
+            for (IRenderable rend : stage.getRenderables()) {
                 renderlist.add(rend);
             }
         }
@@ -122,19 +164,21 @@ public class STDGame extends Game {
         for (IRenderable rend : renderlist) {
             if (null == rend.getLayer()) {
                 notdefinedList.add(rend);
-            } else switch (rend.getLayer()) {
-                case BACKGROUND:
-                    backgroundList.add(rend);
-                    break;
-                case MIDGROUND:
-                    midgroundList.add(rend);
-                    break;
-                case FORGOUND:
-                    forgroundlist.add(rend);
-                    break;
-                default:
-                    notdefinedList.add(rend);
-                    break;
+            } else {
+                switch (rend.getLayer()) {
+                    case BACKGROUND:
+                        backgroundList.add(rend);
+                        break;
+                    case MIDGROUND:
+                        midgroundList.add(rend);
+                        break;
+                    case FORGOUND:
+                        forgroundlist.add(rend);
+                        break;
+                    default:
+                        notdefinedList.add(rend);
+                        break;
+                }
             }
         }
         if (!notdefinedList.isEmpty()) {
@@ -156,14 +200,14 @@ public class STDGame extends Game {
     }
 
     public BitmapFont getFont(IRenderableText text) {
-                //Hvis ikke klassens font er i mappet
-        if(!fontMap.containsKey(text.getFont().toString() + text.toString())){
+        //Hvis ikke klassens font er i mappet
+        if (!fontMap.containsKey(text.getFont().toString() + text.toString())) {
             System.out.println("made a new font: " + text.getFont().toString() + text.toString());
-        
-        //set font op
+
+            //set font op
             FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontLib.getFontmap().get(text.getFont())));
             FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            parameter.size = (int) ((text.getStage().getHigthScale()*Gdx.graphics.getHeight())*text.getHigthScale());
+            parameter.size = (int) ((text.getStage().getHigthScale() * Gdx.graphics.getHeight()) * text.getHigthScale());
             //adfont til map
             fontMap.put((text.getFont().toString() + text.toString()), generator.generateFont(parameter));
             generator.dispose();
@@ -178,4 +222,22 @@ public class STDGame extends Game {
 
         }
     }
+
+    Iterable<IPlayer> getPlayerList() {
+        return playerList;
+    }
+
+    public GameScreen getGameScreen() {
+        return gameScreen;
+    }
+
+    public void mainMenu() {
+        gameScreen = null;
+        this.setScreen(new MainMenuScreen(this));
+    }
+
+    public boolean isWavePhase() {
+        return isWavePhase;
+    }
+
 }

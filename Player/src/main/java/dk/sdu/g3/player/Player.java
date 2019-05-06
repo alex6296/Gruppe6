@@ -72,8 +72,8 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void remove(ILifeFunctions livingEntity) {
-        EntityList.remove(livingEntity);
+    public void remove(IPlaceableEntity entity) {
+        EntityList.remove(entity);
     }
     
     public void placeTowerOnMap(ITower Tower){
