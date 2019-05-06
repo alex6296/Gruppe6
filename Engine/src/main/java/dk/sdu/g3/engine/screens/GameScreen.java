@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import dk.sdu.g3.engine.game.STDGame;
-import dk.sdu.g3.engine.game.gameInputHandler;
+import dk.sdu.g3.engine.game.GameInputHandler;
 import org.openide.util.Exceptions;
 
 public class GameScreen implements Screen {
@@ -23,7 +23,7 @@ public class GameScreen implements Screen {
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
         // adding input Processer
-        Gdx.input.setInputProcessor(new gameInputHandler(game));
+        Gdx.input.setInputProcessor(new GameInputHandler(game));
 
     }
 

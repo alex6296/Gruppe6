@@ -16,5 +16,6 @@ public interface IStage {
 //    public void setHigthScale(float scale);
     public Graphic getBackgroundFile();
     public List<IRenderable> getRenderables();
+    Object handleInput(float XScale, float YScale);
 
 }

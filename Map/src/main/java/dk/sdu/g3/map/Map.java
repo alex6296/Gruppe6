@@ -24,9 +24,9 @@ public class Map implements IMap, IStage {
     // renderable variables
     private float width = 0.65f;
     private float height = 0.6f;
-    private float posX = 0.3f;
+    private float posX = 0.35f;
     private float posY = 0.5f;
-    private Graphic background = Graphic.WALL;
+    private Graphic background = Graphic.WALL2;
     private float tileScaleX, tileScaleY;
     
     // functionality variables
@@ -267,7 +267,7 @@ public class Map implements IMap, IStage {
         return this.background;
     }
     
-    //@Override
+    @Override
     public List<IRenderable> getRenderables() {
         ArrayList<IRenderable> returnTiles = new ArrayList<>();
         for (Tile tile : tiles) {

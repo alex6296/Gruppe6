@@ -1,24 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package dk.sdu.g3.map;
-
-import dk.sdu.g3.common.data.Coordinate;
-import dk.sdu.g3.common.data.ITile;
-import dk.sdu.g3.common.services.IPlaceableEntity;
-import dk.sdu.g3.tower.Tower;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-
-/**
+///*
+// * To change this license header, choose License Headers in Project Properties.
+// * To change this template file, choose Tools | Templates
+// * and open the template in the editor.
+// */
+//package dk.sdu.g3.map;
+//
+//import dk.sdu.g3.common.data.Coordinate;
+//import dk.sdu.g3.common.data.ITile;
+//import dk.sdu.g3.common.services.IPlaceableEntity;
+//import dk.sdu.g3.tower.Tower;
+//import java.util.ArrayList;
+//import java.util.List;
+//import org.junit.After;
+//import org.junit.AfterClass;
+//import org.junit.Before;
+//import org.junit.BeforeClass;
+//import org.junit.Test;
+//import static org.junit.Assert.*;
+//
+///**
 // *
 // * @author pvies
 // */

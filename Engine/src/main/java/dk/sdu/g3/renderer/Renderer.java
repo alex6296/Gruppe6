@@ -35,16 +35,17 @@ public class Renderer {
      * render stuff
      */
     public void renderAll() throws Exception {
-        RenderStages(game.getStages());
+        for(IStage stage : game.getStages() )
+        RenderStage(stage);
         RenderRenderables(game.getRenderList());
 
     }
 
-    public void RenderStages(List<IStage> stageList) {
-        for (IStage stage : stageList) {
-            RenderStage(stage);
-        }
-    }
+//    public void RenderStages(List<IStage> stageList) {
+//        for (IStage stage : stageList) {
+//            RenderStage(stage);
+//        }
+//    }
 
     public void RenderRenderables(ArrayList<ArrayList<IRenderable>> list) {
         for (List<IRenderable> renderList : list) {
