@@ -39,6 +39,9 @@ public class Enemy implements IEnemy {
     int bigUnits;
     int smallUnits;
     int counter;
+    List<IMap> mapList;
+    List<IPathfinding> pathlist;
+    List<IUnit> Unitlist;
     ArrayList<IPlaceableEntity> EntityList = new ArrayList();
     ArrayList<IUnitFactory> UnitFactoryList = new ArrayList();
     serviceLoaderEnemy unitLoader = new serviceLoaderEnemy();
@@ -49,11 +52,19 @@ public class Enemy implements IEnemy {
 
     
     // put this method in IController, since both player/enemy uses it
-    public void putEntityOnMap(IUnit unit){
+    public void putEntityOnMap(IUnit unit,IMap map1) throws Exception{
+
         for (IMap map : unitLoader.getSP(IMap.class)){
-//             Coordinate startPosition = new Coordinate(map.getTileSize,random.nextInt(map.getLengthY()/(2*map.getTileSize))));
-//               unit.setPosition(startPosition);
-             map.addEntity(unit);
+            
+             Coordinate startPosition = new Coordinate(map.getTileSize(),random.nextInt(map.getLengthY()/(2*map.getTileSize())));
+               unit.setPosition(startPosition);
+               pathlist = (List<IPathfinding>) new ServiceLoader(IPathfinding.class);
+
+               for (IPathfinding IPath : pathlist){
+                    addPathToUnit(IPath.generatePath(map1, unit.getCurrentPosition(), unit.getCurrentPosition()),unit);
+                    }
+               
+                map.addEntity(unit);
                 
 
         }
@@ -64,7 +75,7 @@ public class Enemy implements IEnemy {
              map.removeEntity(unit);
         }
     }
-    public void addPathToUnit(Coordinate path, IUnit unit){
+    public void addPathToUnit(List<Coordinate> path, IUnit unit){
         unit.setPath(path);
     }
     @Override
@@ -75,34 +86,44 @@ public class Enemy implements IEnemy {
 
     @Override
     public void createWave() {
-        bigUnits = generateWaveComposition();
-        smallUnits = 100 - bigUnits;
-        while(bigUnits == counter){
-            for (IUnitFactory unit : unitLoader.getSP(IUnitFactory.class)){
-                EntityList.add(unit.getNewUnit());
-                
-                
-            }
+        counter = generateWaveComposition();
+        while(counter > 1){
+            create();
         }
-        while(smallUnits == counter){
-            for (IUnitFactory unit : unitLoader.getSP(IUnitFactory.class)){
-                EntityList.add(unit.getNewUnit());
-        
-            }
-        }
+//        bigUnits = generateWaveComposition();
+//        smallUnits = 100 - bigUnits;
+//        while(bigUnits == counter){
+//            for (IUnitFactory unit : unitLoader.getSP(IUnitFactory.class)){
+//                EntityList.add(unit.getNewUnit());
+//                
+//                
+//            }
+//        }
+//        while(smallUnits == counter){
+//            for (IUnitFactory unit : unitLoader.getSP(IUnitFactory.class)){
+//                EntityList.add(unit.getNewUnit());
+//        
+//            }
+//        }
+
     }
     public int generateWaveComposition(){
-        ArrayList<Object> wave = new ArrayList();
-        int bigUnits = random.nextInt(51);
+        int Units = random.nextInt(101);
         
     return bigUnits;
 }
 
     @Override
-    public boolean create(IUnit unit) {
+    public boolean create() {
         for (IUnitFactory unit1 : unitLoader.getSP(IUnitFactory.class)){
-            
-                EntityList.add(unit1.getNewUnit(unit.getLife(),unit.getDamage() , unit.getFootprint(), unit.getCost(), unit.getAttackRange(), unit.getAttackSpeed(), unit.getCurrentPosition(), unit.getPath()));
+            for (IUnit unit : Unitlist){   
+                Unitlist = (List<IUnit>) new ServiceLoader(IPathfinding.class);
+                mapList = (List<IMap>) new ServiceLoader(IMap.class);
+                for(IMap map : mapList){
+                    EntityList.add(unit1.getNewUnit(unit.getLife(),unit.getDamage() , unit.getFootprint(), unit.getCost(), unit.getAttackRange(), unit.getAttackSpeed(), unit.getCurrentPosition(), unit.getPath()));
+                }
+                
+            }
             return true;    
         }
         return false;
