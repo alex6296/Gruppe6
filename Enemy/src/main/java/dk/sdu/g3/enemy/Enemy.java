@@ -106,6 +106,7 @@ public class Enemy implements IEnemy {
         counter = 0;
         unitNumber = random.nextInt(101);
         while(unitNumber>0){
+            UnitFactoryList = (List<IUnitFactory>) new ServiceLoader(IUnitFactory.class).getServiceProviderList();
             create();
         }
 

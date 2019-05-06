@@ -35,6 +35,7 @@ public class GameInputHandler extends InputAdapter {
         for (IStage stage : game.getStages()) {
             if (stageIsClicked(stage, x, y)) {
                 Object ret = stageHandleClick(stage, x, y);
+                System.out.println(ret.toString());
                 if (ret instanceof ITile) {
                     if (((ITile) ret).isOccupied()) {
                         //inspect ret
@@ -45,7 +46,7 @@ public class GameInputHandler extends InputAdapter {
                         }
                     }
                 } else if (ret instanceof ITower) {
-                    //inspect Tower eller set reserved tower
+                    System.out.println("Its a tower" + ret.toString());
                 }
                 return true;
             }
@@ -86,11 +87,11 @@ public class GameInputHandler extends InputAdapter {
 
     private float convertX(IStage stage, int x) {
 
-        return (x - (getStageX(stage) - (getStageWith(stage) / 2))) / getStageWith(stage);
+        return ((float) x - (getStageX(stage) - (getStageWith(stage) / 2))) / getStageWith(stage);
     }
 
     private float convertY(IStage stage, int y) {
-        return (y - (getStageY(stage) - (getStageHight(stage) / 2))) / getStageHight(stage);
+        return ((float) y - (getStageY(stage) - (getStageHight(stage) / 2))) / getStageHight(stage);
     }
 
 }

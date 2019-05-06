@@ -40,7 +40,7 @@ public class Player implements IPlayer {
     List<ITower> towerlist;
     
     public Player(){
-       tp = new TowerPicker();
+       tp = new TowerPicker(this);
     }
     public Player(int hp, int gold) {
         this.hp = hp;
