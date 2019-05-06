@@ -54,7 +54,10 @@ public class MapTest {
         int tileSize = instance.getTileSize();
         int totalTiles = instance.getTileList().size();
         System.out.println("TileSize: " + tileSize + "\n Total Tiles: " + totalTiles);
-        assertEquals(625, totalTiles);
+        
+        int expResult = 625;
+        
+        assertEquals(expResult, totalTiles);
     }
 
     /**
