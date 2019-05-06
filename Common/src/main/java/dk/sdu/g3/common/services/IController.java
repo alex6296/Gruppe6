@@ -15,8 +15,9 @@ import java.util.List;
 public interface IController {
     
     List<IPlaceableEntity> getEntities();
-    
+    boolean create();
     void remove(ILifeFunctions livingEntity);
     boolean decreaseHp(int damage);     // returns boolean indicating whether this damage killed the controller
+    public void putEntityOnMap(IPlaceableEntity Entity,IMap map1) throws Exception;
     
 }

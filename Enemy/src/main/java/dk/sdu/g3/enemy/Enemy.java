@@ -52,7 +52,8 @@ public class Enemy implements IEnemy {
 
     
     // put this method in IController, since both player/enemy uses it
-    public void putEntityOnMap(IUnit unit,IMap map1) throws Exception{
+    @Override
+    public void putEntityOnMap(IPlaceableEntity unit,IMap map1) throws Exception{
 
         for (IMap map : unitLoader.getSP(IMap.class)){
             
@@ -61,7 +62,7 @@ public class Enemy implements IEnemy {
                pathlist = (List<IPathfinding>) new ServiceLoader(IPathfinding.class);
 
                for (IPathfinding IPath : pathlist){
-                    addPathToUnit(IPath.generatePath(map1, unit.getCurrentPosition(), unit.getCurrentPosition()),unit);
+                    addPathToUnit(IPath.generatePath(map1, unit.getCurrentPosition(), unit.getCurrentPosition()), (IUnit) unit);
                     }
                
                 map.addEntity(unit);
@@ -120,7 +121,7 @@ public class Enemy implements IEnemy {
                 Unitlist = (List<IUnit>) new ServiceLoader(IPathfinding.class);
                 mapList = (List<IMap>) new ServiceLoader(IMap.class);
                 for(IMap map : mapList){
-                    EntityList.add(unit1.getNewUnit(unit.getLife(),unit.getDamage() , unit.getFootprint(), unit.getCost(), unit.getAttackRange(), unit.getAttackSpeed(), unit.getCurrentPosition(), unit.getPath()));
+                    EntityList.add(unit1.getNewUnit());
                 }
                 
             }

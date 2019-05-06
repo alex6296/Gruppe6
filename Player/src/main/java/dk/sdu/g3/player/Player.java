@@ -11,6 +11,7 @@ import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.IPlayer;
 import dk.sdu.g3.common.services.ITower;
 import dk.sdu.g3.common.services.ITowerFactory;
+import dk.sdu.g3.common.services.IUnit;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.openide.util.Lookup;
@@ -63,10 +64,10 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public boolean create(ITower tower2) {
+    public boolean create() {
         for (ITowerFactory tower : unitLoader.getSP(ITowerFactory.class)){
             
-                EntityList.add(tower.getNewTower(tower2.getLife(), tower2.getDamage(), tower2.getFootprint(), tower2.getCost(), tower2.getAttackSpeed(), tower2.getAttackRange(), tower2.getCurrentPosition()));
+                EntityList.add(tower.getNewTower());
             return true;    
         }
         return false;
@@ -90,6 +91,12 @@ public class Player implements IPlayer {
         }
         return true;
     }
+
+    @Override
+    public void putEntityOnMap(IPlaceableEntity Entity, IMap map1) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     
         public class serviceLoaderPlayer {

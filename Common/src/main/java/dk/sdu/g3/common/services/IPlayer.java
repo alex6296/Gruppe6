@@ -10,8 +10,6 @@ package dk.sdu.g3.common.services;
  * @author pvies
  */
 public interface IPlayer extends IController {
-    
-    boolean create(ITower tower);
     int getCurrentHp();
     int getCurrentGold();
     
