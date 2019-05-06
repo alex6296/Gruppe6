@@ -28,11 +28,10 @@ import org.openide.util.lookup.ServiceProviders;
  * @author robertfrancisti
  */
 public class Player implements IPlayer {
-    
+  
     private TowerPicker tp;
-    PlayerGoldPlayerHealth pl;
-    int hp;
-    int gold;
+    int hp = 10;
+    int gold = 10;
     ArrayList<IPlaceableEntity> EntityList = new ArrayList();
     ArrayList<ITowerFactory> TowerFactoryList = new ArrayList();
     serviceLoaderPlayer unitLoader = new serviceLoaderPlayer();
@@ -41,10 +40,9 @@ public class Player implements IPlayer {
     public Player(){
        tp = new TowerPicker();
     }
-    public Player(int hp, int gold, ArrayList<IPlaceableEntity> EntityList) {
+    public Player(int hp, int gold) {
         this.hp = hp;
         this.gold = gold;
-        this.EntityList = EntityList;
     }
 
     @Override
@@ -137,6 +135,10 @@ public class Player implements IPlayer {
 
         private <T> Collection<? extends T> getSP(Class<T> SPI) {
             return lookup.lookupAll(SPI);
+        }
+        
+        public String toString(){
+            return getCurrentGold() + " \t" + getCurrentHp();
         }
 
     }

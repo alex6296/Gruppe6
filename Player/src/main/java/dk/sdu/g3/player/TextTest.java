@@ -8,23 +8,25 @@ import dk.sdu.g3.common.rendering.Layer;
 
 public class TextTest implements IRenderableText{
     
-    private Player play;
+    private Player player = new Player(10,10);
     private float x = (float) 0.1;
-    private float y = (float) 0.1;
+    private float y = (float) 0.03;
     private float with = (float) 0.8;
     private float hight = (float) 0.1;
     private IStage stage;
-    private String text = "GOLD :  10 HP : 300";
+    private String text;
     private Fonts font = Fonts.ENCHANTED;
     private Layer layer = Layer.FORGOUND;
     
     public TextTest(IStage stage) {
         this.stage = stage;
+//        player = new Player();
     }
 
     @Override
     public String getText() {
-        return text;
+         
+       return "Gold " + player.getCurrentGold() + "HP " + player.getCurrentHp();
     }
 
     @Override

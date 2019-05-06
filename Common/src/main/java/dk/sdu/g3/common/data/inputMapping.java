@@ -13,14 +13,28 @@ import dk.sdu.g3.common.data.Coordinate;
  */
  public class inputMapping {
 
-        private int origoX;
-        private int origoY;
-        private int BorderX;
-        private int BorderY;
+        private float origoX;
+        private float origoY;
+        private float BorderX;
+        private float BorderY;
         private int footPrint;
+        
 
         private int size;
         private Object reference;
+        
+        
+        public inputMapping(float Xorigo, float YOrigo, float XBorder, float YBorder
+        , Object reference){
+            
+            this.BorderX =  XBorder;
+            this.BorderY =  YBorder;
+            this.origoX =  Xorigo;
+            this.origoY =  YOrigo;
+            this.reference = reference;
+
+            
+        }
 
         public inputMapping(Coordinate center, int size, int footPrint, Object reference) {
             this.size = size;
@@ -40,19 +54,19 @@ import dk.sdu.g3.common.data.Coordinate;
             return reference;
         }
 
-        public int getOrigoX() {
+        public float getOrigoX() {
             return origoX;
         }
 
-        public int getOrigoY() {
+        public float getOrigoY() {
             return origoY;
         }
 
-        public int getBorderX() {
+        public float getBorderX() {
             return BorderX;
         }
 
-        public int getBorderY() {
+        public float getBorderY() {
             return BorderY;
         }
 
@@ -63,4 +77,5 @@ import dk.sdu.g3.common.data.Coordinate;
         public Object getRefrence() {
             return reference;
         }
+       
     }
