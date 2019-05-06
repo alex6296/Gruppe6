@@ -5,5 +5,5 @@ package dk.sdu.g3.common.rendering;
  * @author Rasmus
  */
 public enum Graphic {
-    WALL, STARTMENY, WALL2
+    WALL, STARTMENY, WALL2, TowerPickerBackground, Towers, Coins
 }

@@ -22,16 +22,29 @@ import org.openide.util.lookup.ServiceProviders;
  */
 public class Player implements IPlayer {
     
+    private TowerPicker tp;
+    PlayerGoldPlayerHealth pl;
     
+    
+    private  int  currentHp;
+    private int currentGold;
+    
+    
+    public Player(){
+       tp = new TowerPicker();
+    }
 
     @Override
     public int getCurrentHp() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     
+        return currentHp;
     }
 
     @Override
     public int getCurrentGold() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     
+        return currentGold;
+        
     }
 
     @Override
