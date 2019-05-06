@@ -7,11 +7,14 @@ package dk.sdu.g3.tower;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.entities.ILifeFunctions;
-import dk.sdu.g3.common.rendering.IRenderable;
+import dk.sdu.g3.common.rendering.Graphic;
+import dk.sdu.g3.common.rendering.IRenderableSprite;
+import dk.sdu.g3.common.rendering.IStage;
+import dk.sdu.g3.common.rendering.Layer;
 import dk.sdu.g3.common.services.ITower;
 import dk.sdu.g3.common.services.IUnit;
 
-public class Tower implements ITower{
+public class Tower implements ITower, IRenderableSprite {
 
     private int life = 100;
     private int MAXLIFE = life;
@@ -21,8 +24,14 @@ public class Tower implements ITower{
     private int attackSpeed = 4;
     private int attackRange = 5;
     private Coordinate position;
-    final private String SpriteUrl = "\\Tower\\src\\assets\\tower.png";
+    
+    // rendering attributes
+    private Graphic file = Graphic.Towers;
+    private IStage stage;
+    private Layer layer = Layer.FORGOUND;
+    private float posX, posY, width, height;
 
+    
     public Tower() {
     }
 
@@ -47,19 +56,23 @@ public class Tower implements ITower{
         this.position = position;
     }
 
+    @Override
     public int getLife() {
         return life;
     }
 
+    @Override
     public int getDamage() {
         return damage;
     }
 
 
+    @Override
     public int getAttackSpeed() {
         return attackSpeed;
     }
 
+    @Override
     public int getAttackRange() {
         return attackRange;
     }
@@ -126,18 +139,74 @@ public class Tower implements ITower{
         return this.MAXLIFE;
     }
 
-   /// @Override
+    //@Override
     public int getCurrentHp() {
         return this.life;
     }
 
-    //@Override
-    public String getSpriteUrl() {
-        return this.SpriteUrl;
-    }
-
+    @Override
     public int getFootprint() {
        return footprint;
+    }
+
+    @Override
+    public Graphic getFile() {
+        return this.file;
+    }
+
+    @Override
+    public IStage getStage() {
+        return this.stage;
+    }
+
+    @Override
+    public void setStage(IStage stage) {
+        this.stage = stage;
+    }
+
+    @Override
+    public Layer getLayer() {
+        return this.layer;
+    }
+
+    @Override
+    public float getPosScaleX() {
+        return this.posX;
+    }
+
+    @Override
+    public float getPosScaleY() {
+        return this.posY;
+    }
+
+    @Override
+    public float getWithScale() {
+        return this.width;
+    }
+
+    @Override
+    public float getHigthScale() {
+        return this.height;
+    }
+
+    @Override
+    public void setPosScaleX(float scale) {
+        this.posX = scale;
+    }
+
+    @Override
+    public void setPosScaleY(float scale) {
+        this.posY = scale;
+    }
+
+    @Override
+    public void setWithScale(float scale) {
+        this.width = scale;
+    }
+
+    @Override
+    public void setHigthScale(float scale) {
+        this.height = scale;
     }
 
 }
