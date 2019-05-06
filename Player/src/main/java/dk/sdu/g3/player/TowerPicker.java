@@ -88,14 +88,6 @@ public class TowerPicker implements IStage {
         return Graphic.TOWERPICKERBACKGROUND;
     }
 
-    @Override
-    public Object handleInput(float XScale, float YScale) {
-        Object resolved = dict.search(XScale, YScale);
-        System.out.println("---RESOLVED--- = " + resolved.toString());
-        return resolved;
-
-    }
-
     public void insertTower(ITowerFactory towerf) {
         
         for (IRenderable t: renderlist) {
@@ -128,7 +120,26 @@ public class TowerPicker implements IStage {
         
 
         //add to inputhandler
-        dict.insert(this.getWidth / 2, this.getHeight / 2, this.getWidth / 2 * -1, this.getHeight / 2 * -1, towerf);
+        dict.insert(this.getPosX - this.getWidth / 2, this.getPosY - this.getHeight / 2, this.getPosX + this.getWidth / 2 * -1, this.getPosY + this.getHeight / 2 , towerf);
     }
 
+    @Override
+    public Object handleInput(float XScale, float YScale) {
+       Object resolved = null;
+        try{
+            
+            System.out.println("--TTT-- SUCKY SUCKY DUCKY DUCKTY");
+        resolved = dict.search(XScale, YScale);
+        System.out.println("---RESOLVED--- = " + resolved);
+       
+
+            
+        }catch(UnsupportedOperationException e){
+            e.printStackTrace();
+        }
+                
+        return resolved;
+                
+        
+    }
 }

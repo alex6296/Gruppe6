@@ -36,7 +36,7 @@ public class Unit implements IUnit, IRenderableSprite {
     private List<Coordinate> path;
     
     // rendering attributes
-    private final Graphic file = Graphic.Coins;
+    private final Graphic file = Graphic.ENEMYUNITS;
     private IStage stage;
     private final Layer layer = Layer.FORGOUND;
     private float posX, posY, width, height;
