@@ -85,7 +85,7 @@
         </dependency>-->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>Engine</artifactId>
+            <artifactId>SilentUpdater</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
