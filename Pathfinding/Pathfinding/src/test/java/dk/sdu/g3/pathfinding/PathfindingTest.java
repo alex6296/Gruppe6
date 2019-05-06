@@ -55,11 +55,11 @@ public class PathfindingTest {
 
         Pathfinding instance = new Pathfinding();
         List<Coordinate> result = instance.generatePath(map, start, goal);
-        
+
         //Prints every coordinate in the found path from start to goal
-        for (Coordinate coord : result) {
-            System.out.println("Coordinate = " + coord.getX() + ", " + coord.getY());
-        }
+//        for (Coordinate coord : result) {
+//            System.out.println("Coordinate = " + coord.getX() + ", " + coord.getY());
+//        }
         boolean positiveResult = false;
         for (Coordinate coord : result) {
             if (coord.getX() == 300) {
@@ -110,13 +110,18 @@ public class PathfindingTest {
     @Test
     public void testAssignNeighbour() {
         System.out.println("assignNeighbour");
-        int x = 0;
-        int y = 0;
+        IMap map = new Map();
+        int x = 12;
+        int y = 12;
         Pathfinding instance = new Pathfinding();
-        Node expResult = null;
+        
+        instance.createNodes(map);
+        
+        List<Node> expectedList = new ArrayList<>();
+        Node expResult = instance.getNodes().get(0);
+        expectedList.add(expResult);
         Node result = instance.assignNeighbour(x, y);
-        assertEquals(expResult, result);
-
+        assertEquals(instance.getNodes().get(0), result);
     }
 
     /**
@@ -127,7 +132,6 @@ public class PathfindingTest {
     public void testCreateNodes() {
         System.out.println("createNodes");
         IMap map = new Map();
-        map.generateMap(100, 100);
         Pathfinding instance = new Pathfinding();
         instance.createNodes(map);
 
