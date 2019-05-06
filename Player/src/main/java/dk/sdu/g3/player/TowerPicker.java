@@ -35,6 +35,7 @@ public class TowerPicker implements IStage {
     private final float getHeight = (float) 0.6;
     private final float getPosX = (float) 0.83;
     private final float getPosY = (float) 0.5;
+    private towerFactory tf = new towerFactory();
 
     private TextTest text;
     private ArrayList<IRenderable> renderlist;
@@ -56,10 +57,6 @@ public class TowerPicker implements IStage {
         insertTower(test3);
         ITowerFactory test4 = new towerFactory();
         insertTower(test4);
-    }
-
-    TowerPicker(Player aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -142,7 +139,7 @@ public class TowerPicker implements IStage {
             e.printStackTrace();
         }
                 
-        return resolved;
+        return tf.getNewTower(10, 10, 1, 1, 10, 10, null);
                 
         
     }

@@ -19,7 +19,7 @@ import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
 @ServiceProviders(value = {
-  @ServiceProvider(service = IPlayer.class)    
+    @ServiceProvider(service = IPlayer.class)
 })
 
 /**
@@ -27,7 +27,7 @@ import org.openide.util.lookup.ServiceProviders;
  * @author robertfrancisti
  */
 public class Player implements IPlayer {
-  
+
     private TowerPicker tp;
     int hp = 10;
     int gold = 10;
@@ -38,10 +38,11 @@ public class Player implements IPlayer {
     ITower reservedTower;
     List<ITowerFactory> factoryList;
     List<ITower> towerlist;
-    
-    public Player(){
-       tp = new TowerPicker(this);
+
+    public Player() {
+        tp = new TowerPicker();
     }
+
     public Player(int hp, int gold) {
         this.hp = hp;
         this.gold = gold;
@@ -64,30 +65,30 @@ public class Player implements IPlayer {
 
     @Override
     public IPlaceableEntity create() {
-        factoryList =  (List<ITowerFactory>) new ServiceLoader(ITowerFactory.class).getServiceProviderList();
-        for (ITowerFactory tower : factoryList){
+        factoryList = (List<ITowerFactory>) new ServiceLoader(ITowerFactory.class).getServiceProviderList();
+        for (ITowerFactory tower : factoryList) {
             ITower createdTower = tower.getNewTower();
-            return createdTower;    
+            return createdTower;
         }
         return null;
     }
 
     @Override
     public void remove(IPlaceableEntity livingEntity) {
-       for (IMap map : mapList){
-           map.removeEntity( livingEntity);
-       }
+        for (IMap map : mapList) {
+            map.removeEntity(livingEntity);
+        }
     }
-    
-    public void placeTowerOnMap(ITower Tower){
+
+    public void placeTowerOnMap(ITower Tower) {
 //    unitLoader.getSP(IMap.class).add(Tower);
 
-}
+    }
 
     @Override
     public boolean decreaseHp(int damage) {
         hp = hp - damage;
-        if (hp <= 0){
+        if (hp <= 0) {
             return false;
         }
         return true;
@@ -95,27 +96,31 @@ public class Player implements IPlayer {
 
     @Override
     public void putEntityOnMap(IPlaceableEntity Entity, IMap map1) throws Exception {
-        for (IMap map : mapList){
+        for (IMap map : mapList) {
             map.getMap().addEntity(Entity);
         }
     }
 
-    public void reserveTower(ITower tower){
+    @Override
+    public void reserveTower(ITower tower) {
         mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
         reservedTower = tower;
+        System.out.println("this tower is reserved:" + reservedTower.toString());
     }
+
     @Override
     public void placeReservedTower(Coordinate coor) {
 //        towerlist = (List<ITower>) new ServiceLoader(ITower.class);
 //         for (ITower tower : towerlist){
-             reservedTower.setPosition(coor);
+        if (reservedTower != null) {
+            reservedTower.setPosition(coor);
 //         }
-         mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
-         for (IMap map : mapList){
-             map.getMap();
-         }
+            mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
+            for (IMap map : mapList) {
+                map.addEntity(reservedTower);
+                reservedTower = null;
+            }
 
+        }
     }
 }
-
-

@@ -11,6 +11,7 @@ import dk.sdu.g3.common.services.ITower;
 public class GameInputHandler extends InputAdapter {
 
     STDGame game;
+    private ITower temptower;
 
     public GameInputHandler(STDGame game) {
         this.game = game;
@@ -46,6 +47,12 @@ public class GameInputHandler extends InputAdapter {
                         }
                     }
                 } else if (ret instanceof ITower) {
+                    temptower = (ITower) ret;
+                    for (IPlayer iPlayer : game.getPlayerList()) {
+                        System.out.println("the player is:" + iPlayer.toString());
+                        iPlayer.reserveTower(temptower);
+                        
+                    }
                     System.out.println("Its a tower" + ret.toString());
                 }
                 return true;

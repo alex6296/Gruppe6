@@ -124,15 +124,21 @@ public class Map implements IMap, IStage {
 
         float scaleX = pos.getX() / (float) lengthX;
         float scaleY = pos.getY() / (float) lengthY;
-        float widthScale = tileScaleX * entity.getFootprint();
-        float heightScale = tileScaleY * entity.getFootprint();
+        float widthScale = (float) tileScaleX * entity.getFootprint();
+        float heightScale = (float) tileScaleY * entity.getFootprint();
 
         IRenderableSprite render = (IRenderableSprite) entity;
         render.setStage(this);
+        System.out.println("scalex: " + scaleX);
         render.setPosScaleX(scaleX);
+        System.out.println("scaley: " + scaleY);
         render.setPosScaleY(scaleY);
+        System.out.println("width: " + widthScale);
         render.setWithScale(widthScale);
+        System.out.println("hight: " + heightScale);
         render.setHigthScale(heightScale);
+        
+        System.out.println("DEn skulle Være på map!");
 
         return true;
     }
@@ -285,6 +291,10 @@ public class Map implements IMap, IStage {
         ArrayList<IRenderable> returnTiles = new ArrayList<>();
         for (Tile tile : tiles) {
             returnTiles.add(tile);
+            for (IPlaceableEntity ren : tile.getEntities()){
+                returnTiles.add((IRenderable) ren);
+                
+            }
         }
         return returnTiles;
     }

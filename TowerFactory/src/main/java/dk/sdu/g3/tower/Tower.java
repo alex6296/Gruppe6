@@ -27,9 +27,9 @@ public class Tower implements ITower, IRenderableSprite {
     
     // rendering attributes
     private final Graphic file = Graphic.TOWERS;
-    private IStage stage;
+    private IStage stage = null;
     private final Layer layer = Layer.FORGOUND;
-    private float posX, posY, width, height;
+    private float posX, posY, width, height = 0;
 
     
     public Tower() {
