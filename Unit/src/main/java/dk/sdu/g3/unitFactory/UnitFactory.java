@@ -10,6 +10,7 @@ import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.services.IUnit;
 import dk.sdu.g3.common.services.IUnitFactory;
 import dk.sdu.g3.unit.Unit;
+import java.util.List;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -26,10 +27,10 @@ public class UnitFactory implements IUnitFactory {
     }
     
     public IUnit getNewUnit(int hitPoints, int damage, int footprint, int cost
-    , int attackRange, int attackSpeed, Coordinate position, Coordinate path){
+    , int attackRange, int attackSpeed, Coordinate position, List<Coordinate> path){
         return new Unit(hitPoints, damage, footprint, cost,attackRange,
                 attackSpeed,position,path);
         
     }
-
+    
 }
