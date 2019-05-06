@@ -291,6 +291,7 @@ public class Map implements IMap, IStage {
 
     @Override
     public Object handleInput(float XScale, float YScale) {
+        System.out.println("MAP WORKS!");
         float x = lengthX * XScale;
         float y = lengthY * YScale;
 

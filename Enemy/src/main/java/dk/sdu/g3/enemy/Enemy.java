@@ -140,7 +140,7 @@ public class Enemy implements IEnemy {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public boolean Update() throws Exception{
+    public boolean Update(){
         for(IMap map : mapList){
         if(counter < EntityList.size()){
             putEntityOnMap(EntityList.get(counter),map.getMap());

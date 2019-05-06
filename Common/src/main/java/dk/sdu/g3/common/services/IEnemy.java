@@ -13,6 +13,6 @@ public interface IEnemy extends IController {
     
      int getCurrentWave();
      public  void createWave();
-     public boolean Update() throws Exception;
+     public boolean Update();
     
 }
