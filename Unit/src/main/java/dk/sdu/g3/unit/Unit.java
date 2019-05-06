@@ -10,20 +10,17 @@ import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.services.IUnit;
 import dk.sdu.g3.common.data.ITile;
 import dk.sdu.g3.common.entities.ILifeFunctions;
+import dk.sdu.g3.common.rendering.Graphic;
+import dk.sdu.g3.common.rendering.IRenderableSprite;
+import dk.sdu.g3.common.rendering.IStage;
+import dk.sdu.g3.common.rendering.Layer;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import java.util.List;
 
 /**
  *
  */
-public class Unit implements IUnit{
-    
-    
-    public Unit(){
-        
-    }
-    
-    
+public class Unit implements IUnit, IRenderableSprite {
     
     private final int MAXHP = 20;
     private int damage;
@@ -39,8 +36,17 @@ public class Unit implements IUnit{
     private final String spriteUrl = "";
     private List<Coordinate> path;
     
+    // rendering attributes
+    private Graphic file = Graphic.Coins;
+    private IStage stage;
+    private Layer layer = Layer.FORGOUND;
+    private float posX, posY, width, height;
     
     
+    
+    public Unit(){
+        
+    }
     
     public Unit(int hitPoints, int damage, int footprint, int cost, int attackRange, int attackSpeed, Coordinate position, List<Coordinate> path){
         
@@ -180,7 +186,7 @@ public class Unit implements IUnit{
 
     @Override
     public int getAttackSpeed() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.attackSpeed;
     }
 
     
@@ -195,7 +201,67 @@ public class Unit implements IUnit{
 
     @Override
     public int getLife() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.hitPoints;
+    }
+
+    @Override
+    public Graphic getFile() {
+        return this.file;
+    }
+
+    @Override
+    public IStage getStage() {
+        return this.stage;
+    }
+
+    @Override
+    public void setStage(IStage stage) {
+        this.stage = stage;
+    }
+
+    @Override
+    public Layer getLayer() {
+        return layer;
+    }
+
+    @Override
+    public float getPosScaleX() {
+        return this.posX;
+    }
+
+    @Override
+    public float getPosScaleY() {
+        return this.posY;
+    }
+
+    @Override
+    public float getWithScale() {
+        return this.width;
+    }
+
+    @Override
+    public float getHigthScale() {
+        return this.height;
+    }
+
+    @Override
+    public void setPosScaleX(float scale) {
+        this.posX = scale;
+    }
+
+    @Override
+    public void setPosScaleY(float scale) {
+        this.posY = scale;
+    }
+
+    @Override
+    public void setWithScale(float scale) {
+        this.width = scale;
+    }
+
+    @Override
+    public void setHigthScale(float scale) {
+        this.height = scale;
     }
 
 
