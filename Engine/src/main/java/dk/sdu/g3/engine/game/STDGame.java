@@ -93,9 +93,9 @@ public class STDGame extends Game {
             time = time + f;
             if (time >= 0.1) {
                 for (IEnemy enemy : enemyList) {
-//                if (!enemy.update()) {
-//                    endWavePhase();
-//                }
+                if (!enemy.update()) {
+                    endWavePhase();
+                }
                 }
                 for (IMap map : mapList) {
                     List<IPlaceableEntity> toBeRemoved = map.updatePositions();
