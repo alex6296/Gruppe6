@@ -36,9 +36,9 @@ public class Unit implements IUnit, IRenderableSprite {
     private List<Coordinate> path;
     
     // rendering attributes
-    private Graphic file = Graphic.Coins;
+    private final Graphic file = Graphic.Coins;
     private IStage stage;
-    private Layer layer = Layer.FORGOUND;
+    private final Layer layer = Layer.FORGOUND;
     private float posX, posY, width, height;
     
     
@@ -110,10 +110,6 @@ public class Unit implements IUnit, IRenderableSprite {
            }
         }
      
-    }
-   
-    public String getSpriteUrl() {
-        return this.spriteUrl;
     }
 
     public int getMaxHp() {  
