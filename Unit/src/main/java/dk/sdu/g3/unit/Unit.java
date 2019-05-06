@@ -33,7 +33,6 @@ public class Unit implements IUnit, IRenderableSprite {
     private int attackRange;
     private int attackSpeed; 
     private Coordinate position;
-    private final String spriteUrl = "";
     private List<Coordinate> path;
     
     // rendering attributes
