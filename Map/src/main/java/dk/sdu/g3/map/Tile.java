@@ -15,8 +15,8 @@ import java.util.List;
 public class Tile implements ITile, IRenderableSprite {
     
     // renderable attributes
-    private Layer layer;
-    private Graphic file = Graphic.WALL;
+    private Layer layer = Layer.MIDGROUND;
+    private Graphic file = Graphic.WALL2;
     private float posX;
     private float posY;
     private float width;
@@ -93,7 +93,7 @@ public class Tile implements ITile, IRenderableSprite {
 
     @Override
     public Layer getLayer() {
-        return layer.BACKGROUND;
+        return this.layer;
     }
 
     @Override

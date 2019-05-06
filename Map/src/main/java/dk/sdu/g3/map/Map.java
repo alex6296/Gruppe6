@@ -26,14 +26,14 @@ public class Map implements IMap, IStage {
     private float height = 0.6f;
     private float posX = 0.35f;
     private float posY = 0.5f;
-    private Graphic background = Graphic.WALL2;
+    private Graphic background = Graphic.WALL;
     private float tileScaleX, tileScaleY;
     
     // functionality variables
     private static IMap instance;
     private ArrayList<Tile> tiles;
     private int lengthX, lengthY;
-    private int scaler = 50;    // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
+    private int scaler = 20;    // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
     
     
     public Map() {      // remember to also call generateMap when this constructor is used.
@@ -60,16 +60,15 @@ public class Map implements IMap, IStage {
         tiles  = new ArrayList<>();
         
         int tileSize = lengthX / scaler;
-        tileScaleX = 2*tileSize / lengthX;
-        tileScaleY = 2*tileSize / lengthY;
+        tileScaleX = 2*tileSize / (float) lengthX;
+        tileScaleY = 2*tileSize / (float) lengthY;
         
-        int x = tileSize;
+        
         int y = tileSize;
-        
         while (y < this.lengthY) {
-            for (x = 0; x < this.lengthX; x += 2*tileSize) {
-                float tPosX = x / lengthX;
-                float tPosY = y / lengthY;
+            for (int x = tileSize; x < this.lengthX; x += 2*tileSize) {
+                float tPosX = x / (float) lengthX;
+                float tPosY = y / (float) lengthY;
                 tiles.add(new Tile(x, y, tileSize, tPosX, tPosY, tileScaleX, tileScaleY, this));
             }
             y += 2*tileSize;
@@ -279,6 +278,11 @@ public class Map implements IMap, IStage {
 
     @Override
     public Object handleInput(float XScale, float YScale) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        float x = lengthX * XScale;
+        float y = lengthY * YScale;
+        
+        Coordinate coord = new Coordinate(Math.round(x), Math.round(y));
+        
+        return getTile(coord);
     }
 }
