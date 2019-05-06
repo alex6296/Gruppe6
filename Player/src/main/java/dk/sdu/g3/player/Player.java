@@ -29,6 +29,8 @@ import org.openide.util.lookup.ServiceProviders;
  */
 public class Player implements IPlayer {
     
+    private TowerPicker tp;
+    PlayerGoldPlayerHealth pl;
     int hp;
     int gold;
     ArrayList<IPlaceableEntity> EntityList = new ArrayList();
@@ -37,7 +39,7 @@ public class Player implements IPlayer {
     ITower tower1;
     
     public Player(){
-        
+       tp = new TowerPicker();
     }
     public Player(int hp, int gold, ArrayList<IPlaceableEntity> EntityList) {
         this.hp = hp;
