@@ -278,6 +278,11 @@ public class Map implements IMap, IStage {
 
     @Override
     public Object handleInput(float XScale, float YScale) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        float x = lengthX * XScale;
+        float y = lengthY * YScale;
+        
+        Coordinate coord = new Coordinate(Math.round(x), Math.round(y));
+        
+        return getTile(coord);
     }
 }
