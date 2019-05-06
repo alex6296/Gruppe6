@@ -36,7 +36,7 @@ public class Pathfinding implements IPathfinding {
      * @throws Exception if no possible path from start to goal is found
      */
     @Override
-    public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) throws Exception{
+    public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) throws Exception {
         mapLengthX = map.getLengthX();
         mapLengthY = map.getLengthY();
         openList = new ArrayList<>();
@@ -45,8 +45,10 @@ public class Pathfinding implements IPathfinding {
 
         createNodes(map); //Convert all Tiles in map received from Enemy to Nodes
         defineStartNode(start); //Define startNode from nodes
+        System.out.println("start = " + start.getX());
         defineGoalNode(goal); // Define goalNode from nodes
 
+        System.out.println("startNode get x = " + startNode.getCenter().getX());
         calculateHeuristic(startNode); //Calculate and set the heuristic value of startNode
         startNode.setTotalCost(startNode.getHeuristic());
         openList.add(startNode); //Add startNode to openList to enable the Node to be currentNode
@@ -116,8 +118,10 @@ public class Pathfinding implements IPathfinding {
     }
 
     public void defineStartNode(Coordinate start) {
+        System.out.println("DefineStartNode");
         for (Node node : nodes) {
             if (node.getCenter().getX() == start.getX() && node.getCenter().getY() == start.getY()) {
+                System.out.println("Found suiting startNode");
                 startNode = node;
             }
         }
@@ -147,7 +151,9 @@ public class Pathfinding implements IPathfinding {
      */
     public void createNodes(IMap map) {
         List<ITile> tiles = map.getTileList();
+        System.out.println("tiles.size() = " + tiles.size());
         for (ITile tile : tiles) {
+//            System.out.println("TileCoordinate: " + tile.getCoordinate().getX() + ", " + tile.getCoordinate().getY());
             //If Node has tower placed i.e. isBlocked -> no use for it (No need to add)
             if (!tile.isOccupied()) {
                 Node node = new Node(tile.getCoordinate(), tile.getSize());
@@ -165,6 +171,8 @@ public class Pathfinding implements IPathfinding {
      * @param node is the Node that the pathfinding algorithm wants the heuristic value of in its current iteration
      */
     public void calculateHeuristic(Node node) {
+        System.out.println("goalNode x= " + goalNode.getCenter().getX());
+        System.out.println("node x = " + node.getCenter().getX());
         int sideA = (goalNode.getCenter().getX() - node.getCenter().getX()); //Horizontal difference between the node and the goal (Distance on the x-axis)
         int sideB = (goalNode.getCenter().getY() - node.getCenter().getY()); //Vertical difference between the node and the goal (Distance on the y-axis)
         double diagonal = Math.sqrt(Math.pow(sideA, 2.0) + Math.pow(sideB, 2.0)); //Using the Pythagorean theorem the hypotenuse, i.e. the euclidean distance between the node and the goal is calculated
