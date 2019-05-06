@@ -36,7 +36,7 @@ public class Pathfinding implements IPathfinding {
      * @throws Exception if no possible path from start to goal is found
      */
     @Override
-    public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) throws Exception{
+    public List<Coordinate> generatePath(IMap map, Coordinate start, Coordinate goal) throws Exception {
         mapLengthX = map.getLengthX();
         mapLengthY = map.getLengthY();
         openList = new ArrayList<>();
