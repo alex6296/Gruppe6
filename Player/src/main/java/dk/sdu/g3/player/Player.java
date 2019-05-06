@@ -5,6 +5,7 @@
  */
 package dk.sdu.g3.player;
 
+import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.entities.ILifeFunctions;
 import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPlaceableEntity;
@@ -89,6 +90,11 @@ public class Player implements IPlayer {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void placeReservedTower(Coordinate coor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

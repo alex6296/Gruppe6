@@ -66,6 +66,7 @@
         <module>Enemy</module>
         <module>TowerFactory</module>
         <module>Map</module>
+        <module>SilentUpdater</module>
 
     </modules>
 
