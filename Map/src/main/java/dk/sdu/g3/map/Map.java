@@ -238,6 +238,7 @@ public class Map implements IMap, IStage {
         return null;
     }
     
+    @Override
     public int getTileSize() {
         return tiles.get(0).getSize();
     }
@@ -274,5 +275,10 @@ public class Map implements IMap, IStage {
             returnTiles.add(tile);
         }
         return returnTiles;
+    }
+
+    @Override
+    public Object handleInput(float XScale, float YScale) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -82,4 +82,9 @@ public class TowerPicker implements IStage {
         return Graphic.TowerPickerBackground;
     }
 
+    @Override
+    public Object handleInput(float XScale, float YScale) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
