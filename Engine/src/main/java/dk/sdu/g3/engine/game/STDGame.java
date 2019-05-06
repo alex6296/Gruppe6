@@ -46,6 +46,7 @@ public class STDGame extends Game {
     private final Lookup lookup = Lookup.getDefault();
     private GameScreen gameScreen;
     private boolean isWavePhase = false;
+    private float time = 1;
 
     //modules
     private List<IEnemy> enemyList;
@@ -86,26 +87,31 @@ public class STDGame extends Game {
         playerList = (List<IPlayer>) new ServiceLoader(IPlayer.class).getServiceProviderList();
     }
 
-    public void gameLogic() {
+    public void gameLogic(float f) {
+
         if (isWavePhase) {
-            for (IEnemy enemy : enemyList) {
-                if (!enemy.update()) {
-                    endWavePhase();
-                }
-            }
-            for (IMap map : mapList) {
-                List<IPlaceableEntity> toBeRemoved = map.updatePositions();
-                for (IPlayer player : playerList) {
-                    player.decreaseHp(toBeRemoved.size());
-                }
+            time = time + f;
+            if (time >= 0.1) {
                 for (IEnemy enemy : enemyList) {
-                    for (IPlaceableEntity entity : toBeRemoved) {
-                        enemy.remove(entity);
+//                if (!enemy.update()) {
+//                    endWavePhase();
+//                }
+                }
+                for (IMap map : mapList) {
+                    List<IPlaceableEntity> toBeRemoved = map.updatePositions();
+                    for (IPlayer player : playerList) {
+                        player.decreaseHp(toBeRemoved.size());
+                    }
+                    for (IEnemy enemy : enemyList) {
+                        for (IPlaceableEntity entity : toBeRemoved) {
+                            enemy.remove(entity);
+                        }
                     }
                 }
-            }
-            for (IMap map : mapList) {
-                map.updateActions();
+                for (IMap map : mapList) {
+                    map.updateActions();
+                }
+                time = 0;
             }
         }
 //        for(IPlaceableEntity: map.updatePositions()){

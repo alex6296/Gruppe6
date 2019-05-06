@@ -2,6 +2,7 @@ package dk.sdu.g3.engine.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import dk.sdu.g3.common.rendering.Graphic;
 import dk.sdu.g3.engine.game.STDGame;
@@ -28,8 +29,6 @@ public class GameScreen implements Screen {
     //Textures:
     private Texture background;
 
-    private float time = 0;
-
     public GameScreen(final STDGame game) {
         this.game = game;
         gameScreen = this;
@@ -48,12 +47,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float f) {
-        time = time + f;
-        if (time >= 0.1) {
-            //System.out.println("float time: " + time);
+
+      
 
             //gameloop
-            game.gameLogic();
+            game.gameLogic(f);
 
             //this is what renders stuff
             game.batch.begin();
@@ -69,14 +67,30 @@ public class GameScreen implements Screen {
             }
 
             game.batch.end();
-            time = 0;
+
             //dispose fonts?
         }
-    }
+
 
     public void renderButtons() {
-        game.batch.draw(game.getTexture(Graphic.SEND_WAVE), WAVE_X * Gdx.graphics.getWidth(), WAVE_Y * Gdx.graphics.getHeight(), WAVE_BUTTON_X_SCALE * Gdx.graphics.getWidth(), WAVE_BUTTON_Y_SCALE * Gdx.graphics.getHeight(), 0, 0, game.getTexture(Graphic.SEND_WAVE).getWidth(), game.getTexture(Graphic.SEND_WAVE).getHeight(), false, false);
-        game.batch.draw(game.getTexture(Graphic.MAIN_MENU), TO_MENU_X * Gdx.graphics.getWidth(), TO_MENU_Y * Gdx.graphics.getHeight(), TO_MENU_BUTTON_X_SCALE * Gdx.graphics.getWidth(), TO_MENU_BUTTON_Y_SCALE * Gdx.graphics.getHeight(), 0, 0, game.getTexture(Graphic.MAIN_MENU).getWidth(), game.getTexture(Graphic.MAIN_MENU).getHeight(), false, false);
+        int imputY = (Gdx.graphics.getHeight() - Gdx.input.getY());
+        int impx = (Gdx.input.getX());
+        Color base = game.batch.getColor();
+        Color tint = Color.LIGHT_GRAY;
+        if (isSendWave(impx, imputY)) {
+            game.batch.setColor(tint);
+            game.batch.draw(game.getTexture(Graphic.SEND_WAVE), WAVE_X * Gdx.graphics.getWidth(), WAVE_Y * Gdx.graphics.getHeight(), WAVE_BUTTON_X_SCALE * Gdx.graphics.getWidth(), WAVE_BUTTON_Y_SCALE * Gdx.graphics.getHeight(), 0, 0, game.getTexture(Graphic.SEND_WAVE).getWidth(), game.getTexture(Graphic.SEND_WAVE).getHeight(), false, false);
+            game.batch.setColor(base);
+        } else {
+            game.batch.draw(game.getTexture(Graphic.SEND_WAVE), WAVE_X * Gdx.graphics.getWidth(), WAVE_Y * Gdx.graphics.getHeight(), WAVE_BUTTON_X_SCALE * Gdx.graphics.getWidth(), WAVE_BUTTON_Y_SCALE * Gdx.graphics.getHeight(), 0, 0, game.getTexture(Graphic.SEND_WAVE).getWidth(), game.getTexture(Graphic.SEND_WAVE).getHeight(), false, false);
+        }
+        if (isMainMenu(impx, imputY)) {
+            game.batch.setColor(tint);
+            game.batch.draw(game.getTexture(Graphic.MAIN_MENU), TO_MENU_X * Gdx.graphics.getWidth(), TO_MENU_Y * Gdx.graphics.getHeight(), TO_MENU_BUTTON_X_SCALE * Gdx.graphics.getWidth(), TO_MENU_BUTTON_Y_SCALE * Gdx.graphics.getHeight(), 0, 0, game.getTexture(Graphic.MAIN_MENU).getWidth(), game.getTexture(Graphic.MAIN_MENU).getHeight(), false, false);
+            game.batch.setColor(base);
+        } else {
+            game.batch.draw(game.getTexture(Graphic.MAIN_MENU), TO_MENU_X * Gdx.graphics.getWidth(), TO_MENU_Y * Gdx.graphics.getHeight(), TO_MENU_BUTTON_X_SCALE * Gdx.graphics.getWidth(), TO_MENU_BUTTON_Y_SCALE * Gdx.graphics.getHeight(), 0, 0, game.getTexture(Graphic.MAIN_MENU).getWidth(), game.getTexture(Graphic.MAIN_MENU).getHeight(), false, false);
+        }
     }
 
     @Override
@@ -101,8 +115,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-            Gdx.input.setInputProcessor(null);
-            background.dispose();
+        Gdx.input.setInputProcessor(null);
+        background.dispose();
     }
 
     public void handleButtonClick(int x, int y) {
