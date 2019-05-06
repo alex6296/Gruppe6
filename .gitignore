@@ -110,3 +110,4 @@ application/target/scuffedtd/platform/update_tracking/org-netbeans-api-annotatio
 application/target/scuffedtd/platform/update_tracking/org-netbeans-libs-asm.xml
 /Pathfinding/Pathfinding/nbproject/
 /Enemy/nbproject/
+SilentUpdater/src/main/resources/dk/sdu/g3/silentupdater/Bundle.properties
