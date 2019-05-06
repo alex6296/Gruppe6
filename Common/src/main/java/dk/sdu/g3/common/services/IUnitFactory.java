@@ -6,6 +6,7 @@
 package dk.sdu.g3.common.services;
 
 import dk.sdu.g3.common.data.Coordinate;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,5 @@ public interface IUnitFactory {
     
 
     public IUnit getNewUnit(int currentHp, int damage, int footprint, int cost, int attackRange, int attackSpeed, 
-            Coordinate currentPosition, Coordinate path);
+            Coordinate currentPosition, List<Coordinate> path);
 }

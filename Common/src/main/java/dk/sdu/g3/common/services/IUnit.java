@@ -16,7 +16,8 @@ public interface IUnit extends IPlaceableEntity {
 
     public Coordinate getNextStep(Coordinate position);
     public void attack(List<IPlaceableEntity> targetList);
-    public void setPath(Coordinate cord);
+    public void setPath(List<Coordinate> cord);
+    public List<Coordinate> getPath();
 
     
         

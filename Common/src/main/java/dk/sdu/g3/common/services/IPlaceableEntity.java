@@ -6,6 +6,7 @@
 package dk.sdu.g3.common.services;
 
 import dk.sdu.g3.common.data.Coordinate;
+import java.util.List;
 
 /**
  *
@@ -20,7 +21,6 @@ public interface IPlaceableEntity {
     int getAttackSpeed();
     public int getLife();
     public int getDamage();
-    public Coordinate getPath();
     int getFootprint();
 
 }

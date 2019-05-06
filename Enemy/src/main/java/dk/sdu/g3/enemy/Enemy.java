@@ -143,6 +143,7 @@ public class Enemy implements IEnemy {
     public boolean decreaseHp(int damage) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     
 
     

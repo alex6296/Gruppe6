@@ -37,12 +37,12 @@ public class Unit implements IUnit{
     private int attackSpeed; 
     private Coordinate position;
     private final String spriteUrl = "";
-    private Coordinate path;
+    private List<Coordinate> path;
     
     
     
     
-    public Unit(int hitPoints, int damage, int footprint, int cost, int attackRange, int attackSpeed, Coordinate position, Coordinate path){
+    public Unit(int hitPoints, int damage, int footprint, int cost, int attackRange, int attackSpeed, Coordinate position, List<Coordinate> path){
         
         this.hitPoints = hitPoints; 
         this.damage = damage; 
@@ -184,11 +184,12 @@ public class Unit implements IUnit{
     }
 
     
-    public void setPath(Coordinate cord){
+    public void setPath(List<Coordinate> cord){
         this.path = cord;
     }
     
-    public Coordinate getPath(){
+    @Override
+    public List<Coordinate> getPath(){
         return path;
     }
 

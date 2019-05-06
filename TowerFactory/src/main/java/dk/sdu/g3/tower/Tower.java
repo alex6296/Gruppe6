@@ -136,10 +136,6 @@ public class Tower implements ITower{
         return this.SpriteUrl;
     }
 
-    @Override
-    public Coordinate getPath() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     public int getFootprint() {
        return footprint;
     }

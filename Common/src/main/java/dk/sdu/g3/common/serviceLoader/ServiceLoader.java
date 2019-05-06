@@ -60,7 +60,7 @@ public class ServiceLoader {
             }
         };
 
-        private <T> Collection<? extends T> getSP(Class<T> SPI) {
+        private <Å> Collection<? extends Å> getSP(Class<Å> SPI) {
             return lookup.lookupAll(SPI);
         }
     public ArrayList<?> getServiceProviderList() {
