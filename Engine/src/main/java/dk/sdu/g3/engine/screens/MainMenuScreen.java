@@ -31,11 +31,19 @@ public class MainMenuScreen implements Screen {
     private static final float HIGHSCORE_OFFSET = 0.4f;
     private static final float MENY_BUTTON_X_SCALE = 0.25f;
     private static final float MENY_BUTTON_Y_SCALE = 0.15f;
+    
+    //torch
+    private static final float TORCH_Y_OFFSET = 0.5f;
+    private static final float TORCH1_X_OFFSET = 0.8f;
+    private static final float TORCH_X_SCALE = 0.15f;
+    private static final float TORCH_Y_SCALE = 0.5f;
 
     //Exit buttons
     private static final float EXIT_OFFSET = 0.05f;
     private static final float EXIT_X_SCALE = 0.2f;
     private static final float EXIT_Y_SCALE = 0.1f;
+    
+    
 
     public MainMenuScreen(final STDGame game) {
         this.game = game;
@@ -141,7 +149,13 @@ public class MainMenuScreen implements Screen {
         } else {
             game.batch.draw(exit, x, y, EXIT_X_SCALE * Gdx.graphics.getWidth(), EXIT_Y_SCALE * Gdx.graphics.getHeight(), 0, 0, exit.getWidth(), exit.getHeight(), false, false);
         }
-
+        
+        //torches
+        float x1 = getLeftX(TORCH1_X_OFFSET);
+        float x2 = getRightX(TORCH1_X_OFFSET)- TORCH_X_SCALE * Gdx.graphics.getWidth() ;
+        float y2 = getLowerY(TORCH_Y_OFFSET )- ((TORCH_Y_SCALE* Gdx.graphics.getHeight())/2);
+        game.batch.draw(tourch, x1, y2, TORCH_X_SCALE * Gdx.graphics.getWidth(), TORCH_Y_SCALE * Gdx.graphics.getHeight(), 0, 0, tourch.getWidth(), tourch.getHeight(), false, false);
+        game.batch.draw(tourch, x2, y2, TORCH_X_SCALE * Gdx.graphics.getWidth(), TORCH_Y_SCALE * Gdx.graphics.getHeight(), 0, 0, tourch.getWidth(), tourch.getHeight(), false, false);
         game.batch.end();
     }
 
@@ -175,6 +189,7 @@ public class MainMenuScreen implements Screen {
         settings.dispose();
         highScore.dispose();
         exit.dispose();
+        tourch.dispose();
     }
 
     private void loadTextures() {
@@ -185,6 +200,7 @@ public class MainMenuScreen implements Screen {
         settings = new Texture("assets/settings.png");
         highScore = new Texture("assets/highscore.png");
         exit = new Texture("assets/exit.png");
+        tourch = new Texture("assets/torch.png");
     }
 
     private float getLeftX(float scale) {

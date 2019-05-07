@@ -27,10 +27,10 @@ import java.util.logging.Logger;
 public class Map implements IMap, IStage {
 
     // renderable variables
-    private float width = 0.65f;
-    private float height = 0.6f;
-    private float posX = 0.35f;
-    private float posY = 0.5f;
+    private float width = 0.58f;
+    private float height = 0.79f;
+    private float posX = 0.34f;
+    private float posY = 0.58f;
     private Graphic background = Graphic.WALL;
     private float tileScaleX, tileScaleY;
 
