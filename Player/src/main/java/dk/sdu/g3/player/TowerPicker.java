@@ -121,7 +121,10 @@ public class TowerPicker implements IStage {
         
 
         //add to inputhandler
-        dict.insert(this.getPosX - this.getWidth / 2, this.getPosY - this.getHeight / 2, this.getPosX + this.getWidth / 2 * -1, this.getPosY + this.getHeight / 2 , towerf);
+        dict.insert(this.getPosX - this.getWidth / 2, this.getPosY - this.getHeight /2,
+        this.getPosX + this.getWidth / 2, this.getPosY+ this.getHeight /2, towerf);
+        
+        
     }
 
     @Override
@@ -133,13 +136,14 @@ public class TowerPicker implements IStage {
         resolved = dict.search(XScale, YScale);
         System.out.println("---RESOLVED--- = " + resolved);
        
-
-            
+        ITowerFactory result  = (ITowerFactory) resolved; 
+        
+        
         }catch(UnsupportedOperationException e){
             e.printStackTrace();
         }
                 
-        return tf.getNewTower(10, 10, 1, 1, 10, 10, null);
+        return null;
                 
         
     }
