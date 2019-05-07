@@ -38,9 +38,15 @@ public class Player implements IPlayer {
     ITower reservedTower;
     List<ITowerFactory> factoryList;
     List<ITower> towerlist;
-
+    List<ITowerFactory> towerFactoryPicker;
+    
     public Player() {
+        towerFactoryPicker = (List<ITowerFactory>) new ServiceLoader(ITowerFactory.class).getServiceProviderList();
+        
         tp = new TowerPicker();
+        for(ITowerFactory towerFactory : towerFactoryPicker){
+            tp.insertTower(towerFactory);
+        }
     }
 
     public Player(int hp, int gold) {
