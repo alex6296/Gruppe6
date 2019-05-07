@@ -165,16 +165,6 @@ public class Map implements IMap, IStage {
     }
 
     @Override
-    public void setLengthX(int x) {
-        this.lengthX = x;
-    }
-
-    @Override
-    public void setLengthY(int y) {
-        this.lengthY = y;
-    }
-
-    @Override
     public List<IPlaceableEntity> updatePositions() {
         ArrayList<IPlaceableEntity> toBeRemoved = new ArrayList<>();
 

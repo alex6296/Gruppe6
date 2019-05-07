@@ -1,19 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package dk.sdu.g3.common.services;
 
-import dk.sdu.g3.common.entities.ILifeFunctions;
+import dk.sdu.g3.common.entities.IAction;
+import dk.sdu.g3.common.rendering.IRenderableSprite;
 
-/**
- *
- */
-public interface ITower extends IPlaceableEntity  {
+public interface ITower extends IPlaceableEntity, IAction, IRenderableSprite  {
     
-    public void shoot(ILifeFunctions[] enemiesInRange);
-    
-
 }
