@@ -93,7 +93,7 @@ public class STDGame extends Game {
             time = time + f;
             if (time >= 0.1) {
                 for (IEnemy enemy : enemyList) {
-                if (!enemy.update()) {
+                if (!enemy.Update()) {
                     endWavePhase();
                 }
                 }

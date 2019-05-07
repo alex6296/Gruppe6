@@ -33,7 +33,7 @@ public class Map implements IMap, IStage {
     private static IMap instance;
     private ArrayList<Tile> tiles;
     private int lengthX, lengthY;
-    private int scaler = 50;    // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
+    private int scaler = 20;    // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
 
     public Map() {      // remember to also call generateMap when this constructor is used.
         generateMap(600, 600);
@@ -124,15 +124,21 @@ public class Map implements IMap, IStage {
 
         float scaleX = pos.getX() / (float) lengthX;
         float scaleY = pos.getY() / (float) lengthY;
-        float widthScale = tileScaleX * entity.getFootprint();
-        float heightScale = tileScaleY * entity.getFootprint();
+        float widthScale = (float) tileScaleX * entity.getFootprint();
+        float heightScale = (float) tileScaleY * entity.getFootprint();
 
         IRenderableSprite render = (IRenderableSprite) entity;
         render.setStage(this);
+        System.out.println("scalex: " + scaleX);
         render.setPosScaleX(scaleX);
+        System.out.println("scaley: " + scaleY);
         render.setPosScaleY(scaleY);
+        System.out.println("width: " + widthScale);
         render.setWithScale(widthScale);
+        System.out.println("hight: " + heightScale);
         render.setHigthScale(heightScale);
+        
+        System.out.println("DEn skulle Være på map!");
 
         return true;
     }
@@ -285,6 +291,10 @@ public class Map implements IMap, IStage {
         ArrayList<IRenderable> returnTiles = new ArrayList<>();
         for (Tile tile : tiles) {
             returnTiles.add(tile);
+            for (IPlaceableEntity ren : tile.getEntities()){
+                returnTiles.add((IRenderable) ren);
+                
+            }
         }
         return returnTiles;
     }
