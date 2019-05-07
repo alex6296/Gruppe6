@@ -50,8 +50,8 @@ public class PathfindingTest {
         System.out.println("generatePath");
         IMap map = new Map();
 
-        Coordinate start = new Coordinate(12, 12);
-        Coordinate goal = new Coordinate(588, 588);
+        Coordinate start = new Coordinate(map.getTileSize(), map.getTileSize());
+        Coordinate goal = new Coordinate(map.getLengthX() - map.getTileSize(), map.getLengthY() - map.getTileSize());
 
         Pathfinding instance = new Pathfinding();
         List<Coordinate> result = instance.generatePath(map, start, goal);
@@ -62,8 +62,9 @@ public class PathfindingTest {
 //        }
         boolean positiveResult = false;
         for (Coordinate coord : result) {
-            if (coord.getX() == 300) {
-                if (coord.getY() == 300) {
+            if (coord.getX() == map.getLengthX()/2 - map.getTileSize()) {
+                if (coord.getY() == map.getLengthY()/2 - map.getTileSize()) {
+                    System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
                     positiveResult = true;
                 }
             }
@@ -79,8 +80,9 @@ public class PathfindingTest {
     @Test
     public void testDefineGoalNode() {
         System.out.println("defineGoalNode");
-        Coordinate goal = new Coordinate(20, 20);
-        Node node = new Node(goal, 10);
+        IMap map = new Map();
+        Coordinate goal = new Coordinate((map.getLengthX() - map.getTileSize()), (map.getLengthY() - map.getTileSize()));
+        Node node = new Node(goal, map.getTileSize());
         Pathfinding instance = new Pathfinding();
         instance.addNode(node);
         instance.defineGoalNode(goal);
@@ -95,8 +97,9 @@ public class PathfindingTest {
     @Test
     public void testDefineStartNode() {
         System.out.println("defineStartNode");
-        Coordinate start = new Coordinate(10, 10);
-        Node node = new Node(start, 10);
+        IMap map = new Map();
+        Coordinate start = new Coordinate(map.getTileSize(), map.getTileSize());
+        Node node = new Node(start, map.getTileSize());
         Pathfinding instance = new Pathfinding();
         instance.addNode(node);
         instance.defineStartNode(start);
@@ -111,8 +114,9 @@ public class PathfindingTest {
     public void testAssignNeighbour() {
         System.out.println("assignNeighbour");
         IMap map = new Map();
-        int x = 12;
-        int y = 12;
+        int x = map.getTileSize();
+        int y = map.getTileSize();
+        
         Pathfinding instance = new Pathfinding();
         
         instance.createNodes(map);
@@ -135,7 +139,7 @@ public class PathfindingTest {
         Pathfinding instance = new Pathfinding();
         instance.createNodes(map);
 
-        assertEquals(625, instance.getNodes().size());
+        assertEquals(map.getTileList().size(), instance.getNodes().size());
     }
 
     /**
@@ -145,16 +149,19 @@ public class PathfindingTest {
     @Test
     public void testCalculateHeuristic() {
         System.out.println("calculateHeuristic");
-        Node node1 = new Node(new Coordinate(3, 5), 5);
-        Node node2 = new Node(new Coordinate(10, 15), 5);
+        IMap map = new Map();
+        
+        Node node1 = new Node(new Coordinate(map.getTileSize(), map.getTileSize()), map.getTileSize());
+        Node node2 = new Node(new Coordinate(map.getLengthX() - map.getTileSize(), (map.getLengthY() - map.getTileSize())), map.getTileSize());
         Node currentNode = node1;
         Pathfinding instance = new Pathfinding();
         instance.setGoalNode(node2);
+        
         instance.calculateHeuristic(currentNode);
         double result = currentNode.getHeuristic();
-        double expResult = Math.sqrt(149) * 5;
+        double expResult = Math.sqrt(Math.pow((node2.getCenter().getX() - node1.getCenter().getX()), 2) + Math.pow((node2.getCenter().getY() - node1.getCenter().getY()), 2));
 
-        assertEquals(expResult, result, expResult - result);
+        assertEquals(expResult * 5, result, expResult - result);
     }
 
     /**
