@@ -138,6 +138,7 @@ public class TowerPicker implements IStage {
        
         ITowerFactory result  = (ITowerFactory) resolved; 
         
+        return result.getNewTower();
         
         }catch(UnsupportedOperationException e){
             e.printStackTrace();
