@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dk.sdu.g3.unit;
 
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.services.IUnit;
-import dk.sdu.g3.common.data.ITile;
 import dk.sdu.g3.common.entities.ILifeFunctions;
+import dk.sdu.g3.common.entities.IMovable;
 import dk.sdu.g3.common.rendering.Graphic;
 import dk.sdu.g3.common.rendering.IRenderableSprite;
 import dk.sdu.g3.common.rendering.IStage;
@@ -20,70 +19,66 @@ import java.util.List;
 /**
  *
  */
-public class Unit implements IUnit, IRenderableSprite {
-    
+public class Unit implements IUnit, IMovable, ILifeFunctions, IRenderableSprite {
+
     private final int MAXHP = 20;
-    private int damage;
-    private int hitPoints;
-    private final int DAMAGE = 5;
-    private Unit unit;
-    private int costOfUnit;
-    private ITile tile;
-    private int unitFootprint;
-    private int attackRange;
-    private int attackSpeed; 
+    private int damage = 5;
+    private int hitPoints = 20;
+//    private final int DAMAGE = 5;
+    private int costOfUnit = 2;
+    private int unitFootprint = 1;
+    private int attackRange = 0;
+    private int attackSpeed = 1;
     private Coordinate position;
     private List<Coordinate> path;
-    
+    private int movespeed = 4;
+
     // rendering attributes
     private final Graphic file = Graphic.ENEMYUNITS;
     private IStage stage;
     private final Layer layer = Layer.FORGOUND;
     private float posX, posY, width, height;
-    
-    
-    
-    public Unit(){
-        
+
+    public Unit() {
     }
-    
-    public Unit(int hitPoints, int damage, int footprint, int cost, int attackRange, int attackSpeed, Coordinate position, List<Coordinate> path){
-        
-        this.hitPoints = hitPoints; 
-        this.damage = damage; 
+
+    public Unit(int hitPoints, int damage, int footprint, int cost, int attackRange, int attackSpeed, Coordinate position, List<Coordinate> path) {
+
+        this.hitPoints = hitPoints;
+        this.damage = damage;
         this.unitFootprint = footprint;
         this.costOfUnit = cost;
         this.attackRange = attackRange;
         this.attackSpeed = attackSpeed;
         this.position = position;
         this.path = path;
-        
+
     }
 
     @Override
-    public Coordinate getNextStep(Coordinate position) {
+    public Coordinate getNextStep(Coordinate pos) {
         
-        if(!tile.isOccupied()){
-           position = new Coordinate(position.getX(), position.getY());
-           return position;
+        for (int i = 0; i < path.size(); i++) {
+            
+            if (pos.getX() == path.get(i).getX() && pos.getY() == path.get(i).getY()) {
+                
+                if (i + movespeed < path.size()) {
+                    return path.get(i + movespeed);
+                }
+            }
         }
-      return null;
+        
+        return null;
     }
-
-   
 
     @Override
     public int getFootprint() {
-        
         return this.unitFootprint;
-        
     }
 
     @Override
-    public Coordinate getCurrentPosition() {           
-        this.position = new Coordinate(position.getX(), position.getY());       
+    public Coordinate getCurrentPosition() {
         return position;
-        
     }
 
     @Override
@@ -92,44 +87,53 @@ public class Unit implements IUnit, IRenderableSprite {
     }
 
     @Override
-    public void setPosition(Coordinate coord) {   
-       this.position = coord;
+    public void setPosition(Coordinate coord) {
+        this.position = coord;
     }
 
     @Override
     public void attack(List<IPlaceableEntity> targetList) {
-       
-        
+
         for (IPlaceableEntity enti : targetList) {
-           ILifeFunctions enty =  (ILifeFunctions) enti;
-            
-           if(enty.getCurrentHp() == 0){
-               // Do nothing 
-           }else{
-                 enty.takeDamage(DAMAGE);
-           }
+            ILifeFunctions enty = (ILifeFunctions) enti;
+
+            if (enty.getCurrentHp() < 0) {
+                // Do nothing 
+            } else {
+                enty.takeDamage(damage);
+                return; // only damage 1 thing
+            }
         }
-     
+
     }
 
-    public int getMaxHp() {  
-       return this.MAXHP;    
+    @Override
+    public int getMovespeed() {
+        return this.movespeed;
     }
 
-    public int getCurrentHp() {  
+    @Override
+    public int getMaxHp() {
+        return this.MAXHP;
+    }
+
+    @Override
+    public int getCurrentHp() {
         return this.hitPoints;
     }
-    public void setAttackSpeed(int attackSpeed){
-        this.attackSpeed = attackSpeed;
-    }
 
+//    public void setAttackSpeed(int attackSpeed) {
+//        this.attackSpeed = attackSpeed;
+//    }
+
+    @Override
     public int getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
+//    public void setDamage(int damage) {
+//        this.damage = damage;
+//    }
 
     public int getHitPoints() {
         return hitPoints;
@@ -139,44 +143,30 @@ public class Unit implements IUnit, IRenderableSprite {
         this.hitPoints = hitPoints;
     }
 
-    public Unit getUnit() {
-        return unit;
-    }
-
-    public void setUnit(Unit unit) {
-        this.unit = unit;
-    }
-
     public int getCostOfUnit() {
         return costOfUnit;
     }
 
-    public void setCostOfUnit(int costOfUnit) {
-        this.costOfUnit = costOfUnit;
-    }
+//    public void setCostOfUnit(int costOfUnit) {
+//        this.costOfUnit = costOfUnit;
+//    }
 
-    public ITile getTile() {
-        return tile;
-    }
+//    public void setUnitFootprint(int unitFootprint) {
+//        this.unitFootprint = unitFootprint;
+//    }
 
-    public void setTile(ITile tile) {
-        this.tile = tile;
-    }
-
-    public int getUnitFootprint() {
-        return unitFootprint;
-    }
-
-    public void setUnitFootprint(int unitFootprint) {
-        this.unitFootprint = unitFootprint;
-    }
-
+    @Override
     public int getAttackRange() {
         return attackRange;
     }
 
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
+//    public void setAttackRange(int attackRange) {
+//        this.attackRange = attackRange;
+//    }
+    
+    @Override
+    public void takeDamage(int damage) {
+        this.hitPoints -= damage;
     }
 
     @Override
@@ -184,13 +174,12 @@ public class Unit implements IUnit, IRenderableSprite {
         return this.attackSpeed;
     }
 
-    
-    public void setPath(List<Coordinate> cord){
+    public void setPath(List<Coordinate> cord) {
         this.path = cord;
     }
-    
+
     @Override
-    public List<Coordinate> getPath(){
+    public List<Coordinate> getPath() {
         return path;
     }
 
@@ -258,6 +247,4 @@ public class Unit implements IUnit, IRenderableSprite {
     public void setHigthScale(float scale) {
         this.height = scale;
     }
-
-
 }

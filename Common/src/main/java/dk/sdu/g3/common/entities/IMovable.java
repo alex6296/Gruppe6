@@ -15,10 +15,10 @@ import java.util.List;
 public interface IMovable {
     
     List<Coordinate> getPath();
-    Coordinate getStartPos();
-    Coordinate getGoalPos();
+//    Coordinate getStartPos();
+//    Coordinate getGoalPos();
     int getMovespeed();
     
-    Coordinate getNextStep(Coordinate currentCoordinate);
+    Coordinate getNextStep(Coordinate pos);
     
 }

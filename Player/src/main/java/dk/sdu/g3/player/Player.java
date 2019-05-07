@@ -39,11 +39,20 @@ public class Player implements IPlayer {
     ITower reservedTower;
     List<ITowerFactory> factoryList;
     List<ITower> towerlist;
-
+    List<ITowerFactory> towerFactoryPicker;
+    
     public Player() {
         tp = new TowerPicker();      
         ts.injectPlayer(this);
+
+        towerFactoryPicker = (List<ITowerFactory>) new ServiceLoader(ITowerFactory.class).getServiceProviderList();
+        
+        tp = new TowerPicker();
+        for(ITowerFactory towerFactory : towerFactoryPicker){
+            tp.insertTower(towerFactory);
+        }
     }
+
 
     @Override
     public int getCurrentHp() {
@@ -60,15 +69,15 @@ public class Player implements IPlayer {
         return EntityList;
     }
 
-    @Override
-    public IPlaceableEntity create() {
-        factoryList = (List<ITowerFactory>) new ServiceLoader(ITowerFactory.class).getServiceProviderList();
-        for (ITowerFactory tower : factoryList) {
-            ITower createdTower = tower.getNewTower();
-            return createdTower;
-        }
-        return null;
-    }
+//    @Override
+//    public IPlaceableEntity create() {
+//        factoryList = (List<ITowerFactory>) new ServiceLoader(ITowerFactory.class).getServiceProviderList();
+//        for (ITowerFactory tower : factoryList) {
+//            ITower createdTower = tower.getNewTower();
+//            return createdTower;
+//        }
+//        return null;
+//    }
 
     @Override
     public void remove(IPlaceableEntity livingEntity) {

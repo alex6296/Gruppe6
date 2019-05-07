@@ -16,7 +16,7 @@ public class Tile implements ITile, IRenderableSprite {
     
     // renderable attributes
     private Layer layer = Layer.MIDGROUND;
-    private Graphic file = Graphic.WALL2;
+    private Graphic file = Graphic.GRASS;
     private float posX;
     private float posY;
     private float width;
