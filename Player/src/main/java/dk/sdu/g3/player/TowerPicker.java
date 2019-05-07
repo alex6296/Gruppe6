@@ -36,6 +36,7 @@ public class TowerPicker implements IStage {
     private final float getPosX = (float) 0.83;
     private final float getPosY = (float) 0.5;
     private towerFactory tf = new towerFactory();
+    private Player player;
     
 
     private TextTest text;
@@ -43,7 +44,7 @@ public class TowerPicker implements IStage {
 
     TowerOnTowerPicker t1;
     Object t1id = new Object();
-   ITowerFactory tf1;
+    ITowerFactory tf1;
    
     TowerOnTowerPicker t2;
     Object t2id = new Object();
@@ -56,6 +57,8 @@ public class TowerPicker implements IStage {
     //try to get an instance of a tower 
     public TowerPicker() {
     text = new TextTest(this);
+    text.injectPlayer(player);
+   
     }
 
     @Override

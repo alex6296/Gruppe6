@@ -7,8 +7,7 @@ import dk.sdu.g3.common.rendering.Layer;
 
 
 public class TextTest implements IRenderableText{
-    
-    private Player player = new Player(10,10);
+    private  Player player;
     private float x = (float) 0.1;
     private float y = (float) 0.03;
     private float with = (float) 0.8;
@@ -24,8 +23,7 @@ public class TextTest implements IRenderableText{
     }
 
     @Override
-    public String getText() {
-         
+    public String getText() {     
        return "Gold " + player.getCurrentGold() + "HP " + player.getCurrentHp();
     }
 
@@ -94,6 +92,10 @@ public class TextTest implements IRenderableText{
     @Override
     public void setHigthScale(float scale) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void injectPlayer(Player player){
+        this.player = player;
     }
 
 }

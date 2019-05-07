@@ -28,6 +28,7 @@ import org.openide.util.lookup.ServiceProviders;
  */
 public class Player implements IPlayer {
 
+    private TextTest ts;
     private TowerPicker tp;
     int hp = 10;
     int gold = 10;
@@ -40,12 +41,8 @@ public class Player implements IPlayer {
     List<ITower> towerlist;
 
     public Player() {
-        tp = new TowerPicker();
-    }
-
-    public Player(int hp, int gold) {
-        this.hp = hp;
-        this.gold = gold;
+        tp = new TowerPicker();      
+        ts.injectPlayer(this);
     }
 
     @Override
