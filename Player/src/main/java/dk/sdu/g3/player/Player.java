@@ -63,15 +63,15 @@ public class Player implements IPlayer {
         return EntityList;
     }
 
-    @Override
-    public IPlaceableEntity create() {
-        factoryList = (List<ITowerFactory>) new ServiceLoader(ITowerFactory.class).getServiceProviderList();
-        for (ITowerFactory tower : factoryList) {
-            ITower createdTower = tower.getNewTower();
-            return createdTower;
-        }
-        return null;
-    }
+//    @Override
+//    public IPlaceableEntity create() {
+//        factoryList = (List<ITowerFactory>) new ServiceLoader(ITowerFactory.class).getServiceProviderList();
+//        for (ITowerFactory tower : factoryList) {
+//            ITower createdTower = tower.getNewTower();
+//            return createdTower;
+//        }
+//        return null;
+//    }
 
     @Override
     public void remove(IPlaceableEntity livingEntity) {
