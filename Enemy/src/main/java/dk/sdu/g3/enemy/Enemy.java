@@ -39,7 +39,7 @@ public class Enemy implements IEnemy {
     List<IMap> mapList;
     List<IPathfinding> pathlist;
     List<IUnit> Unitlist;
-    List<IPlaceableEntity> EntityList ;
+    List<IPlaceableEntity> EntityList;
     List<IPlaceableEntity> EntitiesOnMap= new ArrayList<>();
     List<IUnitFactory> UnitFactoryList;
     List<Coordinate> TestList;
@@ -63,7 +63,7 @@ public class Enemy implements IEnemy {
 
             for (IMap map : mapList) {
                 Coordinate startPosition = new Coordinate(map.getTileSize(), random.nextInt((map.getLengthY() / (2 * map.getTileSize())))* 2 * map.getTileSize() + map.getTileSize());
-                Coordinate endPosition = new Coordinate(map.getLengthX() - map.getTileSize(), map.getLengthY() / 2);
+                Coordinate endPosition = new Coordinate(map.getLengthX() - map.getTileSize(), map.getLengthY()/2 + map.getTileSize());
                 System.out.println("start X = " + startPosition.getX() + "start Y = " + startPosition.getY() + " end x = " + endPosition.getX() + " end y = " + endPosition.getY());
                 unit.setPosition(startPosition);
                 
@@ -103,7 +103,6 @@ public class Enemy implements IEnemy {
         // ad code here 2 deside how many units is created based on how for in the game it is
         unitNumber = random.nextInt(11);
         create(unitNumber);
-
     }
 
     private void create(int unitNumber1) {
