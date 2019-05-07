@@ -59,7 +59,6 @@ public class Unit implements IUnit, IMovable, ILifeFunctions, IRenderableSprite 
     public Coordinate getNextStep(Coordinate pos) {
         
         for (int i = 0; i < path.size(); i++) {
-            System.out.println(path.get(i));
             
             if (pos.getX() == path.get(i).getX() && pos.getY() == path.get(i).getY()) {
                 
