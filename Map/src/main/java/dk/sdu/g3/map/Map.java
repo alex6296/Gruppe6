@@ -16,6 +16,7 @@ import dk.sdu.g3.common.rendering.IRenderable;
 import dk.sdu.g3.common.rendering.IRenderableSprite;
 import dk.sdu.g3.common.serviceLoader.ServiceLoader;
 import dk.sdu.g3.common.services.IPathfinding;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -111,7 +112,6 @@ public class Map implements IMap, IStage {
 //
 //        return true;
 //    }
-
     @Override
     public boolean addEntity(IPlaceableEntity entity) {
         Coordinate pos = entity.getCurrentPosition();
@@ -196,31 +196,36 @@ public class Map implements IMap, IStage {
     public List<IPlaceableEntity> updatePositions() {
         ArrayList<IPlaceableEntity> toBeRemoved = new ArrayList<>();
 
-        for (Tile tile : tiles) {
-            for (IPlaceableEntity entity : tile.getEntities()) {
-                if (entity instanceof IMovable) {
+        for (int i = 0; i < tiles.size(); i++) {
+            Tile tile = tiles.get(i);
 
-                    tile.remove(entity);            // remove entity from the tile it is currently on
-                    Coordinate currentPos = entity.getCurrentPosition();
-                    Coordinate newPos = ((IMovable) entity).getNextStep(currentPos);
+            if (!tile.getEntities().isEmpty()) {
+                for (int j = 0; j < tile.getEntities().size(); j++) {
+                    IPlaceableEntity entity = tile.getEntities().get(j);
+                    if (entity instanceof IMovable) {
 
-                    if (newPos == null) {               // if entity has reached the end of its path, it should be despawned.
-                        toBeRemoved.add(entity);
-                        Coordinate endPos = new Coordinate(this.lengthX - 1, currentPos.getY());    // unit is at the end of its path - it is put at the end of the map until a controller removes it.
-                        entity.setPosition(endPos);
-                        getTile(endPos).add(entity);        // place entity on end tile
-                        continue;
+                        tile.remove(entity);            // remove entity from the tile it is currently on
+                        Coordinate currentPos = entity.getCurrentPosition();
+                        Coordinate newPos = ((IMovable) entity).getNextStep(currentPos);
+
+                        if (newPos == null) {               // if entity has reached the end of its path, it should be despawned.
+                            toBeRemoved.add(entity);
+                            Coordinate endPos = new Coordinate(this.lengthX - 1, currentPos.getY());    // unit is at the end of its path - it is put at the end of the map until a controller removes it.
+                            entity.setPosition(endPos);
+                            getTile(endPos).add(entity);        // place entity on end tile
+                            continue;
+                        }
+
+                        entity.setPosition(newPos);
+                        getTile(newPos).add(entity);        // place entity on new tile
+
+                        float scaleX = newPos.getX() / (float) lengthX;
+                        float scaleY = newPos.getY() / (float) lengthY;
+                        IRenderableSprite render = (IRenderableSprite) entity;
+                        render.setPosScaleX(scaleX);
+                        render.setPosScaleY(scaleY);
+
                     }
-
-                    entity.setPosition(newPos);
-                    getTile(newPos).add(entity);        // place entity on new tile
-
-                    float scaleX = newPos.getX() / (float) lengthX;
-                    float scaleY = newPos.getY() / (float) lengthY;
-                    IRenderableSprite render = (IRenderableSprite) entity;
-                    render.setPosScaleX(scaleX);
-                    render.setPosScaleY(scaleY);
-
                 }
             }
         }
@@ -262,8 +267,8 @@ public class Map implements IMap, IStage {
 
     private Tile getTile(Coordinate coord) {
         for (Tile tile : tiles) {
-            if (tile.getCoordinate().getX() - tile.getSize() < coord.getX() && tile.getCoordinate().getX() + tile.getSize() > coord.getX()
-                    && tile.getCoordinate().getY() - tile.getSize() < coord.getY() && tile.getCoordinate().getY() + tile.getSize() > coord.getY()) {
+            if (tile.getCoordinate().getX() - tile.getSize() <= coord.getX() && tile.getCoordinate().getX() + tile.getSize() > coord.getX()
+                    && tile.getCoordinate().getY() - tile.getSize() <= coord.getY() && tile.getCoordinate().getY() + tile.getSize() > coord.getY()) {
                 return tile;
             }
         }
