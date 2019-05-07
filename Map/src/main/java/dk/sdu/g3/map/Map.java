@@ -16,6 +16,7 @@ import dk.sdu.g3.common.rendering.IRenderable;
 import dk.sdu.g3.common.rendering.IRenderableSprite;
 import dk.sdu.g3.common.serviceLoader.ServiceLoader;
 import dk.sdu.g3.common.services.IPathfinding;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -196,10 +197,22 @@ public class Map implements IMap, IStage {
     public List<IPlaceableEntity> updatePositions() {
         ArrayList<IPlaceableEntity> toBeRemoved = new ArrayList<>();
 
-        for (Tile tile : tiles) {
-            for (IPlaceableEntity entity : tile.getEntities()) {
+        Iterator<Tile> tileIterator = tiles.iterator();
+        while (tileIterator.hasNext()) {
+            Tile tile = tileIterator.next();
+            System.out.println("Now on tile: " + tile);
+//        for (Tile tile : tiles) {
+            System.out.println("These entities are on the tile: " + tile.getEntities());
+            
+//            for (Iterator<IPlaceableEntity> entities = tile.getEntities().iterator(); entities.hasNext();)
+            Iterator<IPlaceableEntity> entities = tile.getEntities().iterator();
+            System.out.println("Iterating over these entities: " + entities);
+            while (entities.hasNext()) {
+                IPlaceableEntity entity = entities.next();
+                System.out.println("Now looking at entity: " + entity);
+//            for (IPlaceableEntity entity : tile.getEntities()) {
                 if (entity instanceof IMovable) {
-
+                    
                     tile.remove(entity);            // remove entity from the tile it is currently on
                     Coordinate currentPos = entity.getCurrentPosition();
                     Coordinate newPos = ((IMovable) entity).getNextStep(currentPos);

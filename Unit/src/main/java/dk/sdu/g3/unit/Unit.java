@@ -58,11 +58,15 @@ public class Unit implements IUnit, IMovable, ILifeFunctions, IRenderableSprite 
     @Override
     public Coordinate getNextStep(Coordinate position) {
         
+        for (int i = 0; i < path.size(); i++) {
+            if (position == path.get(i)) {
+                if (i +1 < path.size()) {
+                    return path.get(i + 1);
+                }
+            }
+        }
         
-        position = new Coordinate(position.getX(), position.getY());
-        
-        return position;
-        
+        return null;
     }
 
     @Override
