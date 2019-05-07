@@ -23,16 +23,19 @@ public class Pathfinding implements IPathfinding {
     private Node startNode; //Define a Node as the starting Node. This is the starting position of the Units, defined by their starting coordinate
     private Node goalNode; //Define a Node as the goal Node. THis is the goal state of the Units, defined by their goal coordinate
 
-
+    
     public Pathfinding() { //Empty constructor for service providing
     }
 
     /**
      *
      * @param map is the map in its current state including blocked Tiles
-     * @param start is the Coordinate on which the Unit given the generated path is spawning
-     * @param goal is the Coordinate on which the Unit given the generated path has to stand in order to successfully navigate the map
-     * @return the list of Coordinates that the Unit given the generated path has to follow in order to reach goal state
+     * @param start is the Coordinate on which the Unit given the generated path
+     * is spawning
+     * @param goal is the Coordinate on which the Unit given the generated path
+     * has to stand in order to successfully navigate the map
+     * @return the list of Coordinates that the Unit given the generated path
+     * has to follow in order to reach goal state
      * @throws Exception if no possible path from start to goal is found
      */
     @Override
@@ -80,18 +83,18 @@ public class Pathfinding implements IPathfinding {
                         closedList.add(currentNode);
                     }
 
-                // Else if successor Node is in closedList and the accumulatedStepCost of the successor is less than or equal to the successorCurrentCost variable, add currentNode to closedList
-                }   else if (closedList.contains(successor)) {
-                        if (successor.getAccumulatedStepCost() <= successorCurrentCost) {
-                            closedList.add(currentNode);
+                    // Else if successor Node is in closedList and the accumulatedStepCost of the successor is less than or equal to the successorCurrentCost variable, add currentNode to closedList
+                } else if (closedList.contains(successor)) {
+                    if (successor.getAccumulatedStepCost() <= successorCurrentCost) {
+                        closedList.add(currentNode);
 
-                    //Else move successor Node from closedList to openList
+                        //Else move successor Node from closedList to openList
                     } else {
                         openList.add(successor);
                         closedList.remove(successor);
                     }
 
-                //Else add the successor Node to openList and calculate the distance from successor Node to goal
+                    //Else add the successor Node to openList and calculate the distance from successor Node to goal
                 } else {
                     openList.add(successor);
                     calculateHeuristic(successor);
@@ -125,6 +128,7 @@ public class Pathfinding implements IPathfinding {
 
     /**
      * Method used to define which Node to assign to a Node
+     *
      * @param x is the coordinate of the Node being assigned, on the x-axis
      * @param y is the coordinate of the Node being assigned, on the y-axis
      * @return the Node to be assigned as a neighbour given the parameters
@@ -142,8 +146,11 @@ public class Pathfinding implements IPathfinding {
     }
 
     /**
-     * Convert all ITile elements to Node elements (Nodes are used solely for pathfinding purposes
-     * @param map is an IMap element received by the class calling the generatePath method, which in turn calls this method
+     * Convert all ITile elements to Node elements (Nodes are used solely for
+     * pathfinding purposes
+     *
+     * @param map is an IMap element received by the class calling the
+     * generatePath method, which in turn calls this method
      */
     public void createNodes(IMap map) {
         List<ITile> tiles = map.getTileList();
@@ -159,10 +166,11 @@ public class Pathfinding implements IPathfinding {
     /**
      * Method used to calculate the value of the heuristic function, used to
      * determine the estimated distance to the goal coordinate in a straight
-     * line
-     * This is done using the Pythagorean theorem, as the coordinates of the goal Node and currentNode form a triangle
+     * line This is done using the Pythagorean theorem, as the coordinates of
+     * the goal Node and currentNode form a triangle
      *
-     * @param node is the Node that the pathfinding algorithm wants the heuristic value of in its current iteration
+     * @param node is the Node that the pathfinding algorithm wants the
+     * heuristic value of in its current iteration
      */
     public void calculateHeuristic(Node node) {
         int sideA = (goalNode.getCenter().getX() - node.getCenter().getX()); //Horizontal difference between the node and the goal (Distance on the x-axis)
@@ -174,7 +182,9 @@ public class Pathfinding implements IPathfinding {
     }
 
     /**
-     * Calculate and set the estimated total cost from start to goal through this Node
+     * Calculate and set the estimated total cost from start to goal through
+     * this Node
+     *
      * @param node is the Node currently being processed by generatePath
      */
     public void calculateTotalPathCost(Node node) {
@@ -182,8 +192,11 @@ public class Pathfinding implements IPathfinding {
     }
 
     /**
-     * Calls the four setNeighbour functions to add all possible neighbours to the current Node
-     * @param currentNode is the Node that generatePath has reached in its current iteration
+     * Calls the four setNeighbour functions to add all possible neighbours to
+     * the current Node
+     *
+     * @param currentNode is the Node that generatePath has reached in its
+     * current iteration
      */
     //No test needed as it runs through all neighbour-methods anyway
     private void setAdjacentNodes(Node currentNode) {
@@ -194,8 +207,12 @@ public class Pathfinding implements IPathfinding {
     }
 
     /**
-     * If (center coordinate of currentNode(x) - size of currentNode(x)) > min(x), set left neighbour of currentNode to be the one with a center x-Coordinate of currentNode's center - (2 x size of the Nodes)
-     * @param currentNode is the Node that generatePath has reached in its current iteration
+     * If (center coordinate of currentNode(x) - size of currentNode(x)) >
+     * min(x), set left neighbour of currentNode to be the one with a center
+     * x-Coordinate of currentNode's center - (2 x size of the Nodes)
+     *
+     * @param currentNode is the Node that generatePath has reached in its
+     * current iteration
      */
     public void setLeftNeighbour(Node currentNode) {
         if ((currentNode.getCenter().getX() - currentNode.getSize()) > 0) {
@@ -206,7 +223,10 @@ public class Pathfinding implements IPathfinding {
     }
 
     /**
-     * If (center coordinate of currentNode(x) + size of currentNode(x) < max(x), set right neighbour of currentNode to be the one with a center x-Coordinate of currentNode + (2 x size of the nodes)
+     * If (center coordinate of currentNode(x) + size of currentNode(x) <
+     * max(x), set right neighbour of currentNode to be the one with a center
+     * x-Coordinate of currentNode + (2 x size of the nodes) 
+     * 
      * @param currentNode is the Node that generatePath has reached in its current iteration
      */
     public void setRightNeighbour(Node currentNode) {
@@ -218,8 +238,12 @@ public class Pathfinding implements IPathfinding {
     }
 
     /**
-     * //If (center coordinate of currentNode(y) - size of currentNode(y)) > min(y), set up neighbour of currentNode to be the one with a center y-Coordinate of currentNode - (2 x size of the nodes)
-     * @param currentNode is the Node that generatePath has reached in its current iteration
+     * //If (center coordinate of currentNode(y) - size of currentNode(y)) >
+     * min(y), set up neighbour of currentNode to be the one with a center
+     * y-Coordinate of currentNode - (2 x size of the nodes)
+     *
+     * @param currentNode is the Node that generatePath has reached in its
+     * current iteration
      */
     public void setUpNeighbour(Node currentNode) {
         if ((currentNode.getCenter().getY() - currentNode.getSize() > 0)) {
@@ -230,7 +254,10 @@ public class Pathfinding implements IPathfinding {
     }
 
     /**
-     * //If (center coordinate of currentNode(y) + size of currentNode(y)) < max(y), set down neighbour of currentNode to be the one with a center y-Coordinate of currentNode + (2 x size of the nodes)
+     * //If (center coordinate of currentNode(y) + size of currentNode(y)) <
+     * max(y), set down neighbour of currentNode to be the one with a center
+     * y-Coordinate of currentNode + (2 x size of the nodes)
+     * 
      * @param currentNode is the Node that generatePath has reached in its current iteration
      */
     public void setDownNeighbour(Node currentNode) {
@@ -241,11 +268,14 @@ public class Pathfinding implements IPathfinding {
         }
     }
 
-
     /**
-     * Method used to convert the steps from start to goal from Nodes to Coordinates, making the units walk each step instead of jumping between Nodes
+     * Method used to convert the steps from start to goal from Nodes to
+     * Coordinates, making the units walk each step instead of jumping between
+     * Nodes
+     *
      * @param list is a list of Nodes to convert to Coordinates
-     * @return coordinateList, which contains every single coordinate that a Unit will have to follow for the shortest path
+     * @return coordinateList, which contains every single coordinate that a
+     * Unit will have to follow for the shortest path
      */
     public List<Coordinate> convertNodes(List<Node> list) {
         coordinateList = new ArrayList<>();
@@ -285,7 +315,7 @@ public class Pathfinding implements IPathfinding {
             }
         }
         //Important to add the centerCoordinate for the last Node as the previous only adds the coordinate before next Node center
-        coordinateList.add(list.get(list.size()-1).getCenter());
+        coordinateList.add(list.get(list.size() - 1).getCenter());
         return coordinateList;
     }
 
@@ -348,16 +378,5 @@ public class Pathfinding implements IPathfinding {
     public void setClosedList(List<Node> closedList) {
         this.closedList = closedList;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }

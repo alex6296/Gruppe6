@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dk.sdu.g3.engine.game;
 
 import dk.sdu.g3.engine.screens.GameScreen;
@@ -34,10 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import org.openide.util.Lookup;
 
-/**
- *
- * @author Administrator
- */
 public class STDGame extends Game {
 
     public static OrthographicCamera cam;
@@ -93,14 +84,16 @@ public class STDGame extends Game {
             time = time + f;
             if (time >= 0.1) {
                 for (IEnemy enemy : enemyList) {
-                if (!enemy.Update()) {
+                if (!enemy.update()) {
                     endWavePhase();
                 }
                 }
                 for (IMap map : mapList) {
                     List<IPlaceableEntity> toBeRemoved = map.updatePositions();
                     for (IPlayer player : playerList) {
-                        player.decreaseHp(toBeRemoved.size());
+                        if(!player.decreaseHp(toBeRemoved.size())) {
+                            System.out.println("Player has died! You should lose!");
+                        }
                     }
                     for (IEnemy enemy : enemyList) {
                         for (IPlaceableEntity entity : toBeRemoved) {

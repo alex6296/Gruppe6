@@ -16,9 +16,6 @@ import dk.sdu.g3.common.rendering.IRenderable;
 import dk.sdu.g3.common.rendering.IRenderableSprite;
 import dk.sdu.g3.common.serviceLoader.ServiceLoader;
 import dk.sdu.g3.common.services.IPathfinding;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @ServiceProviders(value = {
     @ServiceProvider(service = IMap.class)
@@ -35,26 +32,16 @@ public class Map implements IMap, IStage {
     private float tileScaleX, tileScaleY;
 
     // functionality variables
-    private static IMap instance;
     private ArrayList<Tile> tiles;
     private int lengthX, lengthY;
     private int scaler = 20;    // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
 
-    public Map() {      // remember to also call generateMap when this constructor is used.
+    public Map() {
         generateMap(600, 600);
-        instance = this;
-    }
-
-//    public Map(int lengthX, int lengthY) {
-//        generateMap(lengthX, lengthY);
-//    }
-    @Override
-    public IMap getMap() {
-        return instance;
     }
 
     @Override
-    public void generateMap(int lenX, int lenY) {    // probably called right after constructor, generates list of tiles based on map size.
+    public void generateMap(int lenX, int lenY) {
 
         this.lengthX = lenX;
         this.lengthY = lenY;
@@ -112,6 +99,7 @@ public class Map implements IMap, IStage {
 //
 //        return true;
 //    }
+    
     @Override
     public boolean addEntity(IPlaceableEntity entity) {
         Coordinate pos = entity.getCurrentPosition();
@@ -128,7 +116,7 @@ public class Map implements IMap, IStage {
             Coordinate endRow = new Coordinate(lengthX - getTileSize(), lengthY - getTileSize());
             for (IPathfinding pathf : pathfs) {             // checks if this blocks a viable path for units
                 try {
-                    pathf.generatePath(instance, startRow, endRow);
+                    pathf.generatePath(this, startRow, endRow);
                 } catch (Exception ex) {
                     getTile(pos).remove(entity);            // if pathfinding can't find a valid path, the entity isn't allowed to be put on the map in that position
                     return false;
@@ -143,16 +131,10 @@ public class Map implements IMap, IStage {
 
         IRenderableSprite render = (IRenderableSprite) entity;
         render.setStage(this);
-        System.out.println("scalex: " + scaleX);
         render.setPosScaleX(scaleX);
-        System.out.println("scaley: " + scaleY);
         render.setPosScaleY(scaleY);
-        System.out.println("width: " + widthScale);
         render.setWithScale(widthScale);
-        System.out.println("hight: " + heightScale);
         render.setHigthScale(heightScale);
-
-        System.out.println("DEn skulle Være på map!");
 
         return true;
     }
@@ -307,15 +289,14 @@ public class Map implements IMap, IStage {
 
     @Override
     public List<IRenderable> getRenderables() {
-        ArrayList<IRenderable> returnTiles = new ArrayList<>();
+        ArrayList<IRenderable> renderables = new ArrayList<>();
         for (Tile tile : tiles) {
-            returnTiles.add(tile);
+            renderables.add(tile);
             for (IPlaceableEntity ren : tile.getEntities()) {
-                returnTiles.add((IRenderable) ren);
-
+                renderables.add((IRenderable) ren);
             }
         }
-        return returnTiles;
+        return renderables;
     }
 
     @Override

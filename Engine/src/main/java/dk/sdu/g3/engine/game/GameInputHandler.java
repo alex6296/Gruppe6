@@ -10,8 +10,7 @@ import dk.sdu.g3.common.services.ITower;
 
 public class GameInputHandler extends InputAdapter {
 
-    STDGame game;
-    private ITower temptower;
+    private STDGame game;
 
     public GameInputHandler(STDGame game) {
         this.game = game;
@@ -39,6 +38,7 @@ public class GameInputHandler extends InputAdapter {
 
                 if (ret instanceof ITile) {
                     if (((ITile) ret).isOccupied()) {
+                        System.out.println("You clicked a tower on coordinate: " + ((ITile) ret).getCoordinate().getX() + ", " + ((ITile) ret).getCoordinate().getY());
                         //inspect ret
                         //((ITile) ret).getEntities()
                     } else {
@@ -47,9 +47,9 @@ public class GameInputHandler extends InputAdapter {
                         }
                     }
                 } else if (ret instanceof ITower) {
-                    temptower = (ITower) ret;
-                    for (IPlayer iPlayer : game.getPlayerList()) {
-                        iPlayer.reserveTower(temptower);
+                    ITower temptower = (ITower) ret;
+                    for (IPlayer player : game.getPlayerList()) {
+                        player.reserveTower(temptower);
                         
                     }
                 }

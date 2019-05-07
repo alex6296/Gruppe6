@@ -19,7 +19,7 @@ public class Tower implements ITower, IRenderableSprite {
     private int life = 100;
     private int MAXLIFE = life;
     private int damage = 10;
-    private int footprint = 3;
+    private int footprint = 1;
     private int cost = 50;
     private int attackSpeed = 4;
     private int attackRange = 5;

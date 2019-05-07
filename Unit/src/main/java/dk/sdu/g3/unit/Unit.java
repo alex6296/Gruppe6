@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dk.sdu.g3.unit;
 
 import dk.sdu.g3.common.data.Coordinate;
@@ -16,15 +11,12 @@ import dk.sdu.g3.common.rendering.Layer;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import java.util.List;
 
-/**
- *
- */
 public class Unit implements IUnit, IMovable, ILifeFunctions, IRenderableSprite {
 
+    // functionality attributes
     private final int MAXHP = 20;
     private int damage = 5;
     private int hitPoints = 20;
-//    private final int DAMAGE = 5;
     private int costOfUnit = 2;
     private int unitFootprint = 1;
     private int attackRange = 0;
@@ -59,9 +51,7 @@ public class Unit implements IUnit, IMovable, ILifeFunctions, IRenderableSprite 
     public Coordinate getNextStep(Coordinate pos) {
         
         for (int i = 0; i < path.size(); i++) {
-            
             if (pos.getX() == path.get(i).getX() && pos.getY() == path.get(i).getY()) {
-                
                 if (i + movespeed < path.size()) {
                     return path.get(i + movespeed);
                 }
@@ -91,21 +81,21 @@ public class Unit implements IUnit, IMovable, ILifeFunctions, IRenderableSprite 
         this.position = coord;
     }
 
-    @Override
-    public void attack(List<IPlaceableEntity> targetList) {
-
-        for (IPlaceableEntity enti : targetList) {
-            ILifeFunctions enty = (ILifeFunctions) enti;
-
-            if (enty.getCurrentHp() < 0) {
-                // Do nothing 
-            } else {
-                enty.takeDamage(damage);
-                return; // only damage 1 thing
-            }
-        }
-
-    }
+//    @Override
+//    public void attack(List<IPlaceableEntity> targetList) {
+//
+//        for (IPlaceableEntity enti : targetList) {
+//            ILifeFunctions enty = (ILifeFunctions) enti;
+//
+//            if (enty.getCurrentHp() < 0) {
+//                // Do nothing 
+//            } else {
+//                enty.takeDamage(damage);
+//                return; // only damage 1 thing
+//            }
+//        }
+//
+//    }
 
     @Override
     public int getMovespeed() {

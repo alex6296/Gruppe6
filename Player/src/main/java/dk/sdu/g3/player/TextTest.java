@@ -5,26 +5,25 @@ import dk.sdu.g3.common.rendering.IRenderableText;
 import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.rendering.Layer;
 
+public class TextTest implements IRenderableText {
 
-public class TextTest implements IRenderableText{
-    private  Player player;
     private float x = (float) 0.1;
     private float y = (float) 0.03;
-    private float with = (float) 0.8;
-    private float hight = (float) 0.1;
+    private float width = (float) 0.8;
+    private float height = (float) 0.1;
     private IStage stage;
-    private String text;
+    private Player player;
     private Fonts font = Fonts.ENCHANTED;
     private Layer layer = Layer.FORGOUND;
-    
-    public TextTest(IStage stage) {
+
+    public TextTest(IStage stage, Player player) {
         this.stage = stage;
-//        player = new Player();
+        this.player = player;
     }
 
     @Override
-    public String getText() {     
-       return "Gold " + player.getCurrentGold() + "HP " + player.getCurrentHp();
+    public String getText() {
+        return "Gold " + player.getCurrentGold() + "          HP " + player.getCurrentHp();
     }
 
     @Override
@@ -42,60 +41,54 @@ public class TextTest implements IRenderableText{
         return stage;
     }
 
-
     @Override
     public void setStage(IStage stage) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.stage = stage;
     }
 
     @Override
     public Layer getLayer() {
-        return layer;
-       
+        return this.layer;
+
     }
 
     @Override
     public float getPosScaleX() {
-        return x;
+        return this.x;
     }
 
     @Override
     public float getPosScaleY() {
-       return y;
+        return this.y;
     }
 
     @Override
     public float getWithScale() {
-        return with;
+        return this.width;
     }
 
     @Override
     public float getHigthScale() {
-        return hight;
+        return this.height;
     }
 
     @Override
     public void setPosScaleX(float scale) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.x = scale;
     }
 
     @Override
     public void setPosScaleY(float scale) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.y = scale;
     }
 
     @Override
     public void setWithScale(float scale) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.width = scale;
     }
 
     @Override
     public void setHigthScale(float scale) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.height = scale;
     }
-    
-    public void injectPlayer(Player player){
-        this.player = player;
-    }
-
 }
