@@ -167,7 +167,7 @@ public class Pathfinding implements IPathfinding {
     public void calculateHeuristic(Node node) {
         int sideA = (goalNode.getCenter().getX() - node.getCenter().getX()); //Horizontal difference between the node and the goal (Distance on the x-axis)
         int sideB = (goalNode.getCenter().getY() - node.getCenter().getY()); //Vertical difference between the node and the goal (Distance on the y-axis)
-        double diagonal = Math.sqrt(Math.pow(sideA, 2.0) + Math.pow(sideB, 2.0)); //Using the Pythagorean theorem the hypotenuse, i.e. the euclidean distance between the node and the goal is calculated
+        double diagonal = Math.sqrt(Math.pow((double) sideA, 2) + Math.pow((double) sideB, 2)); //Using the Pythagorean theorem the hypotenuse, i.e. the euclidean distance between the node and the goal is calculated
 
         //Set the heuristic value of currentNode to be 5 * the euclidean distance for more emphasis on the distance to goal than step cost (Weighted A*)
         node.setHeuristic(5 * diagonal);

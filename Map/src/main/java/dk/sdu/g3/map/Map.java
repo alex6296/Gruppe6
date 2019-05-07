@@ -14,6 +14,10 @@ import org.openide.util.lookup.ServiceProviders;
 import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.rendering.IRenderable;
 import dk.sdu.g3.common.rendering.IRenderableSprite;
+import dk.sdu.g3.common.serviceLoader.ServiceLoader;
+import dk.sdu.g3.common.services.IPathfinding;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @ServiceProviders(value = {
     @ServiceProvider(service = IMap.class)
@@ -72,41 +76,41 @@ public class Map implements IMap, IStage {
 
     }
 
-    private boolean isPathBlocked(Coordinate currentPos) {
-        int tileSize = getTileSize();
-        Coordinate checkPos = new Coordinate(currentPos.getX(), tileSize);
-
-        boolean lOpen = false;
-        boolean rOpen = false;
-
-        while (getTile(checkPos) != null) {
-            if (getTile(checkPos).isOccupied()) {
-                lOpen = false;
-                rOpen = false;
-            } else {
-                Coordinate left = new Coordinate(checkPos.getX() - tileSize * 2, checkPos.getY());
-                Coordinate right = new Coordinate(checkPos.getX() + tileSize * 2, checkPos.getY());
-
-                if (!getTile(left).isOccupied()) {
-                    lOpen = true;
-                }
-                if (!getTile(right).isOccupied()) {
-                    rOpen = true;
-                }
-
-                if (lOpen && rOpen) {
-                    return false;
-                }
-            }
-
-            int tempX = checkPos.getX();
-            int tempY = checkPos.getY();
-            checkPos = new Coordinate(tempX, tempY + tileSize * 2);
-
-        }
-
-        return true;
-    }
+//    private boolean isPathBlocked(Coordinate currentPos) {
+//        int tileSize = getTileSize();
+//        Coordinate checkPos = new Coordinate(currentPos.getX(), tileSize);
+//
+//        boolean lOpen = false;
+//        boolean rOpen = false;
+//
+//        while (getTile(checkPos) != null) {
+//            if (getTile(checkPos).isOccupied()) {
+//                lOpen = false;
+//                rOpen = false;
+//            } else {
+//                Coordinate left = new Coordinate(checkPos.getX() - tileSize * 2, checkPos.getY());
+//                Coordinate right = new Coordinate(checkPos.getX() + tileSize * 2, checkPos.getY());
+//
+//                if (!getTile(left).isOccupied()) {
+//                    lOpen = true;
+//                }
+//                if (!getTile(right).isOccupied()) {
+//                    rOpen = true;
+//                }
+//
+//                if (lOpen && rOpen) {
+//                    return false;
+//                }
+//            }
+//
+//            int tempX = checkPos.getX();
+//            int tempY = checkPos.getY();
+//            checkPos = new Coordinate(tempX, tempY + tileSize * 2);
+//
+//        }
+//
+//        return true;
+//    }
 
     @Override
     public boolean addEntity(IPlaceableEntity entity) {
@@ -117,9 +121,19 @@ public class Map implements IMap, IStage {
         }
 
         getTile(pos).add(entity);
-        if (!(entity instanceof IMovable) && isPathBlocked(entity.getCurrentPosition())) {      // checks if this blocks a viable path for units
-            getTile(pos).remove(entity);            // if so, it shouldn't be allowed to be put on the map in that position
-            return false;
+
+        if (!(entity instanceof IMovable)) {
+            List<IPathfinding> pathfs = (List<IPathfinding>) new ServiceLoader(IPathfinding.class).getServiceProviderList();
+            Coordinate startRow = new Coordinate(getTileSize(), getTileSize());
+            Coordinate endRow = new Coordinate(lengthX - getTileSize(), lengthY - getTileSize());
+            for (IPathfinding pathf : pathfs) {             // checks if this blocks a viable path for units
+                try {
+                    pathf.generatePath(instance, startRow, endRow);
+                } catch (Exception ex) {
+                    getTile(pos).remove(entity);            // if pathfinding can't find a valid path, the entity isn't allowed to be put on the map in that position
+                    return false;
+                }
+            }
         }
 
         float scaleX = pos.getX() / (float) lengthX;
@@ -137,7 +151,7 @@ public class Map implements IMap, IStage {
         render.setWithScale(widthScale);
         System.out.println("hight: " + heightScale);
         render.setHigthScale(heightScale);
-        
+
         System.out.println("DEn skulle Være på map!");
 
         return true;
@@ -291,9 +305,9 @@ public class Map implements IMap, IStage {
         ArrayList<IRenderable> returnTiles = new ArrayList<>();
         for (Tile tile : tiles) {
             returnTiles.add(tile);
-            for (IPlaceableEntity ren : tile.getEntities()){
+            for (IPlaceableEntity ren : tile.getEntities()) {
                 returnTiles.add((IRenderable) ren);
-                
+
             }
         }
         return returnTiles;
