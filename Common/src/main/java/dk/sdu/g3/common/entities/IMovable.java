@@ -19,6 +19,6 @@ public interface IMovable {
 //    Coordinate getGoalPos();
     int getMovespeed();
     
-    Coordinate getNextStep(Coordinate position);
+    Coordinate getNextStep(Coordinate pos);
     
 }

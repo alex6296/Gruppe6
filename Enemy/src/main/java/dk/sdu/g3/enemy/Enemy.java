@@ -6,7 +6,6 @@
 package dk.sdu.g3.enemy;
 
 import dk.sdu.g3.common.data.Coordinate;
-import dk.sdu.g3.common.entities.ILifeFunctions;
 import dk.sdu.g3.common.services.IEnemy;
 import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPathfinding;
@@ -69,7 +68,9 @@ public class Enemy implements IEnemy {
                 
 
                 for (IPathfinding IPath : pathlist) {
-                    addPathToUnit(IPath.generatePath(map, startPosition, endPosition), (IUnit) unit);
+                    List<Coordinate> path = IPath.generatePath(map, startPosition, endPosition);
+                    ((IUnit) unit).setPath(path);
+//                    addPathToUnit(IPath.generatePath(map, startPosition, endPosition), (IUnit) unit);
                 }
 
                 map.addEntity(unit);
@@ -85,11 +86,11 @@ public class Enemy implements IEnemy {
 
     }
 
-    public void addPathToUnit(List<Coordinate> path, IUnit unit) {
-        System.out.println("check");
-        unit.setPath(path);
-        System.out.println("");
-    }
+//    public void addPathToUnit(List<Coordinate> path, IUnit unit) {
+//        System.out.println("check");
+//        unit.setPath(path);
+//        System.out.println("");
+//    }
 
     @Override
     public int getCurrentWave() {

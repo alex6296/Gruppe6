@@ -31,7 +31,7 @@ public class Unit implements IUnit, IMovable, ILifeFunctions, IRenderableSprite 
     private int attackSpeed = 1;
     private Coordinate position;
     private List<Coordinate> path;
-    private int movespeed = 1;
+    private int movespeed = 4;
 
     // rendering attributes
     private final Graphic file = Graphic.ENEMYUNITS;
@@ -56,12 +56,15 @@ public class Unit implements IUnit, IMovable, ILifeFunctions, IRenderableSprite 
     }
 
     @Override
-    public Coordinate getNextStep(Coordinate position) {
+    public Coordinate getNextStep(Coordinate pos) {
         
         for (int i = 0; i < path.size(); i++) {
-            if (position == path.get(i)) {
-                if (i +1 < path.size()) {
-                    return path.get(i + 1);
+            System.out.println(path.get(i));
+            
+            if (pos.getX() == path.get(i).getX() && pos.getY() == path.get(i).getY()) {
+                
+                if (i + movespeed < path.size()) {
+                    return path.get(i + movespeed);
                 }
             }
         }
