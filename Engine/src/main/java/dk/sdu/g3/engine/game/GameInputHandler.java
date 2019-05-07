@@ -36,7 +36,7 @@ public class GameInputHandler extends InputAdapter {
         for (IStage stage : game.getStages()) {
             if (stageIsClicked(stage, x, y)) {
                 Object ret = stageHandleClick(stage, x, y);
-                System.out.println(ret.toString());
+
                 if (ret instanceof ITile) {
                     if (((ITile) ret).isOccupied()) {
                         //inspect ret
@@ -49,11 +49,9 @@ public class GameInputHandler extends InputAdapter {
                 } else if (ret instanceof ITower) {
                     temptower = (ITower) ret;
                     for (IPlayer iPlayer : game.getPlayerList()) {
-                        System.out.println("the player is:" + iPlayer.toString());
                         iPlayer.reserveTower(temptower);
                         
                     }
-                    System.out.println("Its a tower" + ret.toString());
                 }
                 return true;
             }

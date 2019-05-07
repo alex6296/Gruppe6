@@ -10,6 +10,7 @@ import dk.sdu.g3.common.rendering.IRenderableSprite;
 import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.rendering.Layer;
 import dk.sdu.g3.common.services.ITowerFactory;
+import dk.sdu.g3.towerfactory.towerFactory;
 
 /**
  *
@@ -19,7 +20,7 @@ public class TowerOnTowerPicker implements IRenderableSprite {
 
     
    
-    private ITowerFactory itf;
+    private Object itf;
 
     
     private  float getWidth = (float) 0.3;
@@ -31,9 +32,11 @@ public class TowerOnTowerPicker implements IRenderableSprite {
     
     
     
-    public TowerOnTowerPicker(IStage stage, float YPosition){
+    public TowerOnTowerPicker(IStage stage, float YPosition, Object itf){
        this.picker = stage;
        this.getPosY = YPosition;
+       this.itf = itf;
+       
     }
 
   
@@ -100,7 +103,7 @@ public class TowerOnTowerPicker implements IRenderableSprite {
        
         return this.getHeight;
     }
-    public ITowerFactory getItf() {
+    public Object getItf() {
         return itf;
     }
 

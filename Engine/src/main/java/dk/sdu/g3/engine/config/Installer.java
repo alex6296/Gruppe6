@@ -25,7 +25,7 @@ public class Installer extends ModuleInstall {
         cfg.width = 1080;
         cfg.height = 720;
         cfg.useGL30 = false;
-        cfg.resizable = true;
+        cfg.resizable = false;
 
         new LwjglApplication(game, cfg);
     }

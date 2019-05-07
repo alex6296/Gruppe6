@@ -25,6 +25,7 @@ public class Dictionary implements Dict {
     public void insert(Coordinate center, int tileSize, int footPrint, Object refrence) {
         inputMapping element = new inputMapping(center, tileSize, footPrint, refrence);
         mappings.add(element);
+      
 
     }
 
@@ -74,7 +75,6 @@ public class Dictionary implements Dict {
             }
             
             if (!(m.getOrigoX() <= targetX && targetX <= m.getBorderX())) {
-
                 continue;
             }
 
@@ -83,6 +83,11 @@ public class Dictionary implements Dict {
                 return m.getReference();
             }
         }
+
+            for (inputMapping m : mappings) {
+
+        }
+        
         return null;
     }
 
