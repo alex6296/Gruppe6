@@ -49,6 +49,7 @@ public class Enemy implements IEnemy {
 
                 map.addEntity(unit);
                 entitiesOnMap.add(unit);
+                System.out.println("Unit added");
             }
 
         } catch (Exception e) {

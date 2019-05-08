@@ -13,19 +13,13 @@ public class Node {
     private double accumulatedStepCost;
     private double heuristic; //estimated heuristic value, defined by the heuristic function
     private Node parent;
-    private boolean blocked;
 
     
-    public Node(Coordinate center, int size, boolean blocked) {
+    public Node(Coordinate center, int size) {
         this.center = center;
         this.size = size;
-        this.blocked = blocked;
         neighbours = new ArrayList<>();
         
-    }
-
-    public boolean isBlocked() {
-        return blocked;
     }
 
     public void addNeighbour(Node neighbour) {
@@ -62,6 +56,10 @@ public class Node {
 
     public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
+    }
+    
+    public void clearNeighbours() {
+        this.neighbours = new ArrayList<>();
     }
 
     public List<Node> getNeighbours() {
