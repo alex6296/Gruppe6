@@ -76,6 +76,7 @@ public class Pathfinding implements IPathfinding {
                 return coordinateList;
             }
 
+            System.out.println("Looking at node: " + currentNode);
             System.out.println("Now setting adjacent nodes...");
             setAdjacentNodes(currentNode); //Find each eligible successor to the currentNode and add them to currentNode's list of neighbours
             System.out.println("Success!");
