@@ -62,7 +62,7 @@ public class Pathfinding implements IPathfinding {
             for (Node node : openList) { //Iterate through the openList for all Nodes
                 calculateHeuristic(node); //Calculate euclidean distance to the goalNode from the startNode
                 calculateTotalPathCost(node); //Calculate and set estimated total cost from startNode to goalNode
-                if (node.getTotalCost() < currentNode.getTotalCost()) { //If the Node being processed has a lower totalCost than the Node defined as currentNode, change currentNode to said Node
+                if (node.getTotalCost() < currentNode.getTotalCost() && !node.equals(currentNode)) { //If the Node being processed has a lower totalCost than the Node defined as currentNode, change currentNode to said Node
                     currentNode = node;
                 }
             }
