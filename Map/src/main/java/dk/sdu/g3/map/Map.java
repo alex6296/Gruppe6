@@ -111,6 +111,7 @@ public class Map implements IMap, IStage {
         }
 
         getTile(pos).add(entity);
+        getTile(pos).setOccupied(true);
 
         if (!(entity instanceof IMovable)) {
             Coordinate startRow = new Coordinate(getTileSize(), getTileSize());

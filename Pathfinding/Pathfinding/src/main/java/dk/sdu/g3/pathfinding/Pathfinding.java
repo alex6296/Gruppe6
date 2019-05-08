@@ -23,7 +23,6 @@ public class Pathfinding implements IPathfinding {
     private Node startNode; //Define a Node as the starting Node. This is the starting position of the Units, defined by their starting coordinate
     private Node goalNode; //Define a Node as the goal Node. THis is the goal state of the Units, defined by their goal coordinate
 
-    
     public Pathfinding() { //Empty constructor for service providing
     }
 
@@ -45,6 +44,10 @@ public class Pathfinding implements IPathfinding {
         openList = new ArrayList<>();
         closedList = new ArrayList<>();
         Node currentNode = null; //Initialize variable to keep track of the Node that is currently being explored throughout the process
+
+        if (nodes.size() > 1) {
+            nodes.clear();
+        }
 
         createNodes(map); //Convert all Tiles in map received from Enemy to Nodes
         defineStartNode(start); //Define startNode from nodes
@@ -153,13 +156,29 @@ public class Pathfinding implements IPathfinding {
      * generatePath method, which in turn calls this method
      */
     public void createNodes(IMap map) {
+//      
         List<ITile> tiles = map.getTileList();
         for (ITile tile : tiles) {
-            //If Node has tower placed i.e. isBlocked -> no use for it (No need to add)
-            if (!tile.isOccupied()) {
-                Node node = new Node(tile.getCoordinate(), tile.getSize());
+            System.out.println("Occupied: " + tile.isOccupied());
+            Node node = new Node(tile.getCoordinate(), tile.getSize(), tile.isOccupied());
+
+            if (node.isBlocked()) {
+                continue;
+            } else {
                 nodes.add(node);
+                System.out.println("Node was added");
             }
+
+//            //If Node has tower placed i.e. isBlocked -> no use for it (No need to add)
+//            if (!tile.isOccupied()) {
+//                System.out.println("Tile " + tile.getCoordinate().getX() + "," + tile.getCoordinate().getY() + " was not blocked");
+//                Node node = new Node(tile.getCoordinate(), tile.getSize());
+//                nodes.add(node);
+//            } else {
+//                System.out.println("----------------------------------------------------------------------------------------------");
+//                System.out.println("Tile " + tile.getCoordinate().getX() + "," + tile.getCoordinate().getY() + " was  blocked");
+//                System.out.println("----------------------------------------------------------------------------------------------");
+//            }
         }
     }
 
@@ -225,9 +244,10 @@ public class Pathfinding implements IPathfinding {
     /**
      * If (center coordinate of currentNode(x) + size of currentNode(x) <
      * max(x), set right neighbour of currentNode to be the one with a center
-     * x-Coordinate of currentNode + (2 x size of the nodes) 
-     * 
-     * @param currentNode is the Node that generatePath has reached in its current iteration
+     * x-Coordinate of currentNode + (2 x size of the nodes)
+     *
+     * @param currentNode is the Node that generatePath has reached in its
+     * current iteration
      */
     public void setRightNeighbour(Node currentNode) {
         if ((currentNode.getCenter().getX() + currentNode.getSize() < mapLengthX)) {
@@ -257,8 +277,9 @@ public class Pathfinding implements IPathfinding {
      * //If (center coordinate of currentNode(y) + size of currentNode(y)) <
      * max(y), set down neighbour of currentNode to be the one with a center
      * y-Coordinate of currentNode + (2 x size of the nodes)
-     * 
-     * @param currentNode is the Node that generatePath has reached in its current iteration
+     *
+     * @param currentNode is the Node that generatePath has reached in its
+     * current iteration
      */
     public void setDownNeighbour(Node currentNode) {
         if (currentNode.getCenter().getY() + currentNode.getSize() < mapLengthY) {

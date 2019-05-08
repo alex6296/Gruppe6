@@ -27,7 +27,7 @@ public class Tile implements ITile, IRenderableSprite {
     private Coordinate coord;
     private int size;
     private ArrayList<IPlaceableEntity> entities = new ArrayList<>();
-    
+    private boolean occupied;
     
     public Tile(int x, int y, int size, float posXscale, float posYscale, float widthS, float heightS, IStage stage) {
         this.coord = new Coordinate(x, y);
@@ -68,14 +68,12 @@ public class Tile implements ITile, IRenderableSprite {
 
     @Override
     public boolean isOccupied() {
-        for(IPlaceableEntity en : entities) {
-            if (!(en instanceof IMovable)) {
-                return true;
-            }
-        }
-        return false;
+        return this.occupied;
     }
 
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
+    }
     @Override
     public Graphic getFile() {
         return this.file;
