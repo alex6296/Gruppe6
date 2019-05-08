@@ -8,13 +8,14 @@ import dk.sdu.g3.common.rendering.Layer;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.ITower;
 import dk.sdu.g3.common.services.IUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Tower implements ITower {
 
     private int damage = 10;
     private int footprint = 1;
-    private int cost = 50;
+    private int cost = 5;
     private int attackSpeed = 4;
     private int attackRange = 20;
     private Coordinate position;
@@ -87,22 +88,23 @@ public class Tower implements ITower {
      * range of the this tower.
      */
     @Override
-    public void action(List<IPlaceableEntity> enemiesInRange) {
+    public List<IPlaceableEntity> action(List<IPlaceableEntity> enemiesInRange) {
+        List<IPlaceableEntity> unitsKilled = new ArrayList<>();
 
         for (int i = 0; i < this.attackSpeed; i++) {    //amount of attacks
-
             for (IPlaceableEntity e : enemiesInRange) { //targeting
                 if (e instanceof IUnit) {
-                    
                     IUnit enti = (IUnit) e;
-                    if (enti.getCurrentHp() > 0) {      //check if target is dead
-                        enti.takeDamage(this.damage);   //attack
-                        break;                          //break after a target has been attacked
+                    if (enti.getCurrentHp() > 0) {          //check if target is dead
+                        if (enti.takeDamage(this.damage)) { //attack
+                            unitsKilled.add(enti);
+                        }
+                        break;      //break after a target has been attacked
                     }
-                    
                 }
             }
         }
+        return unitsKilled;
     }
 
     @Override

@@ -9,6 +9,6 @@ public interface IAction {
     int getImpact();
     int getRange();
     
-    void action(List<IPlaceableEntity> targetList);
+    List<IPlaceableEntity> action(List<IPlaceableEntity> targetList);     // returns list of entities affected by this action
     
 }

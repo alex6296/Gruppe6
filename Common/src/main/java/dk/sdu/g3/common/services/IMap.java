@@ -24,7 +24,7 @@ public interface IMap {
     int getTileSize();
     
     List<IPlaceableEntity> updatePositions();
-    void updateActions();
+    List<IPlaceableEntity> updateActions();
     List<IPlaceableEntity> inspect(Coordinate coord);
 
 }

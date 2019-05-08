@@ -20,6 +20,7 @@ import dk.sdu.g3.common.services.IEnemy;
 import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.IPlayer;
+import dk.sdu.g3.common.services.IUnit;
 import dk.sdu.g3.engine.util.render.Dictionary.Dict;
 import dk.sdu.g3.engine.util.render.Dictionary.Dictionary;
 import dk.sdu.g3.renderer.Renderer;
@@ -102,7 +103,19 @@ public class STDGame extends Game {
                     }
                 }
                 for (IMap map : mapList) {
-                    map.updateActions();
+                    List<IPlaceableEntity> targets = map.updateActions();
+                    
+                    if (!targets.isEmpty() && targets.get(0) instanceof IUnit) {
+                        
+                        for (IPlaceableEntity target : targets) {
+                            for (IEnemy enemy : enemyList) {
+                                enemy.remove(target);
+                            }
+                            for (IPlayer player : playerList) {
+                                player.earnGold(target.getCost());
+                            }
+                        }
+                    }
                 }
                 time = 0;
             }

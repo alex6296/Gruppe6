@@ -3,6 +3,7 @@ package dk.sdu.g3.map;
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.data.ITile;
 import dk.sdu.g3.common.entities.IAction;
+import dk.sdu.g3.common.entities.ILifeFunctions;
 import dk.sdu.g3.common.entities.IMovable;
 import dk.sdu.g3.common.rendering.Graphic;
 import dk.sdu.g3.common.services.IMap;
@@ -206,15 +207,17 @@ public class Map implements IMap, IStage {
     }
 
     @Override
-    public void updateActions() {
+    public List<IPlaceableEntity> updateActions() {
+        List<IPlaceableEntity> targetsAffected = new ArrayList<>();
         for (Tile tile : tiles) {
             for (IPlaceableEntity entity : tile.getEntities()) {
                 if (entity instanceof IAction) {
                     ArrayList<IPlaceableEntity> targetList = findTargets((IAction) entity);     // find the possible targets for all entities that can do actions.
-                    ((IAction) entity).action(targetList);                                      // execute actions on the possible targets. Entity picks a specific target on its own.
+                    targetsAffected.addAll(((IAction) entity).action(targetList));      // execute actions on the possible targets. Entity picks a specific target on its own.
                 }
             }
         }
+        return targetsAffected;
     }
 
     private ArrayList<IPlaceableEntity> findTargets(IAction entity) {

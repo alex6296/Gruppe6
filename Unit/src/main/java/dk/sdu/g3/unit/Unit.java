@@ -86,8 +86,10 @@ public class Unit implements IUnit {
     }
     
     @Override
-    public void takeDamage(int damage) {
+    public boolean takeDamage(int damage) {
         this.hitPoints -= damage;
+        
+        return !(this.hitPoints > 0);
     }
 
     public void setPath(List<Coordinate> cord) {

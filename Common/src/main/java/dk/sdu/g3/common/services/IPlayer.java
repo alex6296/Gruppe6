@@ -9,5 +9,6 @@ public interface IPlayer extends IController {
     int getCurrentGold();
     void placeReservedTower(Coordinate coor);
     void reserveTower(ITower tower);
+    void earnGold(int gold);
     
 }

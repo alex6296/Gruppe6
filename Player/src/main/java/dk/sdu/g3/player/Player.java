@@ -23,8 +23,8 @@ import org.openide.util.lookup.ServiceProviders;
 public class Player implements IPlayer, IStage {
 
     // functionality attributes
-    private int hp = 100;
-    private int gold = 10;
+    private int hp = 50;
+    private int gold = 100;
     private List<IPlaceableEntity> entityList = new ArrayList();
     private List<ITowerFactory> factoryList;
     private List<IMap> mapList;
@@ -96,12 +96,18 @@ public class Player implements IPlayer, IStage {
 
     @Override
     public void reserveTower(ITower tower) {
-        reservedTower = tower;
+        if (tower.getCost() > this.gold) {
+            System.out.println("You don't have enough gold for that!");
+        }
+        else {
+            reservedTower = tower;
+        }
     }
 
     @Override
     public void placeReservedTower(Coordinate coor) {
         if (reservedTower != null) {
+            this.gold -= reservedTower.getCost();
             reservedTower.setPosition(coor);
             for (IMap map : mapList) {
                 map.addEntity(reservedTower);
@@ -217,4 +223,10 @@ public class Player implements IPlayer, IStage {
 
         return resolved;
     }
+
+    @Override
+    public void earnGold(int gold) {
+        this.gold += gold;
+    }
+    
 }
