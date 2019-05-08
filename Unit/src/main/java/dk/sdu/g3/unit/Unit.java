@@ -11,7 +11,7 @@ public class Unit implements IUnit {
 
     // functionality attributes
     private final int MAXHP = 20;
-    private int hitPoints = 20;
+    private int hitPoints = 50;
     private int costOfUnit = 2;
     private int unitFootprint = 1;
     private Coordinate position;

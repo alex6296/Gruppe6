@@ -13,11 +13,11 @@ import java.util.List;
 
 public class Tower implements ITower {
 
-    private int damage = 10;
+    private int damage = 5;
     private int footprint = 1;
     private int cost = 5;
-    private int attackSpeed = 4;
-    private int attackRange = 20;
+    private int attackSpeed = 1;
+    private int attackRange = 100;
     private Coordinate position;
 
     // rendering attributes
