@@ -61,8 +61,8 @@ public class GameInputHandler extends InputAdapter {
     }
 
     private boolean stageIsClicked(IStage stage, int x, int y) {
-        if ((getStageX(stage) - (getStageWith(stage) / 2)) <= x && x <= (getStageX(stage) + (getStageWith(stage) / 2)) && (getStageY(stage) - (getStageHight(stage) / 2)) <= y && y <= (getStageY(stage) + (getStageHight(stage) / 2))) {
-            System.out.println("stage clicked is " + stage.toString());
+        if ((getStageX(stage) - (getStageWith(stage) / 2)) <= x && x <= (getStageX(stage) + (getStageWith(stage) / 2))
+                && (getStageY(stage) - (getStageHight(stage) / 2)) <= y && y <= (getStageY(stage) + (getStageHight(stage) / 2))) {
             return true;
         }
         return false;

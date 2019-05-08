@@ -3,7 +3,6 @@ package dk.sdu.g3.map;
 import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.data.ITile;
 import dk.sdu.g3.common.entities.IAction;
-import dk.sdu.g3.common.entities.ILifeFunctions;
 import dk.sdu.g3.common.entities.IMovable;
 import dk.sdu.g3.common.rendering.Graphic;
 import dk.sdu.g3.common.services.IMap;
@@ -36,9 +35,11 @@ public class Map implements IMap, IStage {
     private ArrayList<Tile> tiles;
     private int lengthX, lengthY;
     private int scaler = 20;    // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
+    private List<IPathfinding> pathfs;
 
     public Map() {
         generateMap(600, 600);
+        pathfs = (List<IPathfinding>) new ServiceLoader(IPathfinding.class).getServiceProviderList();
     }
 
     @Override
@@ -112,12 +113,12 @@ public class Map implements IMap, IStage {
         getTile(pos).add(entity);
 
         if (!(entity instanceof IMovable)) {
-            List<IPathfinding> pathfs = (List<IPathfinding>) new ServiceLoader(IPathfinding.class).getServiceProviderList();
             Coordinate startRow = new Coordinate(getTileSize(), getTileSize());
             Coordinate endRow = new Coordinate(lengthX - getTileSize(), lengthY - getTileSize());
             for (IPathfinding pathf : pathfs) {             // checks if this blocks a viable path for units
                 try {
                     pathf.generatePath(this, startRow, endRow);
+                    
                 } catch (Exception ex) {
                     getTile(pos).remove(entity);            // if pathfinding can't find a valid path, the entity isn't allowed to be put on the map in that position
                     return false;

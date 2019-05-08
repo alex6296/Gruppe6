@@ -86,13 +86,14 @@ public class STDGame extends Game {
             if (time >= 0.1) {
                 for (IEnemy enemy : enemyList) {
                 if (!enemy.update()) {
+                    System.out.println("All enemies defeated! You won the wave!");
                     endWavePhase();
                 }
                 }
                 for (IMap map : mapList) {
                     List<IPlaceableEntity> toBeRemoved = map.updatePositions();
                     for (IPlayer player : playerList) {
-                        if(!player.decreaseHp(toBeRemoved.size())) {
+                        if (!player.decreaseHp(toBeRemoved.size())) {
                             System.out.println("Player has died! You should lose!");
                         }
                     }
@@ -120,13 +121,10 @@ public class STDGame extends Game {
                 time = 0;
             }
         }
-//        for(IPlaceableEntity: map.updatePositions()){
-//            enemy.
-//        }
-
     }
 
     public void startWavePhase() {
+        System.out.println("Starting a new wave.");
         isWavePhase = true;
         for (IEnemy enemy : enemyList) {
             enemy.createWave();

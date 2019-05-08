@@ -24,10 +24,8 @@ public class ServiceLoader {
             result.addLookupListener(lookupListener);
             result.allItems();
 
-            System.out.println("---IGamePluginService---");
             //inizial load
             for (Object plugin : result.allInstances()) {
-                System.out.println(plugin);
                 ServiceProviderList.add(plugin);
             }
         }

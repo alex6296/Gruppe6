@@ -199,20 +199,17 @@ public class Player implements IPlayer, IStage {
             resolved = dict.search(XScale, YScale);
             if (resolved.equals(t1id)) {
                 if (tf1 != null) {
-                    System.out.println("tower was clikced : id = " + tf1);
                     return tf1.getNewTower();
 
                 }
             }
             if (resolved.equals(t2id)) {
                 if (tf2 != null) {
-                    System.out.println("tower was clikced : id = " + tf2);
                     return tf2.getNewTower();
                 }
             }
             if (resolved.equals(t3id)) {
                 if (tf3 != null) {
-                    System.out.println("tower was clikced : id = " + tf3);
                     return tf3.getNewTower();
                 }
             }
