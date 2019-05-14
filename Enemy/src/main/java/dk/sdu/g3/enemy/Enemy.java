@@ -49,7 +49,6 @@ public class Enemy implements IEnemy {
 
                 map.addEntity(unit);
                 entitiesOnMap.add(unit);
-                System.out.println("Unit added");
             }
 
         } catch (Exception e) {
@@ -73,7 +72,7 @@ public class Enemy implements IEnemy {
 
         for (IUnitFactory unitFactory : unitFactoryList) {
             int unitNumber = random.nextInt(11) + weighting;
-            System.out.println("Enemy units to be spawned: " + unitNumber);
+            System.out.println("This wave contains " + unitNumber + " enemy units!");
             while (unitNumber > 0) {
                 IUnit createdUnit = unitFactory.getNewUnit();
                 entityList.add(createdUnit);

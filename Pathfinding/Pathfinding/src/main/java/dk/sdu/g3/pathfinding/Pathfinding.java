@@ -5,6 +5,7 @@ import dk.sdu.g3.common.data.ITile;
 import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPathfinding;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
@@ -56,7 +57,6 @@ public class Pathfinding implements IPathfinding {
             for (Node node : openList) { //Iterate through the openList for all Nodes
                 calculateHeuristic(node); //Calculate euclidean distance to the goalNode from the startNode
                 calculateTotalPathCost(node); //Calculate and set estimated total cost from startNode to goalNode
-                System.out.println("Node: (" + node.getCenter().getX() + ", " + node.getCenter().getY() + ") - Total path cost: " + node.getTotalCost());
                 if (node.getTotalCost() < currentNode.getTotalCost() && !node.equals(currentNode)) { //If the Node being processed has a lower totalCost than the Node defined as currentNode, change currentNode to said Node
                     currentNode = node;
                 }
@@ -65,17 +65,13 @@ public class Pathfinding implements IPathfinding {
 
             if (currentNode.getCenter().equals(goalNode.getCenter())) { //Rework
                 closedList.add(currentNode);
-                return convertNodes(closedList);
+                return convertNodes(currentNode);
             }
 
-            System.out.println("Looking at node: " + currentNode + " - (" + currentNode.getCenter().getX() + ", " + currentNode.getCenter().getY() + ")");
-            System.out.println("Setting adjacent nodes...");
             setAdjacentNodes(currentNode); //Find each eligible successor to the currentNode and add them to currentNode's list of neighbours
             
             for (Node successor : currentNode.getNeighbours()) {
-                System.out.println("Looking at neighbour: " + successor + " - (" + successor.getCenter().getX() + ", " + successor.getCenter().getY() + ")");
                 double currentCost = currentNode.getAccumulatedStepCost() + STEP_COST; //Calculate the cost of going from startNode to each successor Node
-                System.out.println("Current cost: " + currentCost);
 
                 //If the successor Node is in openList and the accumulatedStepCost of the successor is less than or equal to the successorCurrentCost variable, add currentNode to closedList
                 if (openList.contains(successor)) {
@@ -90,16 +86,13 @@ public class Pathfinding implements IPathfinding {
 
                     } //Else move successor Node from closedList to openList
                     else {
-                        System.out.println("Moving from Open to Closed");
                         openList.add(successor);
                         closedList.remove(successor);
                     }
 
                 } //Else add the successor Node to openList and calculate the distance from successor Node to goal
                 else {
-                    System.out.println("Adding child to openList");
                     openList.add(successor);
-                    System.out.println("Calculating heuristic for the successor");
                     calculateHeuristic(successor);
                 }
                 
@@ -107,7 +100,6 @@ public class Pathfinding implements IPathfinding {
                 successor.setAccumulatedStepCost(currentCost);
                 successor.setParent(currentNode);
             }
-            System.out.println("Adding to closedList");
             closedList.add(currentNode);
         }
         //If no path from start to goal has been found, throw an exception to the method calling this method
@@ -181,8 +173,8 @@ public class Pathfinding implements IPathfinding {
     public void calculateHeuristic(Node node) {
         int sideA = (goalNode.getCenter().getX() - node.getCenter().getX()); //Horizontal difference between the node and the goal (Distance on the x-axis)
         int sideB = (goalNode.getCenter().getY() - node.getCenter().getY()); //Vertical difference between the node and the goal (Distance on the y-axis)
-        double diagonal = Math.sqrt(Math.pow((double) sideA, 2) + Math.pow((double) sideB, 2)); //Using the Pythagorean theorem the hypotenuse, i.e. the euclidean distance between the node and the goal is calculated
-
+        double diagonal = Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2)); //Using the Pythagorean theorem the hypotenuse, i.e. the euclidean distance between the node and the goal is calculated
+        
         //Set the heuristic value of currentNode to be 5 * the euclidean distance for more emphasis on the distance to goal than step cost (Weighted A*)
         node.setHeuristic(5 * diagonal);
     }
@@ -286,8 +278,17 @@ public class Pathfinding implements IPathfinding {
      * @return coordinateList, which contains every single coordinate that a
      * Unit will have to follow for the shortest path
      */
-    public List<Coordinate> convertNodes(List<Node> list) {
+    public List<Coordinate> convertNodes(Node goal) {
         List<Coordinate> coordinateList = new ArrayList<>(); //List to hold the Coordinates. This is essentially a list of every step that a Unit will take through the map
+        List<Node> list = new ArrayList<>();
+        
+        Node current = goal;
+        
+        while (current != null) {
+            list.add(current);
+            current = current.getParent();
+        }
+        
         //Termination clause might have to be -2 as we don't need goalNode when creating Coordinates between Nodes
         for (int i = 0; i < list.size() - 1; i++) {
             //Save Coordinates (x and y) in variables to avoid multiple calls to list
@@ -325,6 +326,13 @@ public class Pathfinding implements IPathfinding {
         }
         //Important to add the centerCoordinate for the last Node as the previous only adds the coordinate before next Node center
         coordinateList.add(list.get(list.size() - 1).getCenter());
+        
+        Collections.reverse(coordinateList);
+        
+        for (int i = 0; i < goal.getSize(); i++) {
+            coordinateList.add(new Coordinate(goal.getCenter().getX() + i, goal.getCenter().getY()));
+        }
+        
         return coordinateList;
     }
 

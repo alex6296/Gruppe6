@@ -66,42 +66,6 @@ public class Map implements IMap, IStage {
 
     }
 
-//    private boolean isPathBlocked(Coordinate currentPos) {
-//        int tileSize = getTileSize();
-//        Coordinate checkPos = new Coordinate(currentPos.getX(), tileSize);
-//
-//        boolean lOpen = false;
-//        boolean rOpen = false;
-//
-//        while (getTile(checkPos) != null) {
-//            if (getTile(checkPos).isOccupied()) {
-//                lOpen = false;
-//                rOpen = false;
-//            } else {
-//                Coordinate left = new Coordinate(checkPos.getX() - tileSize * 2, checkPos.getY());
-//                Coordinate right = new Coordinate(checkPos.getX() + tileSize * 2, checkPos.getY());
-//
-//                if (!getTile(left).isOccupied()) {
-//                    lOpen = true;
-//                }
-//                if (!getTile(right).isOccupied()) {
-//                    rOpen = true;
-//                }
-//
-//                if (lOpen && rOpen) {
-//                    return false;
-//                }
-//            }
-//
-//            int tempX = checkPos.getX();
-//            int tempY = checkPos.getY();
-//            checkPos = new Coordinate(tempX, tempY + tileSize * 2);
-//
-//        }
-//
-//        return true;
-//    }
-    
     @Override
     public boolean addEntity(IPlaceableEntity entity) {
         Coordinate pos = entity.getCurrentPosition();

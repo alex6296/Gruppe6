@@ -70,7 +70,7 @@ public class Node {
         this.parent = parent;
     }
 
-    public Node getPatent() {
+    public Node getParent() {
         return parent;
     }
 }

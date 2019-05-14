@@ -107,12 +107,16 @@ public class Player implements IPlayer, IStage {
     @Override
     public void placeReservedTower(Coordinate coor) {
         if (reservedTower != null) {
-            this.gold -= reservedTower.getCost();
             reservedTower.setPosition(coor);
             for (IMap map : mapList) {
-                map.addEntity(reservedTower);
-                entityList.add(reservedTower);
-                reservedTower = null;
+                if(map.addEntity(reservedTower)) {
+                    this.gold -= reservedTower.getCost();
+                    entityList.add(reservedTower);
+                    reservedTower = null;
+                }
+                else {
+                    System.out.println("Can't place tower there!");
+                }
             }
         }
     }
