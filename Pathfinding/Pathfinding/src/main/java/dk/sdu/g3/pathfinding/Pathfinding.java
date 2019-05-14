@@ -40,11 +40,7 @@ public class Pathfinding implements IPathfinding {
         mapLengthY = map.getLengthY();
         List<Node> openList = new ArrayList<>(); //List to hold the Nodes that are possible to move to
         List<Node> closedList = new ArrayList<>(); //List to hold the Nodes that are deemed the most promising nodes for the shortest path
-        Node currentNode; //Initialize variable to keep track of the Node that is currently being explored throughout the process
-
-        System.out.println("Instantiating new 'nodes'-list");
-        nodes = new ArrayList<>();
-
+        
         createNodes(map); //Convert all Tiles in map received from Enemy to Nodes
         defineStartNode(start); //Define startNode from nodes
         defineGoalNode(goal); // Define goalNode from nodes
@@ -52,10 +48,10 @@ public class Pathfinding implements IPathfinding {
         calculateHeuristic(startNode); //Calculate and set the heuristic value of startNode
         startNode.setTotalCost(startNode.getHeuristic());
         openList.add(startNode); //Add startNode to openList to enable the Node to be currentNode
-
-        Node lastNode = null;
+        
+        Node currentNode; //Initialize variable to keep track of the Node that is currently being explored throughout the process
         while (!openList.isEmpty()) {
-            currentNode = openList.get(0); //currentNode set to the first Node contained in the openList
+            currentNode = openList.get(0); //Initialize variable to keep track of the Node that is currently being explored throughout the process
             
             for (Node node : openList) { //Iterate through the openList for all Nodes
                 calculateHeuristic(node); //Calculate euclidean distance to the goalNode from the startNode
@@ -65,16 +61,7 @@ public class Pathfinding implements IPathfinding {
                     currentNode = node;
                 }
             }
-            
-            if (currentNode.equals(lastNode)) {
-                System.out.println("************************* No valid successornodes found! Restarting without the current node! ************************************************");
-                nodes.remove(currentNode);
-                openList = new ArrayList<>();
-                closedList = new ArrayList<>();
-                openList.add(startNode);
-                lastNode = null;
-                continue;
-            }
+            openList.remove(currentNode);
 
             if (currentNode.getCenter().equals(goalNode.getCenter())) { //Rework
                 closedList.add(currentNode);
@@ -87,45 +74,41 @@ public class Pathfinding implements IPathfinding {
             
             for (Node successor : currentNode.getNeighbours()) {
                 System.out.println("Looking at neighbour: " + successor + " - (" + successor.getCenter().getX() + ", " + successor.getCenter().getY() + ")");
-                double successorCurrentCost = currentNode.getAccumulatedStepCost() + STEP_COST; //Calculate the cost of going from startNode to each successor Node
-                System.out.println("Current Successor cost: " + currentNode.getAccumulatedStepCost());
+                double currentCost = currentNode.getAccumulatedStepCost() + STEP_COST; //Calculate the cost of going from startNode to each successor Node
+                System.out.println("Current cost: " + currentCost);
 
                 //If the successor Node is in openList and the accumulatedStepCost of the successor is less than or equal to the successorCurrentCost variable, add currentNode to closedList
                 if (openList.contains(successor)) {
-                    if (successor.getAccumulatedStepCost() <= successorCurrentCost) {
-                        System.out.println("Adding to closedList");
-                        closedList.add(currentNode);
+                    if (successor.getAccumulatedStepCost() <= currentCost) {
+                        continue;
                     }
 
                 } // Else if successor Node is in closedList and the accumulatedStepCost of the successor is less than or equal to the successorCurrentCost variable, add currentNode to closedList
                 else if (closedList.contains(successor)) {
-                    if (successor.getAccumulatedStepCost() <= successorCurrentCost) {
-                        System.out.println("Adding to closedList again");
-                        closedList.add(currentNode);
+                    if (successor.getAccumulatedStepCost() <= currentCost) {
+                        continue;
 
                     } //Else move successor Node from closedList to openList
                     else {
-                        System.out.println("Adding to openList");
+                        System.out.println("Moving from Open to Closed");
                         openList.add(successor);
-                        System.out.println("Removing from closedList");
                         closedList.remove(successor);
                     }
 
                 } //Else add the successor Node to openList and calculate the distance from successor Node to goal
                 else {
-                    System.out.println("Adding to openList again");
+                    System.out.println("Adding child to openList");
                     openList.add(successor);
                     System.out.println("Calculating heuristic for the successor");
                     calculateHeuristic(successor);
                 }
                 
                 //Set accumulatedStepCost for the successor Node to be successorCurrentCost and assign currentNode as its parent
-                successor.setAccumulatedStepCost(successorCurrentCost);
+                successor.setAccumulatedStepCost(currentCost);
                 successor.setParent(currentNode);
             }
-            System.out.println("Adding to closedList third time");
+            System.out.println("Adding to closedList");
             closedList.add(currentNode);
-            lastNode = currentNode;
         }
         //If no path from start to goal has been found, throw an exception to the method calling this method
         Exception e = new Exception();
@@ -175,6 +158,7 @@ public class Pathfinding implements IPathfinding {
      * generatePath method, which in turn calls this method
      */
     public void createNodes(IMap map) {
+        nodes = new ArrayList<>();
         List<ITile> tiles = map.getTileList();
         for (ITile tile : tiles) {
             //If Node has tower placed i.e. isBlocked -> no use for it (No need to add)
