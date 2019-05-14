@@ -40,7 +40,7 @@ public class Pathfinding implements IPathfinding {
         mapLengthY = map.getLengthY();
         List<Node> openList = new ArrayList<>(); //List to hold the Nodes that are possible to move to
         List<Node> closedList = new ArrayList<>(); //List to hold the Nodes that are deemed the most promising nodes for the shortest path
-        Node currentNode = null; //Initialize variable to keep track of the Node that is currently being explored throughout the process
+        Node currentNode; //Initialize variable to keep track of the Node that is currently being explored throughout the process
 
         System.out.println("Instantiating new 'nodes'-list");
         nodes = new ArrayList<>();
@@ -53,9 +53,10 @@ public class Pathfinding implements IPathfinding {
         startNode.setTotalCost(startNode.getHeuristic());
         openList.add(startNode); //Add startNode to openList to enable the Node to be currentNode
 
+        Node lastNode = null;
         while (!openList.isEmpty()) {
             currentNode = openList.get(0); //currentNode set to the first Node contained in the openList
-
+            
             for (Node node : openList) { //Iterate through the openList for all Nodes
                 calculateHeuristic(node); //Calculate euclidean distance to the goalNode from the startNode
                 calculateTotalPathCost(node); //Calculate and set estimated total cost from startNode to goalNode
@@ -63,6 +64,16 @@ public class Pathfinding implements IPathfinding {
                 if (node.getTotalCost() < currentNode.getTotalCost() && !node.equals(currentNode)) { //If the Node being processed has a lower totalCost than the Node defined as currentNode, change currentNode to said Node
                     currentNode = node;
                 }
+            }
+            
+            if (currentNode.equals(lastNode)) {
+                System.out.println("************************* No valid successornodes found! Restarting without the current node! ************************************************");
+                nodes.remove(currentNode);
+                openList = new ArrayList<>();
+                closedList = new ArrayList<>();
+                openList.add(startNode);
+                lastNode = null;
+                continue;
             }
 
             if (currentNode.getCenter().equals(goalNode.getCenter())) { //Rework
@@ -114,6 +125,7 @@ public class Pathfinding implements IPathfinding {
             }
             System.out.println("Adding to closedList third time");
             closedList.add(currentNode);
+            lastNode = currentNode;
         }
         //If no path from start to goal has been found, throw an exception to the method calling this method
         Exception e = new Exception();
