@@ -95,6 +95,9 @@ public class STDGame extends Game {
                     for (IPlayer player : playerList) {
                         if (!player.decreaseHp(toBeRemoved.size())) {
                             System.out.println("Player has died! You should lose!");
+                            System.out.println("KOMPONENTER HAR OGSÅ FØLELSER!!! >:(");
+                            System.out.println("Man kan jo håbe det er noget paranormalt...");
+                            System.out.println("Hvis du læser dette håber vi du får en rigtig god dag! Pls giv os 12 <3<3");
                         }
                     }
                     for (IEnemy enemy : enemyList) {
