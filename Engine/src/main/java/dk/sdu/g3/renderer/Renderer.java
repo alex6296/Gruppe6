@@ -26,8 +26,9 @@ public class Renderer {
      * render stuff
      */
     public void renderAll() throws Exception {
-        for(IStage stage : game.getStages() )
+        for(IStage stage : game.getStages() ){
         RenderStage(stage);
+        }
         RenderRenderables(game.getRenderList());
 
     }
@@ -60,7 +61,6 @@ public class Renderer {
         boolean flipy = false;
         texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         game.batch.draw(texture, X, Y, width, hight, imageX, imagey, imageWidth, imageHigth, flipX, flipy);
-        //texture.dispose();
     }
 
     private void drawSprite(IRenderableSprite renderable) {

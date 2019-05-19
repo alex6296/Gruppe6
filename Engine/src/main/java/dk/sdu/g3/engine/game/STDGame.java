@@ -76,10 +76,10 @@ public class STDGame extends Game {
             time = time + f;
             if (time >= 0.1) {
                 for (IEnemy enemy : enemyList) {
-                if (!enemy.update()) {
-                    System.out.println("All enemies defeated! You won the wave!");
-                    endWavePhase();
-                }
+                    if (!enemy.update()) {
+                        System.out.println("All enemies defeated! You won the wave!");
+                        endWavePhase();
+                    }
                 }
                 for (IMap map : mapList) {
                     List<IPlaceableEntity> toBeRemoved = map.updatePositions();
@@ -99,9 +99,9 @@ public class STDGame extends Game {
                 }
                 for (IMap map : mapList) {
                     List<IPlaceableEntity> targets = map.updateActions();
-                    
+
                     if (!targets.isEmpty() && targets.get(0) instanceof IUnit) {
-                        
+
                         for (IPlaceableEntity target : targets) {
                             for (IEnemy enemy : enemyList) {
                                 enemy.remove(target);
@@ -146,39 +146,34 @@ public class STDGame extends Game {
     }
 
     public ArrayList<ArrayList<IRenderable>> getRenderList() throws Exception {
-        ArrayList<IRenderable> renderlist = new ArrayList<>();
-        for (IStage stage : getStages()) {
-            for (IRenderable rend : stage.getRenderables()) {
-                renderlist.add(rend);
-            }
-        }
-
         ArrayList<ArrayList<IRenderable>> renderListList = new ArrayList<>();
         ArrayList<IRenderable> backgroundList = new ArrayList<>();
         ArrayList<IRenderable> midgroundList = new ArrayList<>();
         ArrayList<IRenderable> forgroundlist = new ArrayList<>();
         ArrayList<IRenderable> notdefinedList = new ArrayList<>();
-
-        for (IRenderable rend : renderlist) {
-            if (null == rend.getLayer()) {
-                notdefinedList.add(rend);
-            } else {
-                switch (rend.getLayer()) {
-                    case BACKGROUND:
-                        backgroundList.add(rend);
-                        break;
-                    case MIDGROUND:
-                        midgroundList.add(rend);
-                        break;
-                    case FORGOUND:
-                        forgroundlist.add(rend);
-                        break;
-                    default:
-                        notdefinedList.add(rend);
-                        break;
+        for (IStage stage : getStages()) {
+            for (IRenderable rend : stage.getRenderables()) {
+                if (null == rend.getLayer()) {
+                    notdefinedList.add(rend);
+                } else {
+                    switch (rend.getLayer()) {
+                        case BACKGROUND:
+                            backgroundList.add(rend);
+                            break;
+                        case MIDGROUND:
+                            midgroundList.add(rend);
+                            break;
+                        case FORGOUND:
+                            forgroundlist.add(rend);
+                            break;
+                        default:
+                            notdefinedList.add(rend);
+                            break;
+                    }
                 }
             }
         }
+
         if (!notdefinedList.isEmpty()) {
             throw new Exception("there were things not defined in layer" + notdefinedList.toString());
         }
