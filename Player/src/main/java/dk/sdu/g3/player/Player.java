@@ -29,7 +29,7 @@ public class Player implements IPlayer, IStage {
     private ServiceLoader factoryLoader;
     private ServiceLoader mapLoader;
     private ITower reservedTower;
-    private Dictionary dict = new Dictionary();
+    private Dictionary dict;
 
     // rendering attributes
     private final float width = 0.25f;
@@ -41,21 +41,38 @@ public class Player implements IPlayer, IStage {
 
     // TowerPicker stuff
     private TowerOnTowerPicker t1;
-    private Object t1id = new Object();
+    private Object t1id;
     private ITowerFactory tf1;
 
     private TowerOnTowerPicker t2;
-    private Object t2id = new Object();
+    private Object t2id;
     private ITowerFactory tf2;
 
     private TowerOnTowerPicker t3;
-    private Object t3id = new Object();
+    private Object t3id;
     private ITowerFactory tf3;
 
-    
     public Player() {
         mapLoader = new ServiceLoader(IMap.class);
         factoryLoader = new ServiceLoader(ITowerFactory.class);
+
+        updateTowerFactories();
+    }
+
+    private void updateTowerFactories() {
+        dict = new Dictionary();
+        
+        t1 = null;
+        t1id = new Object();
+        tf1 = null;
+
+        t2 = null;
+        t2id = new Object();
+        tf2 = null;
+
+        t3 = null;
+        t3id = new Object();
+        tf3 = null;
 
         for (ITowerFactory towerFactory : (List<ITowerFactory>) factoryLoader.getServiceProviderList()) {
             insertTower(towerFactory);
@@ -76,7 +93,7 @@ public class Player implements IPlayer, IStage {
     public List<IPlaceableEntity> getEntities() {
         return entityList;
     }
-    
+
     @Override
     public void remove(IPlaceableEntity entity) {
         for (IMap map : (List<IMap>) mapLoader.getServiceProviderList()) {
@@ -98,8 +115,7 @@ public class Player implements IPlayer, IStage {
     public void reserveTower(ITower tower) {
         if (tower.getCost() > this.gold) {
             System.out.println("You don't have enough gold for that!");
-        }
-        else {
+        } else {
             reservedTower = tower;
         }
     }
@@ -109,16 +125,17 @@ public class Player implements IPlayer, IStage {
         if (reservedTower != null) {
             reservedTower.setPosition(coor);
             for (IMap map : (List<IMap>) mapLoader.getServiceProviderList()) {
-                if(map.addEntity(reservedTower)) {
+                if (map.addEntity(reservedTower)) {
                     this.gold -= reservedTower.getCost();
                     entityList.add(reservedTower);
                     reservedTower = null;
-                }
-                else {
+                } else {
                     System.out.println("Can't place tower there!");
                 }
             }
         }
+        
+        updateTowerFactories();
     }
 
     @Override
@@ -219,7 +236,7 @@ public class Player implements IPlayer, IStage {
             }
 
         } catch (NullPointerException e) {
-            System.out.println("nope null pointer");
+            System.out.println("The clicked location didn't correspond to a tower");
         }
 
         return resolved;
@@ -229,5 +246,5 @@ public class Player implements IPlayer, IStage {
     public void earnGold(int gold) {
         this.gold += gold;
     }
-    
+
 }

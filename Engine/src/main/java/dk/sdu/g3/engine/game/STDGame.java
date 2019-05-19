@@ -145,13 +145,7 @@ public class STDGame extends Game {
     }
 
     public ArrayList<ArrayList<IRenderable>> getRenderList() throws Exception {
-//        ArrayList<IRenderable> renderlist = new ArrayList<>();
-//        for (IStage stage : getStages()) {
-//            for (IRenderable rend : stage.getRenderables()) {
-//                renderlist.add(rend);
-//            }
-//        }
-
+        
         ArrayList<ArrayList<IRenderable>> renderListList = new ArrayList<>();
         ArrayList<IRenderable> backgroundList = new ArrayList<>();
         ArrayList<IRenderable> midgroundList = new ArrayList<>();

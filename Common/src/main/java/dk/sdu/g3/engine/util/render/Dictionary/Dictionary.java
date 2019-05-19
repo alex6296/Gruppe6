@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dk.sdu.g3.engine.util.render.Dictionary;
 
 import dk.sdu.g3.common.data.inputMapping;
@@ -25,7 +20,6 @@ public class Dictionary implements Dict {
     public void insert(Coordinate center, int tileSize, int footPrint, Object refrence) {
         inputMapping element = new inputMapping(center, tileSize, footPrint, refrence);
         mappings.add(element);
-      
 
     }
 
@@ -65,15 +59,16 @@ public class Dictionary implements Dict {
         }
         return null;
     }
-     @Override
+
+    @Override
     public Object search(float targetX, float targetY) {
-        
+
         for (inputMapping m : mappings) {
             if ((m.getReference() == null)) {
                 mappings.remove(m);
                 continue;
             }
-            
+
             if (!(m.getOrigoX() <= targetX && targetX <= m.getBorderX())) {
                 continue;
             }
@@ -84,20 +79,17 @@ public class Dictionary implements Dict {
             }
         }
 
-            for (inputMapping m : mappings) {
+        for (inputMapping m : mappings) {
 
         }
-        
+
         return null;
     }
 
     @Override
     public void insert(float Xorigo, float YOrigo, float XBorder, float YBorder, Object reference) {
-         inputMapping element = new inputMapping(Xorigo, YOrigo, XBorder, YBorder, reference);
+        inputMapping element = new inputMapping(Xorigo, YOrigo, XBorder, YBorder, reference);
         mappings.add(element);
     }
-
-
-   
 
 }
