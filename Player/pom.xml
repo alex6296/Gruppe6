@@ -55,7 +55,7 @@
             <artifactId>org-openide-modules</artifactId>
             <version>${netbeans.version}</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>dk.sdu.g3</groupId>
             <artifactId>TowerFactory</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -65,7 +65,7 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>Map</artifactId>
             <version>${project.version}</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

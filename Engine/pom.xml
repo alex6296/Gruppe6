@@ -121,7 +121,7 @@
             <artifactId>Common</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>Map</artifactId>
             <version>${project.version}</version>
@@ -135,7 +135,7 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>Player</artifactId>
             <version>${project.version}</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
     
     <properties>
