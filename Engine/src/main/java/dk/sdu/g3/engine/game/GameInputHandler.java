@@ -17,7 +17,7 @@ public class GameInputHandler extends InputAdapter {
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         int gameY = (Gdx.graphics.getHeight() - screenY); // screenY is 0 indext at the top of the screen while the system and the draw methods are 0 indext at the botton.
         if (!game.isWavePhase()) {
 
