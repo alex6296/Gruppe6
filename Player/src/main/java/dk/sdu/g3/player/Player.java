@@ -26,8 +26,8 @@ public class Player implements IPlayer, IStage {
     private int hp = 50;
     private int gold = 100;
     private List<IPlaceableEntity> entityList = new ArrayList();
-    private List<ITowerFactory> factoryList;
-    private List<IMap> mapList;
+    private ServiceLoader factoryLoader;
+    private ServiceLoader mapLoader;
     private ITower reservedTower;
     private Dictionary dict = new Dictionary();
 
@@ -54,10 +54,10 @@ public class Player implements IPlayer, IStage {
 
     
     public Player() {
-        mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
-        factoryList = (List<ITowerFactory>) new ServiceLoader(ITowerFactory.class).getServiceProviderList();
+        mapLoader = new ServiceLoader(IMap.class);
+        factoryLoader = new ServiceLoader(ITowerFactory.class);
 
-        for (ITowerFactory towerFactory : factoryList) {
+        for (ITowerFactory towerFactory : (List<ITowerFactory>) factoryLoader.getServiceProviderList()) {
             insertTower(towerFactory);
         }
     }
@@ -79,7 +79,7 @@ public class Player implements IPlayer, IStage {
     
     @Override
     public void remove(IPlaceableEntity entity) {
-        for (IMap map : mapList) {
+        for (IMap map : (List<IMap>) mapLoader.getServiceProviderList()) {
             map.removeEntity(entity);
             entityList.remove(entity);
         }
@@ -108,7 +108,7 @@ public class Player implements IPlayer, IStage {
     public void placeReservedTower(Coordinate coor) {
         if (reservedTower != null) {
             reservedTower.setPosition(coor);
-            for (IMap map : mapList) {
+            for (IMap map : (List<IMap>) mapLoader.getServiceProviderList()) {
                 if(map.addEntity(reservedTower)) {
                     this.gold -= reservedTower.getCost();
                     entityList.add(reservedTower);

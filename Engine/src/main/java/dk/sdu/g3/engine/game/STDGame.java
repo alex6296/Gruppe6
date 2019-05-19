@@ -41,9 +41,9 @@ public class STDGame extends Game {
     private float time = 1;
 
     //modules
-    private List<IEnemy> enemyList;
-    private List<IPlayer> playerList;
-    private List<IMap> mapList;
+    private ServiceLoader enemyLoader;
+    private ServiceLoader playerLoader;
+    private ServiceLoader mapLoader;
 //    private List<IStage> stagelist;
 
     private final GraphicsMap graphMap = new GraphicsMap();
@@ -74,9 +74,9 @@ public class STDGame extends Game {
         this.setScreen(new MainMenuScreen(this));
 
         //subscribing to services:
-        enemyList = (List<IEnemy>) new ServiceLoader(IEnemy.class).getServiceProviderList();
-        mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
-        playerList = (List<IPlayer>) new ServiceLoader(IPlayer.class).getServiceProviderList();
+        enemyLoader = new ServiceLoader(IEnemy.class);
+        mapLoader = new ServiceLoader(IMap.class);
+        playerLoader = new ServiceLoader(IPlayer.class);
     }
 
     public void gameLogic(float f) {
@@ -84,15 +84,15 @@ public class STDGame extends Game {
         if (isWavePhase) {
             time = time + f;
             if (time >= 0.1) {
-                for (IEnemy enemy : enemyList) {
-                if (!enemy.update()) {
-                    System.out.println("All enemies defeated! You won the wave!");
-                    endWavePhase();
+                for (IEnemy enemy : (List<IEnemy>) enemyLoader.getServiceProviderList()) {
+                    if (!enemy.update()) {
+                        System.out.println("All enemies defeated! You won the wave!");
+                        endWavePhase();
+                    }
                 }
-                }
-                for (IMap map : mapList) {
+                for (IMap map : (List<IMap>) mapLoader.getServiceProviderList()) {
                     List<IPlaceableEntity> toBeRemoved = map.updatePositions();
-                    for (IPlayer player : playerList) {
+                    for (IPlayer player : (List<IPlayer>) playerLoader.getServiceProviderList()) {
                         if (!player.decreaseHp(toBeRemoved.size())) {
                             System.out.println("Player has died! You should lose!");
                             System.out.println("KOMPONENTER HAR OGSÅ FØLELSER!!! >:(");
@@ -100,22 +100,22 @@ public class STDGame extends Game {
                             System.out.println("Hvis du læser dette håber vi du får en rigtig god dag! Pls giv os 12 <3<3");
                         }
                     }
-                    for (IEnemy enemy : enemyList) {
+                    for (IEnemy enemy : (List<IEnemy>) enemyLoader.getServiceProviderList()) {
                         for (IPlaceableEntity entity : toBeRemoved) {
                             enemy.remove(entity);
                         }
                     }
                 }
-                for (IMap map : mapList) {
+                for (IMap map : (List<IMap>) mapLoader.getServiceProviderList()) {
                     List<IPlaceableEntity> targets = map.updateActions();
-                    
+
                     if (!targets.isEmpty() && targets.get(0) instanceof IUnit) {
-                        
+
                         for (IPlaceableEntity target : targets) {
-                            for (IEnemy enemy : enemyList) {
+                            for (IEnemy enemy : (List<IEnemy>) enemyLoader.getServiceProviderList()) {
                                 enemy.remove(target);
                             }
-                            for (IPlayer player : playerList) {
+                            for (IPlayer player : (List<IPlayer>) playerLoader.getServiceProviderList()) {
                                 player.earnGold(target.getCost());
                             }
                         }
@@ -129,7 +129,7 @@ public class STDGame extends Game {
     public void startWavePhase() {
         System.out.println("Starting a new wave.");
         isWavePhase = true;
-        for (IEnemy enemy : enemyList) {
+        for (IEnemy enemy : (List<IEnemy>) enemyLoader.getServiceProviderList()) {
             enemy.createWave();
         }
     }
@@ -231,7 +231,7 @@ public class STDGame extends Game {
     }
 
     Iterable<IPlayer> getPlayerList() {
-        return playerList;
+        return (List<IPlayer>) playerLoader.getServiceProviderList();
     }
 
     public GameScreen getGameScreen() {

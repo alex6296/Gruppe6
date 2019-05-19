@@ -22,27 +22,27 @@ public class Enemy implements IEnemy {
     private int currentWave = 0;
     private int spawnCounter;
     private Random random = new Random();
-    private List<IMap> mapList;
-    private List<IPathfinding> pathList;
-    private List<IUnitFactory> unitFactoryList;
-    private List<IPlaceableEntity> entityList;
+    private ServiceLoader mapLoader;
+    private ServiceLoader pathLoader;
+    private ServiceLoader unitFactoryLoader;
+    private List<IPlaceableEntity> entityList = new ArrayList<>();
     private List<IPlaceableEntity> entitiesOnMap = new ArrayList<>();
 
 
     public Enemy() {
-        unitFactoryList = (List<IUnitFactory>) new ServiceLoader(IUnitFactory.class).getServiceProviderList();
-        mapList = (List<IMap>) new ServiceLoader(IMap.class).getServiceProviderList();
-        pathList = (List<IPathfinding>) new ServiceLoader(IPathfinding.class).getServiceProviderList();
+        unitFactoryLoader = new ServiceLoader(IUnitFactory.class);
+        mapLoader = new ServiceLoader(IMap.class);
+        pathLoader = new ServiceLoader(IPathfinding.class);
     }
 
     public void putEntityOnMap(IPlaceableEntity unit) {
         try {
-            for (IMap map : mapList) {
+            for (IMap map : (List<IMap>) mapLoader.getServiceProviderList()) {
                 Coordinate startPosition = new Coordinate(map.getTileSize(), random.nextInt((map.getLengthY() / (2 * map.getTileSize()))) * 2 * map.getTileSize() + map.getTileSize());
                 Coordinate endPosition = new Coordinate(map.getLengthX() - map.getTileSize(), map.getLengthY() / 2 + map.getTileSize());
                 unit.setPosition(startPosition);
 
-                for (IPathfinding IPath : pathList) {
+                for (IPathfinding IPath : (List<IPathfinding>) pathLoader.getServiceProviderList()) {
                     List<Coordinate> path = IPath.generatePath(map, startPosition, endPosition);
                     ((IUnit) unit).setPath(path);
                 }
@@ -70,7 +70,7 @@ public class Enemy implements IEnemy {
         System.out.println("You are currently at wave number: " + currentWave);
         int weighting = (int) Math.floor(currentWave * 0.5) + 1;  // minimum wave-size get larger as game progresses
 
-        for (IUnitFactory unitFactory : unitFactoryList) {
+        for (IUnitFactory unitFactory : (List<IUnitFactory>) unitFactoryLoader.getServiceProviderList()) {
             int unitNumber = random.nextInt(11) + weighting;
             System.out.println("This wave contains " + unitNumber + " enemy units!");
             while (unitNumber > 0) {
@@ -88,7 +88,7 @@ public class Enemy implements IEnemy {
 
     @Override
     public void remove(IPlaceableEntity unit) {
-        for (IMap map : mapList) {
+        for (IMap map : (List<IMap>) mapLoader.getServiceProviderList()) {
             map.removeEntity(unit);
             entitiesOnMap.remove(unit);
         }

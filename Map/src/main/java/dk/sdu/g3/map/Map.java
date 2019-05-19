@@ -35,11 +35,11 @@ public class Map implements IMap, IStage {
     private ArrayList<Tile> tiles;
     private int lengthX, lengthY;
     private int scaler = 20;    // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
-    private List<IPathfinding> pathfs;
+    private ServiceLoader pathfs;
 
     public Map() {
         generateMap(600, 600);
-        pathfs = (List<IPathfinding>) new ServiceLoader(IPathfinding.class).getServiceProviderList();
+        pathfs = new ServiceLoader(IPathfinding.class);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Map implements IMap, IStage {
         if (!(entity instanceof IMovable)) {
             Coordinate startRow = new Coordinate(getTileSize(), getTileSize());
             Coordinate endRow = new Coordinate(lengthX - getTileSize(), lengthY - getTileSize());
-            for (IPathfinding pathf : pathfs) {             // checks if this blocks a viable path for units
+            for (IPathfinding pathf : (List<IPathfinding>) pathfs.getServiceProviderList()) {             // checks if this blocks a viable path for units
                 try {
                     pathf.generatePath(this, startRow, endRow);
                     

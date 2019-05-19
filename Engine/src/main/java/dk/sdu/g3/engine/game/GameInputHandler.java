@@ -2,7 +2,6 @@ package dk.sdu.g3.engine.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
-import dk.sdu.g3.common.data.Coordinate;
 import dk.sdu.g3.common.data.ITile;
 import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.services.IPlayer;
@@ -50,7 +49,7 @@ public class GameInputHandler extends InputAdapter {
                     ITower temptower = (ITower) ret;
                     for (IPlayer player : game.getPlayerList()) {
                         player.reserveTower(temptower);
-                        
+
                     }
                 }
                 return true;
