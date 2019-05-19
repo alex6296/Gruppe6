@@ -21,8 +21,6 @@ import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.IPlayer;
 import dk.sdu.g3.common.services.IUnit;
-import dk.sdu.g3.engine.util.render.Dictionary.Dict;
-import dk.sdu.g3.engine.util.render.Dictionary.Dictionary;
 import dk.sdu.g3.renderer.Renderer;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,13 +49,6 @@ public class STDGame extends Game {
     private HashMap<Graphic, Texture> textureMap;
     private HashMap<String, BitmapFont> fontMap = new HashMap<>();
 
-    //dictonary
-    Dict inputMapping = new Dictionary();
-
-    //RenderLists
-//    private List<IRenderableEntity> forGrounds = new ArrayList<>();
-//    private List<IRenderableEntity> middleGrounds = new ArrayList<>();
-//    private List<IRenderableEntity> backGrounds = new ArrayList<>();
     @Override
     public void create() {
 
@@ -144,8 +135,7 @@ public class STDGame extends Game {
 
     @Override
     public void render() {
-        super.render(); // tror den her skal være der.
-
+        super.render();
     }
 
     public void StartGame() {
@@ -155,12 +145,12 @@ public class STDGame extends Game {
     }
 
     public ArrayList<ArrayList<IRenderable>> getRenderList() throws Exception {
-        ArrayList<IRenderable> renderlist = new ArrayList<>();
-        for (IStage stage : getStages()) {
-            for (IRenderable rend : stage.getRenderables()) {
-                renderlist.add(rend);
-            }
-        }
+//        ArrayList<IRenderable> renderlist = new ArrayList<>();
+//        for (IStage stage : getStages()) {
+//            for (IRenderable rend : stage.getRenderables()) {
+//                renderlist.add(rend);
+//            }
+//        }
 
         ArrayList<ArrayList<IRenderable>> renderListList = new ArrayList<>();
         ArrayList<IRenderable> backgroundList = new ArrayList<>();
@@ -168,26 +158,29 @@ public class STDGame extends Game {
         ArrayList<IRenderable> forgroundlist = new ArrayList<>();
         ArrayList<IRenderable> notdefinedList = new ArrayList<>();
 
-        for (IRenderable rend : renderlist) {
-            if (null == rend.getLayer()) {
-                notdefinedList.add(rend);
-            } else {
-                switch (rend.getLayer()) {
-                    case BACKGROUND:
-                        backgroundList.add(rend);
-                        break;
-                    case MIDGROUND:
-                        midgroundList.add(rend);
-                        break;
-                    case FORGOUND:
-                        forgroundlist.add(rend);
-                        break;
-                    default:
-                        notdefinedList.add(rend);
-                        break;
+        for (IStage stage : getStages()) {
+            for (IRenderable rend : stage.getRenderables()) {
+                if (null == rend.getLayer()) {
+                    notdefinedList.add(rend);
+                } else {
+                    switch (rend.getLayer()) {
+                        case BACKGROUND:
+                            backgroundList.add(rend);
+                            break;
+                        case MIDGROUND:
+                            midgroundList.add(rend);
+                            break;
+                        case FORGOUND:
+                            forgroundlist.add(rend);
+                            break;
+                        default:
+                            notdefinedList.add(rend);
+                            break;
+                    }
                 }
             }
         }
+
         if (!notdefinedList.isEmpty()) {
             throw new Exception("there were things not defined in layer" + notdefinedList.toString());
         }
@@ -226,7 +219,6 @@ public class STDGame extends Game {
         textureMap = new HashMap<>();
         for (Graphic e : graphMap.getGraphics().keySet()) {
             textureMap.put(e, new Texture(graphMap.getGraphics().get(e)));
-
         }
     }
 

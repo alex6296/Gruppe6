@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dk.sdu.g3.renderer;
 
 import com.badlogic.gdx.Gdx;
@@ -17,10 +12,6 @@ import dk.sdu.g3.engine.game.STDGame;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author pvies
- */
 public class Renderer {
 
     private final STDGame game;
@@ -35,19 +26,13 @@ public class Renderer {
      * render stuff
      */
     public void renderAll() throws Exception {
-        for(IStage stage : game.getStages() )
-        RenderStage(stage);
+        for (IStage stage : game.getStages()) {
+            RenderStage(stage);
+        }
         RenderRenderables(game.getRenderList());
-
     }
 
-//    public void RenderStages(List<IStage> stageList) {
-//        for (IStage stage : stageList) {
-//            RenderStage(stage);
-//        }
-//    }
-
-    public void RenderRenderables(ArrayList<ArrayList<IRenderable>> list) {
+    private void RenderRenderables(ArrayList<ArrayList<IRenderable>> list) {
         for (List<IRenderable> renderList : list) {
             for (IRenderable render : renderList) {
                 if (render instanceof IRenderableSprite) {
@@ -69,16 +54,15 @@ public class Renderer {
         float hight = getStageHigth(stage);
         int imageX = 0;
         int imagey = 0;
-        int imageWidth = (int) getStageWith(stage)/2;
-        int imageHigth = (int) getStageHigth(stage)/2;
+        int imageWidth = (int) getStageWith(stage) / 2;
+        int imageHigth = (int) getStageHigth(stage) / 2;
         boolean flipX = false;
         boolean flipy = false;
         texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         game.batch.draw(texture, X, Y, width, hight, imageX, imagey, imageWidth, imageHigth, flipX, flipy);
-        //texture.dispose();
     }
 
-    public void drawSprite(IRenderableSprite renderable) {
+    private void drawSprite(IRenderableSprite renderable) {
         Texture texture = game.getTexture(renderable.getFile());
         float X = getRenderX(renderable);
         float Y = getRenderY(renderable);
@@ -94,15 +78,15 @@ public class Renderer {
         //texture.dispose();
     }
 
-    public void drawText(IRenderableText text) {
-       BitmapFont font = game.getFont(text);
-       if (text.getColor() != null) {
+    private void drawText(IRenderableText text) {
+        BitmapFont font = game.getFont(text);
+        if (text.getColor() != null) {
             float[] colorArr = text.getColor();
             font.setColor(colorArr[0], colorArr[1], colorArr[2], colorArr[3]);
         } else {
             font.setColor(standardTextColor);
         }
-        font.draw(game.batch, text.getText(), ((text.getPosScaleX()*getStageWith(text.getStage()))+getStageX(text.getStage())), ((getStageHigth(text.getStage())* text.getPosScaleY() + getStageY(text.getStage())) + getRenderHigth(text)));
+        font.draw(game.batch, text.getText(), ((text.getPosScaleX() * getStageWith(text.getStage())) + getStageX(text.getStage())), ((getStageHigth(text.getStage()) * text.getPosScaleY() + getStageY(text.getStage())) + getRenderHigth(text)));
     }
 
     // methods for converting scales to screen sizes:
