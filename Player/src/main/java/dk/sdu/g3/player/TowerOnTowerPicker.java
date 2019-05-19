@@ -8,7 +8,7 @@ import dk.sdu.g3.common.services.ITowerFactory;
 
 public class TowerOnTowerPicker implements IRenderableSprite {
 
-    private Object itf;
+    private Object itfid;
 
     private float width = (float) 0.3;
     private float height = (float) 0.3;
@@ -16,16 +16,19 @@ public class TowerOnTowerPicker implements IRenderableSprite {
     private float posY;
     private IStage picker;
     private Layer layer = Layer.FORGOUND;
+    private Graphic file;
+    
 
-    public TowerOnTowerPicker(IStage stage, float YPosition, Object itf) {
+    public TowerOnTowerPicker(IStage stage, float YPosition, Object itf, Graphic file) {
         this.picker = stage;
         this.posY = YPosition;
-        this.itf = itf;
+        this.itfid = itf;
+        this.file = file;
     }
 
     @Override
     public Graphic getFile() {
-        return Graphic.TOWERS;
+        return this.file;
     }
 
     @Override
@@ -84,11 +87,11 @@ public class TowerOnTowerPicker implements IRenderableSprite {
     }
 
     public Object getItf() {
-        return this.itf;
+        return this.itfid;
     }
 
     public void setItf(ITowerFactory itf) {
-        this.itf = itf;
+        this.itfid = itf;
     }
 
 }

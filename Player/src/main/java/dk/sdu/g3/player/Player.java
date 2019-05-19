@@ -40,17 +40,9 @@ public class Player implements IPlayer, IStage {
     private TextTest text = null;
 
     // TowerPicker stuff
-    private TowerOnTowerPicker t1;
-    private Object t1id;
-    private ITowerFactory tf1;
-
-    private TowerOnTowerPicker t2;
-    private Object t2id;
-    private ITowerFactory tf2;
-
-    private TowerOnTowerPicker t3;
-    private Object t3id;
-    private ITowerFactory tf3;
+    private TowerOnTowerPicker t1, t2, t3;
+    private Object t1id, t2id, t3id;
+    private ITowerFactory tf1, tf2, tf3;
 
     public Player() {
         mapLoader = new ServiceLoader(IMap.class);
@@ -61,7 +53,7 @@ public class Player implements IPlayer, IStage {
 
     private void updateTowerFactories() {
         dict = new Dictionary();
-        
+
         t1 = null;
         t1id = new Object();
         tf1 = null;
@@ -134,7 +126,7 @@ public class Player implements IPlayer, IStage {
                 }
             }
         }
-        
+
         updateTowerFactories();
     }
 
@@ -187,27 +179,27 @@ public class Player implements IPlayer, IStage {
 
         if (t1 == null) {
 
-            t1 = new TowerOnTowerPicker(this, (float) 0.8, t1id);
-            dict.insert(t1.getPosScaleX() - t1.getHigthScale() / 2, t1.getPosScaleY() - t1.getWithScale() / 2, t1.getPosScaleX() + t1.getHigthScale() / 2, t1.getPosScaleY() + t1.getWithScale() / 2, t1id);
             tf1 = towerf;
+            t1 = new TowerOnTowerPicker(this, (float) 0.8, t1id, tf1.getFile());
+            dict.insert(t1.getPosScaleX() - t1.getHigthScale() / 2, t1.getPosScaleY() - t1.getWithScale() / 2, t1.getPosScaleX() + t1.getHigthScale() / 2, t1.getPosScaleY() + t1.getWithScale() / 2, t1id);
 
             return;
         }
         if (t2 == null) {
 
-            t2 = new TowerOnTowerPicker(this, (float) 0.6, t2id);
-            dict.insert(t2.getPosScaleX() - t2.getHigthScale() / 2, t2.getPosScaleY() - t2.getWithScale() / 2, t2.getPosScaleX() + t2.getHigthScale() / 2, t2.getPosScaleY() + t2.getWithScale() / 2, t2id);
             tf2 = towerf;
+            t2 = new TowerOnTowerPicker(this, (float) 0.6, t2id, tf2.getFile());
+            dict.insert(t2.getPosScaleX() - t2.getHigthScale() / 2, t2.getPosScaleY() - t2.getWithScale() / 2, t2.getPosScaleX() + t2.getHigthScale() / 2, t2.getPosScaleY() + t2.getWithScale() / 2, t2id);
 
             return;
         }
         if (t3 == null) {
 
-            t3 = new TowerOnTowerPicker(this, (float) 0.4, t3id);
-            dict.insert(t3.getPosScaleX() - t3.getHigthScale() / 2, t3.getPosScaleY() - t3.getWithScale() / 2, t3.getPosScaleX() + t3.getHigthScale() / 2, t3.getPosScaleY() + t3.getWithScale() / 2, t3id);
             tf3 = towerf;
+            t3 = new TowerOnTowerPicker(this, (float) 0.4, t3id, tf3.getFile());
+            dict.insert(t3.getPosScaleX() - t3.getHigthScale() / 2, t3.getPosScaleY() - t3.getWithScale() / 2, t3.getPosScaleX() + t3.getHigthScale() / 2, t3.getPosScaleY() + t3.getWithScale() / 2, t3id);
 
-            System.out.println("can only hold 3 towerfactories");
+            System.out.println("Can only hold 3 towerfactories");
             return;
         }
     }
@@ -221,7 +213,6 @@ public class Player implements IPlayer, IStage {
             if (resolved.equals(t1id)) {
                 if (tf1 != null) {
                     return tf1.getNewTower();
-
                 }
             }
             if (resolved.equals(t2id)) {

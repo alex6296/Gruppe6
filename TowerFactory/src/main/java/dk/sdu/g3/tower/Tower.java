@@ -1,7 +1,6 @@
 package dk.sdu.g3.tower;
 
 import dk.sdu.g3.common.data.Coordinate;
-import dk.sdu.g3.common.entities.ILifeFunctions;
 import dk.sdu.g3.common.rendering.Graphic;
 import dk.sdu.g3.common.rendering.IStage;
 import dk.sdu.g3.common.rendering.Layer;
@@ -13,18 +12,19 @@ import java.util.List;
 
 public class Tower implements ITower {
 
-    private int damage = 5;
+    private int damage = 15;
     private int footprint = 1;
     private int cost = 5;
-    private int attackSpeed = 1;
-    private int attackRange = 100;
+    private int attackSpeed = 2;
+    private int atkCounter = 0;
+    private int attackRange = 150;
     private Coordinate position;
 
     // rendering attributes
     private final Graphic file = Graphic.TOWERS;
     private IStage stage = null;
     private final Layer layer = Layer.FORGOUND;
-    private float posX, posY, width, height = 0;
+    private float posX, posY, width, height;
 
     public Tower() {
     }
@@ -90,8 +90,9 @@ public class Tower implements ITower {
     @Override
     public List<IPlaceableEntity> action(List<IPlaceableEntity> enemiesInRange) {
         List<IPlaceableEntity> unitsKilled = new ArrayList<>();
+        atkCounter++;
 
-        for (int i = 0; i < this.attackSpeed; i++) {    //amount of attacks
+        if (atkCounter >= attackSpeed) {        // check if its time to attack - some towers attack slower than once every gamecycle
             for (IPlaceableEntity e : enemiesInRange) { //targeting
                 if (e instanceof IUnit) {
                     IUnit enti = (IUnit) e;
@@ -103,7 +104,9 @@ public class Tower implements ITower {
                     }
                 }
             }
+            atkCounter = 0;
         }
+
         return unitsKilled;
     }
 

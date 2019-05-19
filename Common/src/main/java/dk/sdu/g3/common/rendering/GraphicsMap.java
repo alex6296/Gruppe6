@@ -20,6 +20,7 @@ public class GraphicsMap {
         graphics.put(Graphic.COINS, "assets/Coin.png");
         graphics.put(Graphic.ENEMYUNITS,"assets/32x32Ghost_Hit.png" );
         graphics.put(Graphic.GRASS,"assets/grass.png" );
+        graphics.put(Graphic.AOETOWER, "assets/SmallStatueRed.png");
     }
 
     public HashMap<Graphic, String> getGraphics() {

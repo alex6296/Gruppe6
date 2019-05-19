@@ -7,10 +7,6 @@ public interface IPlaceableEntity {
     void setPosition(Coordinate coord);
     Coordinate getCurrentPosition();
     int getCost();
-//    int getAttackRange();
-//    int getAttackSpeed();
-//    public int getLife();
-//    public int getDamage();
     int getFootprint();
 
 }
