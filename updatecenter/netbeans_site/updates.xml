@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE module_updates PUBLIC "-//NetBeans//DTD Autoupdate Catalog 2.5//EN" "http://www.netbeans.org/dtds/autoupdate-catalog-2_5.dtd">
-<module_updates timestamp="55/30/14/19/05/2019">
+<module_updates timestamp="36/10/15/19/05/2019">
 
 
 
@@ -15,7 +15,7 @@
     
 </module>
 
-<module codenamebase="dk.sdu.g3.Common" distribution="Common-1.0-SNAPSHOT.nbm" downloadsize="487490" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
+<module codenamebase="dk.sdu.g3.Common" distribution="Common-1.0-SNAPSHOT.nbm" downloadsize="487507" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
     <manifest OpenIDE-Module="dk.sdu.g3.Common" OpenIDE-Module-Display-Category="dk.sdu.g3" OpenIDE-Module-Implementation-Version="1.0-20190519" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="Common" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
@@ -25,13 +25,13 @@
     
 </module>
 
-<module codenamebase="dk.sdu.g3.Enemy" distribution="Enemy-1.0-SNAPSHOT.nbm" downloadsize="6314" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
-    <manifest OpenIDE-Module="dk.sdu.g3.Enemy" OpenIDE-Module-Display-Category="dk.sdu.g3" OpenIDE-Module-Implementation-Version="1.0-20190519" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, org.openide.util.lookup &gt; 8.33.1, dk.sdu.g3.Common &gt; 1.0, dk.sdu.g3.Map &gt; 1.0, dk.sdu.g3.Unit &gt; 1.0, dk.sdu.g3.Pathfinding &gt; 1.0" OpenIDE-Module-Name="Enemy" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
+<module codenamebase="dk.sdu.g3.Enemy" distribution="Enemy-1.0-SNAPSHOT.nbm" downloadsize="6224" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
+    <manifest OpenIDE-Module="dk.sdu.g3.Enemy" OpenIDE-Module-Display-Category="dk.sdu.g3" OpenIDE-Module-Implementation-Version="1.0-20190519" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, org.openide.util.lookup &gt; 8.33.1, dk.sdu.g3.Common &gt; 1.0" OpenIDE-Module-Name="Enemy" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
 
-<module codenamebase="dk.sdu.g3.Engine" distribution="Engine-1.0-SNAPSHOT.nbm" downloadsize="9827693" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
-    <manifest OpenIDE-Module="dk.sdu.g3.Engine" OpenIDE-Module-Display-Category="dk.sdu.g3" OpenIDE-Module-Implementation-Version="1.0-20190519" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, org.openide.modules &gt; 7.48.1, org.openide.util &gt; 9.7.1, org.openide.util.lookup &gt; 8.33.1, org.openide.util.ui &gt; 9.6.1, dk.sdu.g3.Common &gt; 1.0, dk.sdu.g3.Map &gt; 1.0, dk.sdu.g3.Enemy &gt; 1.0, dk.sdu.g3.Player &gt; 1.0" OpenIDE-Module-Name="Engine" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
+<module codenamebase="dk.sdu.g3.Engine" distribution="Engine-1.0-SNAPSHOT.nbm" downloadsize="9827626" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
+    <manifest OpenIDE-Module="dk.sdu.g3.Engine" OpenIDE-Module-Display-Category="dk.sdu.g3" OpenIDE-Module-Implementation-Version="1.0-20190519" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, org.openide.modules &gt; 7.48.1, org.openide.util &gt; 9.7.1, org.openide.util.lookup &gt; 8.33.1, org.openide.util.ui &gt; 9.6.1, dk.sdu.g3.Common &gt; 1.0" OpenIDE-Module-Name="Engine" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
 
@@ -45,7 +45,7 @@
     
 </module>
 
-<module codenamebase="dk.sdu.g3.Map" distribution="Map-1.0-SNAPSHOT.nbm" downloadsize="9134" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
+<module codenamebase="dk.sdu.g3.Map" distribution="Map-1.0-SNAPSHOT.nbm" downloadsize="9133" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
     <manifest OpenIDE-Module="dk.sdu.g3.Map" OpenIDE-Module-Display-Category="dk.sdu.g3" OpenIDE-Module-Implementation-Version="1.0-20190519" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, dk.sdu.g3.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="MapModule" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
@@ -60,13 +60,13 @@
     
 </module>
 
-<module codenamebase="dk.sdu.g3.Pathfinding" distribution="Pathfinding-1.0-SNAPSHOT.nbm" downloadsize="8615" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
+<module codenamebase="dk.sdu.g3.Pathfinding" distribution="Pathfinding-1.0-SNAPSHOT.nbm" downloadsize="8612" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
     <manifest OpenIDE-Module="dk.sdu.g3.Pathfinding" OpenIDE-Module-Display-Category="dk.sdu.g3" OpenIDE-Module-Implementation-Version="1.0-20190519" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, dk.sdu.g3.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="PathfindingModule" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
 
-<module codenamebase="dk.sdu.g3.Player" distribution="Player-1.0-SNAPSHOT.nbm" downloadsize="9149" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
-    <manifest OpenIDE-Module="dk.sdu.g3.Player" OpenIDE-Module-Display-Category="dk.sdu.g3" OpenIDE-Module-Implementation-Version="1.0-20190519" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, dk.sdu.g3.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1, org.openide.modules &gt; 7.48.1, dk.sdu.g3.TowerFactory &gt; 1.0, dk.sdu.g3.Map &gt; 1.0" OpenIDE-Module-Name="Player" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
+<module codenamebase="dk.sdu.g3.Player" distribution="Player-1.0-SNAPSHOT.nbm" downloadsize="9070" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
+    <manifest OpenIDE-Module="dk.sdu.g3.Player" OpenIDE-Module-Display-Category="dk.sdu.g3" OpenIDE-Module-Implementation-Version="1.0-20190519" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, dk.sdu.g3.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1, org.openide.modules &gt; 7.48.1" OpenIDE-Module-Name="Player" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
 
@@ -80,15 +80,15 @@
     
 </module>
 
-<module codenamebase="dk.sdu.g3.TowerFactory" distribution="TowerFactory-1.0-SNAPSHOT.nbm" downloadsize="325769" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
+<module codenamebase="dk.sdu.g3.TowerFactory" distribution="TowerFactory-1.0-SNAPSHOT.nbm" downloadsize="325763" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
     <manifest OpenIDE-Module="dk.sdu.g3.TowerFactory" OpenIDE-Module-Display-Category="dk.sdu.g3" OpenIDE-Module-Implementation-Version="1.0-20190519" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, dk.sdu.g3.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="TowerFactory" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
 </module>
 
-<!-- <module codenamebase="dk.sdu.g3.Unit" distribution="Unit-1.0-SNAPSHOT.nbm" downloadsize="6208" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd"> -->
-    <!-- <manifest OpenIDE-Module="dk.sdu.g3.Unit" OpenIDE-Module-Display-Category="dk.sdu.g3" OpenIDE-Module-Implementation-Version="1.0-20190519" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, dk.sdu.g3.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="UnitModule" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/> -->
+<module codenamebase="dk.sdu.g3.Unit" distribution="Unit-1.0-SNAPSHOT.nbm" downloadsize="6208" license="4FF26B14" needsrestart="false" releasedate="2019/05/19" targetcluster="scuffedtd">
+    <manifest OpenIDE-Module="dk.sdu.g3.Unit" OpenIDE-Module-Display-Category="dk.sdu.g3" OpenIDE-Module-Implementation-Version="1.0-20190519" OpenIDE-Module-Long-Description="&lt;undefined&gt;" OpenIDE-Module-Module-Dependencies="org.netbeans.api.annotations.common/1 &gt; 1.27.1, dk.sdu.g3.Common &gt; 1.0, org.openide.util.lookup &gt; 8.33.1" OpenIDE-Module-Name="UnitModule" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="&lt;undefined&gt;" OpenIDE-Module-Specification-Version="1.0"/>
     
-<!-- </module> -->
+</module>
 
 <module codenamebase="org.openide.util.ui" distribution="org-openide-util-ui-RELEASE82.nbm" downloadsize="134495" homepage="http://www.netbeans.org/" license="14E6055" moduleauthor="" needsrestart="false" releasedate="2016/09/30" targetcluster="platform">
     <manifest AutoUpdate-Show-In-Client="false" OpenIDE-Module="org.openide.util.ui" OpenIDE-Module-Display-Category="Infrastructure" OpenIDE-Module-Implementation-Version="201609300101" OpenIDE-Module-Java-Dependencies="Java &gt; 1.7" OpenIDE-Module-Long-Description="Various helper methods and basic concept definitions related to thick client desktop environment including actions and image handling." OpenIDE-Module-Module-Dependencies="org.openide.util &gt; 9.3, org.openide.util.lookup &gt; 8.14" OpenIDE-Module-Name="Utilities API" OpenIDE-Module-Short-Description="Desktop Utilities API." OpenIDE-Module-Specification-Version="9.6.1"/>
