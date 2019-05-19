@@ -11,7 +11,7 @@ public class TowerOnTowerPicker implements IRenderableSprite {
     private Object itfid;
 
     private float width = (float) 0.3;
-    private float height = (float) 0.3;
+    private float height = (float) 0.15;
     private float posX = (float) 0.5;
     private float posY;
     private IStage picker;
