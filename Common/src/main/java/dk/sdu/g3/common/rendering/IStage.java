@@ -10,10 +10,6 @@ public interface IStage {
     public float getPosScaleY();
     public float getWithScale();
     public float getHigthScale();
-//    public void setPosScaleX(float scale);
-//    public void setPosScaleY(float scale);
-//    public void setWithScale(float scale);
-//    public void setHigthScale(float scale);
     public Graphic getBackgroundFile();
     public List<IRenderable> getRenderables();
     Object handleInput(float XScale, float YScale);

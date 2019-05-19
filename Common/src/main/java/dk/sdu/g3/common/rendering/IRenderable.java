@@ -16,7 +16,7 @@ public interface IRenderable{
      * @return 
      */
     public IStage getStage();
-    public void setStage(IStage stage); // skal den bruges??
+    public void setStage(IStage stage);
     public Layer getLayer();
     public float getPosScaleX();
     public float getPosScaleY();

@@ -21,8 +21,6 @@ import dk.sdu.g3.common.services.IMap;
 import dk.sdu.g3.common.services.IPlaceableEntity;
 import dk.sdu.g3.common.services.IPlayer;
 import dk.sdu.g3.common.services.IUnit;
-import dk.sdu.g3.engine.util.render.Dictionary.Dict;
-import dk.sdu.g3.engine.util.render.Dictionary.Dictionary;
 import dk.sdu.g3.renderer.Renderer;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,13 +49,6 @@ public class STDGame extends Game {
     private HashMap<Graphic, Texture> textureMap;
     private HashMap<String, BitmapFont> fontMap = new HashMap<>();
 
-    //dictonary
-    Dict inputMapping = new Dictionary();
-
-    //RenderLists
-//    private List<IRenderableEntity> forGrounds = new ArrayList<>();
-//    private List<IRenderableEntity> middleGrounds = new ArrayList<>();
-//    private List<IRenderableEntity> backGrounds = new ArrayList<>();
     @Override
     public void create() {
 
@@ -144,7 +135,7 @@ public class STDGame extends Game {
 
     @Override
     public void render() {
-        super.render(); // tror den her skal være der.
+        super.render();
 
     }
 
@@ -226,7 +217,6 @@ public class STDGame extends Game {
         textureMap = new HashMap<>();
         for (Graphic e : graphMap.getGraphics().keySet()) {
             textureMap.put(e, new Texture(graphMap.getGraphics().get(e)));
-
         }
     }
 
