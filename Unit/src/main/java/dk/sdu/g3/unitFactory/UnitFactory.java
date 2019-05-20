@@ -19,8 +19,8 @@ public class UnitFactory implements IUnitFactory {
     }
 
     @Override
-    public IUnit getNewUnit(int hitPoints, int footprint, int cost, Coordinate position, List<Coordinate> path) {
-        return new Unit(hitPoints, footprint, cost, position, path);
+    public IUnit getNewUnit(int hitPoints, int footprint, int cost, Coordinate position, List<Coordinate> path, int speed) {
+        return new Unit(hitPoints, footprint, cost, position, path, speed);
     }
 
 }

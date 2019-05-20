@@ -19,8 +19,8 @@ public class GreenUnitFactory implements IUnitFactory {
     }
 
     @Override
-    public IUnit getNewUnit(int hitPoints, int footprint, int cost, Coordinate position, List<Coordinate> path) {
-        return new GreenUnit(hitPoints, footprint, cost, position, path);
+    public IUnit getNewUnit(int hitPoints, int footprint, int cost, Coordinate position, List<Coordinate> path, int speed) {
+        return new GreenUnit(hitPoints, footprint, cost, position, path, speed);
     }
 
 }

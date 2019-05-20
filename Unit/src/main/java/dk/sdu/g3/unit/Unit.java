@@ -28,13 +28,14 @@ public class Unit implements IUnit {
     public Unit() {
     }
 
-    public Unit(int hitPoints, int footprint, int cost, Coordinate position, List<Coordinate> path) {
+    public Unit(int hitPoints, int footprint, int cost, Coordinate position, List<Coordinate> path, int speed) {
         this.MAXHP = hitPoints;
         this.hitPoints = hitPoints;
         this.unitFootprint = footprint;
         this.costOfUnit = cost;
         this.position = position;
         this.path = path;
+        this.movespeed = speed;
     }
 
     @Override

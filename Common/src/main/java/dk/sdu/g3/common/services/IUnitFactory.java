@@ -6,6 +6,6 @@ import java.util.List;
 public interface IUnitFactory {
 
     public IUnit getNewUnit();
-    public IUnit getNewUnit(int currentHp, int footprint, int cost, Coordinate currentPosition, List<Coordinate> path);
+    public IUnit getNewUnit(int currentHp, int footprint, int cost, Coordinate currentPosition, List<Coordinate> path, int speed);
     
 }

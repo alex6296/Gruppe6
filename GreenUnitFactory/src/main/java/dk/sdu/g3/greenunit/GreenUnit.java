@@ -28,13 +28,14 @@ public class GreenUnit implements IUnit {
     public GreenUnit() {
     }
     
-    public GreenUnit(int hitPoints, int footprint, int cost, Coordinate position, List<Coordinate> path) {
+    public GreenUnit(int hitPoints, int footprint, int cost, Coordinate position, List<Coordinate> path, int speed) {
         this.MAXHP = hitPoints;
         this.hitpoints = hitPoints;
         this.footprint = footprint;
         this.cost = cost;
         this.pos = position;
         this.path = path;
+        this.movespeed = speed;
     }
     
     @Override
