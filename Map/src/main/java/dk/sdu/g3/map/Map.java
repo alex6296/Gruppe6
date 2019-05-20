@@ -37,6 +37,7 @@ public class Map implements IMap, IStage {
     private int scaler = 20;    // how large should tiles be in comparison to map? e.g. scaler = 100 means tileSize is 1% of mapsize.
     private ServiceLoader pathfs;
 
+    
     public Map() {
         generateMap(600, 600);
         pathfs = new ServiceLoader(IPathfinding.class);
@@ -82,7 +83,7 @@ public class Map implements IMap, IStage {
             for (IPathfinding pathf : (List<IPathfinding>) pathfs.getServiceProviderList()) {             // checks if this blocks a viable path for units
                 try {
                     pathf.generatePath(this, startRow, endRow);
-                    
+
                 } catch (Exception ex) {
                     getTile(pos).remove(entity);            // if pathfinding can't find a valid path, the entity isn't allowed to be put on the map in that position
                     return false;

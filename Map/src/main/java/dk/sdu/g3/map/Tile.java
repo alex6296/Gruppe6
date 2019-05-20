@@ -11,9 +11,8 @@ import dk.sdu.g3.common.services.IPlaceableEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Tile implements ITile, IRenderableSprite {
-    
+
     // renderable attributes
     private Layer layer = Layer.MIDGROUND;
     private Graphic file = Graphic.GRASS;
@@ -22,30 +21,30 @@ public class Tile implements ITile, IRenderableSprite {
     private float width;
     private float height;
     private IStage stage;
-    
+
     // functionality attributes
     private Coordinate coord;
     private int size;
     private ArrayList<IPlaceableEntity> entities = new ArrayList<>();
     
+
     public Tile(int x, int y, int size, float posXscale, float posYscale, float widthS, float heightS, IStage stage) {
         this.coord = new Coordinate(x, y);
         this.size = size;
-        
+
         this.posX = posXscale;
         this.posY = posYscale;
-        
+
         this.width = widthS;
         this.height = heightS;
-        
+
         this.stage = stage;
     }
-    
-    
+
     public void add(IPlaceableEntity entity) {
         this.entities.add(entity);
     }
-    
+
     public void remove(IPlaceableEntity entity) {
         this.entities.remove(entity);
     }
@@ -67,7 +66,7 @@ public class Tile implements ITile, IRenderableSprite {
 
     @Override
     public boolean isOccupied() {
-        for(IPlaceableEntity en : entities) {
+        for (IPlaceableEntity en : entities) {
             if (!(en instanceof IMovable)) {
                 return true;
             }
@@ -134,5 +133,5 @@ public class Tile implements ITile, IRenderableSprite {
     public void setHigthScale(float scale) {
         this.height = scale;
     }
-    
+
 }
