@@ -28,7 +28,6 @@ public class Enemy implements IEnemy {
     private List<IPlaceableEntity> entityList = new ArrayList<>();
     private List<IPlaceableEntity> entitiesOnMap = new ArrayList<>();
 
-
     public Enemy() {
         unitFactoryLoader = new ServiceLoader(IUnitFactory.class);
         mapLoader = new ServiceLoader(IMap.class);
@@ -68,16 +67,16 @@ public class Enemy implements IEnemy {
         entityList = new ArrayList<>();
         currentWave++;
         System.out.println("You are currently at wave number: " + currentWave);
-        int weighting = (int) Math.floor(currentWave * 0.5) + 1;  // minimum wave-size get larger as game progresses
+        int weighting = (int) Math.floor(currentWave * 0.5) + 1;  // minimum wave-size gets larger as game progresses
 
-        for (IUnitFactory unitFactory : (List<IUnitFactory>) unitFactoryLoader.getServiceProviderList()) {
-            int unitNumber = random.nextInt(11) + weighting;
-            System.out.println("This wave contains " + unitNumber + " enemy units!");
-            while (unitNumber > 0) {
-                IUnit createdUnit = unitFactory.getNewUnit();
-                entityList.add(createdUnit);
-                unitNumber--;
-            }
+        List<IUnitFactory> currentUnitFactories = (List<IUnitFactory>) unitFactoryLoader.getServiceProviderList();
+        int unitNumber = random.nextInt(11) + weighting;
+        System.out.println("This wave contains " + unitNumber + " enemy units!");
+        
+        while (unitNumber > 0) {
+            IUnit createdUnit = currentUnitFactories.get(random.nextInt(currentUnitFactories.size())).getNewUnit();
+            entityList.add(createdUnit);
+            unitNumber--;
         }
     }
 
