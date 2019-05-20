@@ -42,7 +42,6 @@ public class STDGame extends Game {
     private ServiceLoader enemyLoader;
     private ServiceLoader playerLoader;
     private ServiceLoader mapLoader;
-//    private List<IStage> stagelist;
 
     private final GraphicsMap graphMap = new GraphicsMap();
     private final FontMap fontLib = new FontMap();
@@ -119,8 +118,8 @@ public class STDGame extends Game {
 
     public void startWavePhase() {
         System.out.println("Starting a new wave.");
-        isWavePhase = true;
         for (IEnemy enemy : (List<IEnemy>) enemyLoader.getServiceProviderList()) {
+            isWavePhase = true;     // wavephase only starts if any enemies exist
             enemy.createWave();
         }
     }

@@ -43,7 +43,7 @@
         -->
         
 <!--    MODULE DEPENDENCIES:    -->
-        <dependency>
+<!--        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>TowerFactory</artifactId>
             <version>${project.version}</version>
@@ -92,12 +92,12 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>GreenUnitFactory</artifactId>
             <version>${project.version}</version>
-        </dependency>
-<!--        <dependency>
+        </dependency>-->
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>SilentUpdater</artifactId>
             <version>${project.version}</version>
-        </dependency>-->
+        </dependency>
     </dependencies>
 
     <build>
