@@ -152,6 +152,12 @@ public class Map implements IMap, IStage {
                             Coordinate endPos = new Coordinate(this.lengthX - 1, currentPos.getY());    // unit is at the end of its path - it is put at the end of the map until a controller removes it.
                             entity.setPosition(endPos);
                             getTile(endPos).add(entity);        // place entity on end tile
+                            
+                            float scaleX = endPos.getX() / (float) lengthX;
+                            float scaleY = endPos.getY() / (float) lengthY;
+                            IRenderableSprite render = (IRenderableSprite) entity;
+                            render.setPosScaleX(scaleX);
+                            render.setPosScaleY(scaleY);
                             continue;
                         }
 
