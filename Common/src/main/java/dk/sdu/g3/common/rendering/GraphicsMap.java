@@ -21,6 +21,7 @@ public class GraphicsMap {
         graphics.put(Graphic.ENEMYUNITS,"assets/32x32Ghost_Hit.png" );
         graphics.put(Graphic.GRASS,"assets/grass.png" );
         graphics.put(Graphic.AOETOWER, "assets/SmallStatueRed.png");
+        graphics.put(Graphic.GREENUNIT, "assets/32x32Ghost_HitGreenish.png");
     }
 
     public HashMap<Graphic, String> getGraphics() {

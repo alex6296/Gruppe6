@@ -68,6 +68,7 @@
         <module>Map</module>
         <module>SilentUpdater</module>
         <module>AoeTowerFactory</module>
+        <module>GreenUnitFactory</module>
     </modules>
 
     <properties>

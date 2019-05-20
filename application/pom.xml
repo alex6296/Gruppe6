@@ -88,6 +88,11 @@
             <artifactId>AoeTowerFactory</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>GreenUnitFactory</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 <!--        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>SilentUpdater</artifactId>
