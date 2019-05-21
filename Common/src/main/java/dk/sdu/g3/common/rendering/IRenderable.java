@@ -11,10 +11,6 @@ package dk.sdu.g3.common.rendering;
  */
 public interface IRenderable{
     
-    /**
-     * 
-     * @return 
-     */
     public IStage getStage();
     public void setStage(IStage stage);
     public Layer getLayer();
